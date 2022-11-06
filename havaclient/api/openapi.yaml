@@ -1,0 +1,3290 @@
+openapi: 3.0.1
+info:
+  contact:
+    email: support@hava.io
+  description: Hava API
+  termsOfService: https://hava.io/tos/
+  title: Hava
+  version: 1.1.1
+externalDocs:
+  description: Find out more about Hava
+  url: https://docs.hava.io
+servers:
+- url: https://api.hava.io/
+security:
+- api_key: []
+tags:
+- description: Add new sources to Hava for different providers (AWS/Azure/Google Cloud)
+    and perform operations on them
+  name: Sources
+- description: Define new environments and all other operations
+  name: Environments
+- description: Fetch and export various views from Hava
+  name: Views
+- description: Retrieve resources
+  name: Resources
+- description: Retrieve jobs
+  name: Jobs
+- description: "Create and modify teams, and add new members to your account"
+  name: Teams
+paths:
+  /resources/export:
+    get:
+      operationId: resources#export
+      parameters:
+      - description: A comma separated list of source IDs to limit the export to
+        explode: true
+        in: query
+        name: source_ids
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "202":
+          description: Export queued
+      summary: Export resources to JSON
+      tags:
+      - Resources
+  /jobs/{job_id}:
+    get:
+      operationId: jobs#show
+      parameters:
+      - description: The unique ID of the job to return
+        explode: false
+        in: path
+        name: job_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200'
+          description: Returns the state of the job if it failed or is still running
+        "303":
+          description: Redirects to the resource created by the job once complete
+          headers:
+            location:
+              description: Location of created resource
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "404":
+          description: The job was not found
+      summary: Get a job
+      tags:
+      - Jobs
+  /accounts/{account_id}/teams/{team_id}/members:
+    post:
+      operationId: team_members#add
+      parameters:
+      - description: The unique ID of the account the team is in
+        explode: false
+        in: path
+        name: account_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: The unique ID of the team to add the user to
+        explode: false
+        in: path
+        name: team_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: Email address of the user to add
+        explode: true
+        in: query
+        name: email
+        required: true
+        schema:
+          format: email
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Team'
+          description: OK
+        "404":
+          description: Not found
+      summary: Add member to team
+      tags:
+      - Teams
+  /accounts/{account_id}/teams/{team_id}/members/{user_id}:
+    delete:
+      operationId: team_members#remove
+      parameters:
+      - description: The unique ID of the account the team is in
+        explode: false
+        in: path
+        name: account_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: The unique ID of the team to remove the member from
+        explode: false
+        in: path
+        name: team_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: The unique ID of the user to remove from the team
+        explode: false
+        in: path
+        name: user_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Team'
+          description: OK
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Validation error
+      summary: Remove member from team
+      tags:
+      - Teams
+  /accounts/{account_id}/teams/{team_id}/members/invite:
+    post:
+      operationId: team_members#invite
+      parameters:
+      - description: The unique ID of the account the team is in
+        explode: false
+        in: path
+        name: account_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: The unique ID of the team to invite the user to
+        explode: false
+        in: path
+        name: team_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: Email address of the user to add
+        explode: true
+        in: query
+        name: email
+        required: true
+        schema:
+          format: email
+          type: string
+        style: form
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Team'
+          description: OK
+      summary: Invite a user to Hava and add them to the team
+      tags:
+      - Teams
+  /accounts/{account_id}/teams:
+    get:
+      operationId: teams#index
+      parameters:
+      - description: The unique ID of the account to list teams for
+        explode: false
+        in: path
+        name: account_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: The page of results to display. Based on page size and total
+          results.
+        explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          type: integer
+        style: form
+      - description: The number of results to return per page
+        explode: true
+        in: query
+        name: page_size
+        required: false
+        schema:
+          type: integer
+        style: form
+      - description: The field to sort by
+        explode: true
+        in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: The direction to sort by
+        explode: true
+        in: query
+        name: sort_dir
+        required: false
+        schema:
+          enum:
+          - asc
+          - desc
+          type: string
+        style: form
+      - description: The next page token returned from a previous pagination request.
+          If this is provided no other fields are required
+        explode: true
+        in: query
+        name: token
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_1'
+          description: OK
+      summary: List all teams
+      tags:
+      - Teams
+    post:
+      description: |
+        By default created teams have read only access. You can pass 'Admin' in the roles array to give them permission to create and modify sources and environments.
+      operationId: teams#create
+      parameters:
+      - description: The unique ID of the account to create a team in
+        explode: false
+        in: path
+        name: account_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/account_id_teams_body'
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Team'
+          description: OK
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Validation error
+      summary: Create a team
+      tags:
+      - Teams
+  /accounts/{account_id}/teams/{team_id}:
+    delete:
+      operationId: teams#destroy
+      parameters:
+      - description: The unique ID of the account the team is in
+        explode: false
+        in: path
+        name: account_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: The unique ID of the team to delete
+        explode: false
+        in: path
+        name: team_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "204":
+          description: OK
+        "403":
+          description: Attempted to delete a protected team
+        "404":
+          description: Not found
+      summary: Delete a team and remove all members from your account
+      tags:
+      - Teams
+    get:
+      operationId: teams#show
+      parameters:
+      - description: The unique ID of the account the team is in
+        explode: false
+        in: path
+        name: account_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: The unique ID of the team to return
+        explode: false
+        in: path
+        name: team_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Team'
+          description: OK
+        "404":
+          description: Not found
+      summary: Get a team
+      tags:
+      - Teams
+    put:
+      operationId: teams#update
+      parameters:
+      - description: The unique ID of the account the team is in
+        explode: false
+        in: path
+        name: account_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: The unique ID of the team to update
+        explode: false
+        in: path
+        name: team_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/teams_team_id_body'
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Team'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Attempted to update a protected team
+        "404":
+          description: Not found
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Validation error
+      summary: Update a team
+      tags:
+      - Teams
+  /accounts/{account_id}/projects/{project_id}/members:
+    post:
+      operationId: project_members#add
+      parameters:
+      - description: The unique ID of the account the project is in
+        explode: false
+        in: path
+        name: account_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: The unique ID of the project to add the user to
+        explode: false
+        in: path
+        name: project_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: The unique user ID of a user in your account to add to this project
+        explode: true
+        in: query
+        name: user_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+          description: OK
+        "404":
+          description: Not found
+      summary: Add member to project
+      tags:
+      - Projects
+  /accounts/{account_id}/projects/{project_id}/members/{user_id}:
+    delete:
+      operationId: project_members#remove
+      parameters:
+      - description: The unique ID of the account the project is in
+        explode: false
+        in: path
+        name: account_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: The unique ID of the project to remove the member from
+        explode: false
+        in: path
+        name: project_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: The unique ID of the user to remove from the project
+        explode: false
+        in: path
+        name: user_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+          description: OK
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Validation error
+      summary: Remove member from project
+      tags:
+      - Projects
+  /accounts/{account_id}/projects:
+    get:
+      operationId: projects#index
+      parameters:
+      - description: The unique ID of the account the projects are in
+        explode: false
+        in: path
+        name: account_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: The page of results to display. Based on page size and total
+          results.
+        explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          type: integer
+        style: form
+      - description: The number of results to return per page
+        explode: true
+        in: query
+        name: page_size
+        required: false
+        schema:
+          type: integer
+        style: form
+      - description: The field to sort by
+        explode: true
+        in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: The direction to sort by
+        explode: true
+        in: query
+        name: sort_dir
+        required: false
+        schema:
+          enum:
+          - asc
+          - desc
+          type: string
+        style: form
+      - description: The next page token returned from a previous pagination request.
+          If this is provided no other fields are required
+        explode: true
+        in: query
+        name: token
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_2'
+          description: OK
+      summary: List all projects
+      tags:
+      - Projects
+    post:
+      operationId: projects#create
+      parameters:
+      - description: The unique ID of the account to create the project in
+        explode: false
+        in: path
+        name: account_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/account_id_projects_body'
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+          description: OK
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Validation error
+      summary: Create a project
+      tags:
+      - Projects
+  /accounts/{account_id}/projects/{project_id}:
+    delete:
+      description: |
+        Deleting a project will move all sources to the 'Default' project and allow all users to access them
+      operationId: projects#destroy
+      parameters:
+      - description: The unique ID of the account the project is in
+        explode: false
+        in: path
+        name: account_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: The unique ID of the project to delete
+        explode: false
+        in: path
+        name: project_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "204":
+          description: OK
+        "404":
+          description: Not found
+      summary: Delete a project
+      tags:
+      - Projects
+    get:
+      operationId: projects#show
+      parameters:
+      - description: The unique ID of the account the project is in
+        explode: false
+        in: path
+        name: account_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: The unique ID of the project to return
+        explode: false
+        in: path
+        name: project_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+          description: OK
+        "404":
+          description: Not found
+      summary: Get a project
+      tags:
+      - Projects
+    put:
+      operationId: projects#update
+      parameters:
+      - description: The unique ID of the account the project is in
+        explode: false
+        in: path
+        name: account_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: The unique ID of the project to update
+        explode: false
+        in: path
+        name: project_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/projects_project_id_body'
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+          description: OK
+        "404":
+          description: Not found
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Validation error
+      summary: Update a project
+      tags:
+      - Projects
+  /accounts/{account_id}/tokens:
+    get:
+      operationId: api_tokens#index
+      parameters:
+      - description: The unique ID of the account to list tokens for
+        explode: false
+        in: path
+        name: account_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: The page of results to display. Based on page size and total
+          results.
+        explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          type: integer
+        style: form
+      - description: The number of results to return per page
+        explode: true
+        in: query
+        name: page_size
+        required: false
+        schema:
+          type: integer
+        style: form
+      - description: The field to sort by
+        explode: true
+        in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: The direction to sort by
+        explode: true
+        in: query
+        name: sort_dir
+        required: false
+        schema:
+          enum:
+          - asc
+          - desc
+          type: string
+        style: form
+      - description: The next page token returned from a previous pagination request.
+          If this is provided no other fields are required
+        explode: true
+        in: query
+        name: token
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_3'
+          description: OK
+      summary: List all API tokens in the specified account
+      tags:
+      - API Tokens
+    post:
+      description: |
+        This endpoint will generate and return an API token used to access the API. This is the only time the token will be displayed.
+      operationId: api_tokens#create
+      parameters:
+      - description: The unique ID of the account to create a team in
+        explode: false
+        in: path
+        name: account_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/account_id_tokens_body'
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Token'
+          description: OK
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Validation error
+      summary: Generate a new token
+      tags:
+      - API Tokens
+  /accounts/{account_id}/tokens/{token_id}:
+    delete:
+      operationId: api_tokens#delete
+      parameters:
+      - description: The unique ID of the account the API token is in
+        explode: false
+        in: path
+        name: account_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: The unique ID of the API token to delete
+        explode: false
+        in: path
+        name: token_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "204":
+          description: OK
+      summary: Delete an API token
+      tags:
+      - API Tokens
+  /environments/{environment_id}/revisions:
+    get:
+      operationId: environment_revisions#index
+      parameters:
+      - explode: false
+        in: path
+        name: environment_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: The page of results to display. Based on page size and total
+          results.
+        explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          type: integer
+        style: form
+      - description: The number of results to return per page
+        explode: true
+        in: query
+        name: page_size
+        required: false
+        schema:
+          type: integer
+        style: form
+      - description: The field to sort by
+        explode: true
+        in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: The direction to sort by
+        explode: true
+        in: query
+        name: sort_dir
+        required: false
+        schema:
+          enum:
+          - asc
+          - desc
+          type: string
+        style: form
+      - description: The next page token returned from a previous pagination request.
+          If this is provided no other fields are required
+        explode: true
+        in: query
+        name: token
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_4'
+          description: OK
+        "404":
+          description: Environment not found
+      summary: List versions of an environment
+      tags:
+      - Environments
+  /environments:
+    get:
+      operationId: environments#index
+      parameters:
+      - description: The page of results to display. Based on page size and total
+          results.
+        explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          type: integer
+        style: form
+      - description: The number of results to return per page
+        explode: true
+        in: query
+        name: page_size
+        required: false
+        schema:
+          type: integer
+        style: form
+      - description: The field to sort by
+        explode: true
+        in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: The direction to sort by
+        explode: true
+        in: query
+        name: sort_dir
+        required: false
+        schema:
+          enum:
+          - asc
+          - desc
+          type: string
+        style: form
+      - description: The next page token returned from a previous pagination request.
+          If this is provided no other fields are required
+        explode: true
+        in: query
+        name: token
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_5'
+          description: OK
+      summary: List environments
+      tags:
+      - Environments
+    post:
+      description: |
+        By posting a query to this endpoint you can create custom environments using the Hava search syntax. For information on how to create a query check out [the search documentation](https://docs.hava.io/features/creating-custom-cloud-infrastructure-diagrams-using-hava-search-and-filter).
+
+        This will return the environment ID which can be queried to see the state of the environment - once it has finished building it will return a full list of resources and views.
+
+        **Note:** this functionality is being updated and will soon return a job to be queried for the state of the build.
+      operationId: environments#create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/environments_body'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Environment'
+          description: OK
+      summary: Create an environment using a query
+      tags:
+      - Environments
+  /environments/{environment_id}:
+    delete:
+      description: |
+        Deleting an environment will remove it permanently along with the associated version history. Please excercise caution using this command.
+      operationId: environments#destroy
+      parameters:
+      - description: The unique ID of the environment to delete
+        explode: false
+        in: path
+        name: environment_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "204":
+          description: OK
+        "404":
+          description: Not found
+      summary: Delete a custom environment
+      tags:
+      - Environments
+    get:
+      operationId: environments#show
+      parameters:
+      - description: The unique ID of the environment
+        explode: false
+        in: path
+        name: environment_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: The ID of the environment revision to view
+        explode: true
+        in: query
+        name: revision_id
+        required: false
+        schema:
+          format: uuid
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Environment'
+          description: OK
+        "404":
+          description: Not found
+      summary: Get an environment
+      tags:
+      - Environments
+    put:
+      description: |
+        If you have created a custom environment using the POST endpoint then you can update it by providing a new name or query here. If you're happy with how it looks you can provide 'complete' to save it and display it on your environment list.
+
+        Similar to the POST endpoint, this method will start a build to update the environment, unless 'complete' is provided.
+
+        **Note:** this method will soon be updated to return a job ID that can be  queried for the state of the environment build.
+      operationId: environments#update
+      parameters:
+      - description: The unique ID of the environment to update
+        explode: false
+        in: path
+        name: environment_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/environments_environment_id_body'
+        required: false
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Environment'
+          description: OK
+        "404":
+          description: Not found
+      summary: Update a custom environment
+      tags:
+      - Environments
+  /environments/{environment_id}/shares:
+    get:
+      operationId: environment_shares#list
+      parameters:
+      - description: The unique ID of the environment
+        explode: false
+        in: path
+        name: environment_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: The page of results to display. Based on page size and total
+          results.
+        explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          type: integer
+        style: form
+      - description: The number of results to return per page
+        explode: true
+        in: query
+        name: page_size
+        required: false
+        schema:
+          type: integer
+        style: form
+      - description: The field to sort by
+        explode: true
+        in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: The direction to sort by
+        explode: true
+        in: query
+        name: sort_dir
+        required: false
+        schema:
+          enum:
+          - asc
+          - desc
+          type: string
+        style: form
+      - description: The next page token returned from a previous pagination request.
+          If this is provided no other fields are required
+        explode: true
+        in: query
+        name: token
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_6'
+          description: OK
+      summary: List shares of the specific environment
+      tags:
+      - Environments
+    post:
+      operationId: environment_shares#create
+      parameters:
+      - description: The unique ID of the environment
+        explode: false
+        in: path
+        name: environment_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/environment_id_shares_body'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EnvironmentShare'
+          description: OK
+        "202":
+          content: {}
+          description: Share creation queued
+          headers:
+            location:
+              description: Job id to check on
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "404":
+          description: Not found
+      summary: "Generates an embedded environment token. If the provided view type\
+        \ exists it will return the share details, otherwise it will return a job\
+        \ that will generate the share details."
+      tags:
+      - Environments
+  /environments/{environment_id}/shares/{share_id}:
+    get:
+      operationId: environment_shares#find
+      parameters:
+      - description: The unique ID of the environment
+        explode: false
+        in: path
+        name: environment_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: The unique ID of the environment share
+        explode: false
+        in: path
+        name: share_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EnvironmentShare'
+          description: OK
+        "404":
+          description: Not found
+      summary: Return the details of the specified environment share
+      tags:
+      - Environments
+    put:
+      operationId: environment_shares#update
+      parameters:
+      - description: The unique ID of the environment
+        explode: false
+        in: path
+        name: environment_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: The unique ID of the environment share
+        explode: false
+        in: path
+        name: share_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/shares_share_id_body'
+        required: true
+      responses:
+        "202":
+          content: {}
+          description: Share update queued
+          headers:
+            location:
+              description: Job id to check on
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "404":
+          description: Not found
+      summary: Update the details of the specified environment share. Used to change
+        the config for PNG shares.
+      tags:
+      - Environments
+  /views/{view_id}/export:
+    post:
+      description: |
+        You can obtain a view ID from the environment model and then use it to export that view to multiple formats. This method will return a link to the job endpoint which you can poll for the status of the export. Once complete it will return a link to the export file ready for download.
+      operationId: views#export
+      parameters:
+      - explode: false
+        in: path
+        name: view_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/view_id_export_body'
+        required: true
+      responses:
+        "200":
+          description: OK
+        "202":
+          description: Export queued
+          headers:
+            location:
+              description: Job id to check on
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "404":
+          description: Not found
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Validation error
+      summary: Export a view
+      tags:
+      - Views
+  /reports:
+    get:
+      operationId: reports#index
+      parameters:
+      - description: The page of results to display. Based on page size and total
+          results.
+        explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          type: integer
+        style: form
+      - description: The number of results to return per page
+        explode: true
+        in: query
+        name: page_size
+        required: false
+        schema:
+          type: integer
+        style: form
+      - description: The field to sort by
+        explode: true
+        in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: The direction to sort by
+        explode: true
+        in: query
+        name: sort_dir
+        required: false
+        schema:
+          enum:
+          - asc
+          - desc
+          type: string
+        style: form
+      - description: The next page token returned from a previous pagination request.
+          If this is provided no other fields are required
+        explode: true
+        in: query
+        name: token
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_7'
+          description: OK
+      summary: List all reports
+      tags:
+      - Reports
+  /reports/{report_id}:
+    get:
+      operationId: reports#show
+      parameters:
+      - explode: false
+        in: path
+        name: report_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Report'
+          description: OK
+        "404":
+          description: Not found
+      summary: Get a report
+      tags:
+      - Reports
+  /reports/{report_id}/export:
+    post:
+      parameters:
+      - description: The unique ID of the report to export
+        explode: false
+        in: path
+        name: report_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: The format to export the report to
+        explode: true
+        in: query
+        name: export_format
+        required: true
+        schema:
+          enum:
+          - pdf
+          type: string
+        style: form
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/report_id_export_body'
+        required: true
+      responses:
+        "200":
+          description: OK
+        "202":
+          description: Export queued
+          headers:
+            location:
+              description: Job id to check on
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "404":
+          description: Not found
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Validation error
+      summary: Export a report
+      tags:
+      - Reports
+  /sources/{source_id}/sync:
+    post:
+      description: |
+        This endpoint will create a job to import the sources from the remote account, and returns a link to the job which can be polled to see the state of the import.
+
+        You can pass an additional **metadata** object which will be attached to the job, as well as all resources and environments created or updated during the import. This can be useful in build pipelines to attach additional information such as the build number which can be used to determine  when certain resources where imported or updated.
+      operationId: sources#sync
+      parameters:
+      - explode: false
+        in: path
+        name: source_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              example:
+                build_no: 10
+                artifact: new_deploy-1.0.10.tgz
+              type: object
+        description: Optional metadata to attach to the sync job
+        required: false
+      responses:
+        "202":
+          content: {}
+          description: Import queued
+          headers:
+            location:
+              description: Job id to check on
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "404":
+          description: Not found
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Validation error
+      summary: Import the latest resources for this source
+      tags:
+      - Sources
+  /sources:
+    get:
+      operationId: sources#index
+      parameters:
+      - description: The page of results to display. Based on page size and total
+          results.
+        explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          type: integer
+        style: form
+      - description: The number of results to return per page
+        explode: true
+        in: query
+        name: page_size
+        required: false
+        schema:
+          type: integer
+        style: form
+      - description: The field to sort by
+        explode: true
+        in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: The direction to sort by
+        explode: true
+        in: query
+        name: sort_dir
+        required: false
+        schema:
+          enum:
+          - asc
+          - desc
+          type: string
+        style: form
+      - description: The next page token returned from a previous pagination request.
+          If this is provided no other fields are required
+        explode: true
+        in: query
+        name: token
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_8'
+          description: OK
+      summary: List all sources
+      tags:
+      - Sources
+    post:
+      description: |
+        By providing a different combination of attributes this method can be used to create sources for AWS, Azure, and GCP. For information on how to create the credentials required check out the [Hava documentation](https://docs.hava.io). You can see the required values for the different source types by clicking the 'Schema' link below. Change the Request body to 'multipart/form-data' to see GCP credential parameters.
+      operationId: sources#create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/sources_body'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/sources_body_1'
+        description: To create an AWS or Azure source you need to pass the parameters
+          through in a JSON object. To create a Google Cloud source you need to upload
+          your Service Account Credentials as a multi-part file upload.
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Source'
+          description: OK
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Validation error
+      summary: Create a source
+      tags:
+      - Sources
+  /sources/{source_id}:
+    delete:
+      operationId: sources#destroy
+      parameters:
+      - explode: false
+        in: path
+        name: source_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Source'
+          description: OK
+        "404":
+          description: Not found
+      summary: Delete a source and all associated resources and environments
+      tags:
+      - Sources
+    get:
+      operationId: sources#show
+      parameters:
+      - explode: false
+        in: path
+        name: source_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Source'
+          description: OK
+        "404":
+          description: Not found
+      summary: Get a source
+      tags:
+      - Sources
+    put:
+      description: |
+        Update an existing source's credentials or name.
+      operationId: sources#update
+      parameters:
+      - explode: false
+        in: path
+        name: source_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            example:
+              name: Updated AWS Key
+              access_key: AKIA12341234
+              secret_key: v.co1A3/sqpdke
+            schema:
+              $ref: '#/components/schemas/sources_source_id_body'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/sources_source_id_body_1'
+        description: Parameters for updating your source. Any properties not defined
+          will not be updated.
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Source'
+          description: OK
+        "404":
+          description: Not found
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Validation error
+      summary: Update a source
+      tags:
+      - Sources
+components:
+  schemas:
+    View:
+      example:
+        image_name: fc5f0cb5-a153-4cda-af16-3c06a0716362-1594182700.png
+        regions:
+        - us-west-1
+        - us-west-2
+        image_url: https://bucket.s3.amazonaws.com/bucket/fc5f0cb5-a153-4cda-af16-3c06a0716362-1594182700.png
+        resources:
+        - id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        - id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        type: Views::Security
+        export_timestamp: 1594182700
+        revision_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        empty: false
+      properties:
+        id:
+          description: The unique ID of the view
+          format: uuid
+          type: string
+        type:
+          description: The type of view
+          enum:
+          - Views::Security
+          - Views::Infrastructure
+          - Views::Infrastructure::Extended
+          - Views::List
+          - Views::Container
+          type: string
+        image_name:
+          description: The name of the exported thumbnail for this view
+          example: fc5f0cb5-a153-4cda-af16-3c06a0716362-1594182700.png
+          type: string
+        image_url:
+          description: The location of the exported thumbnail for this view
+          example: https://bucket.s3.amazonaws.com/bucket/fc5f0cb5-a153-4cda-af16-3c06a0716362-1594182700.png
+          type: string
+        export_timestamp:
+          description: The creation timestamp for the exported thumbnail
+          example: 1594182700
+          type: integer
+        revision_id:
+          description: The unique ID of the current version of this view
+          format: uuid
+          type: string
+        regions:
+          description: The regions or locations displayed in this view
+          example:
+          - us-west-1
+          - us-west-2
+          items:
+            type: string
+          type: array
+        empty:
+          description: Whether the view is considered empty and has no valuable resources
+            to display
+          example: false
+          type: boolean
+        resources:
+          description: A list of resource ID's to be displayed. Only returned for
+            list view.
+          items:
+            $ref: '#/components/schemas/View_resources'
+          type: array
+      type: object
+    ReportSummary:
+      example:
+        name: Compliance
+        created_at: 2000-01-23
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        state: building
+        source:
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          display_name: display_name
+        type: Reports::Compliance
+      properties:
+        id:
+          description: The unique ID of the report
+          format: uuid
+          type: string
+        name:
+          description: The name of the report
+          example: Compliance
+          type: string
+        state:
+          description: The state of the report
+          example: building
+          type: string
+        created_at:
+          description: The date and time the report was generated
+          format: date
+          type: string
+        type:
+          description: The type of report
+          example: Reports::Compliance
+          type: string
+        source:
+          $ref: '#/components/schemas/ReportSummary_source'
+      type: object
+    Report:
+      example:
+        data: {}
+        name: Compliance
+        created_at: 2000-01-23
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        state: building
+        type: Reports::Compliance
+      properties:
+        id:
+          description: The unique ID of the report
+          format: uuid
+          type: string
+        name:
+          description: The name of the report
+          example: Compliance
+          type: string
+        state:
+          description: The state of the report
+          example: building
+          type: string
+        created_at:
+          description: The date and time the report was generated
+          format: date
+          type: string
+        type:
+          description: The type of report
+          example: Reports::Compliance
+          type: string
+        data:
+          description: The data generated for the report
+          type: object
+      type: object
+    Project:
+      example:
+        account_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        members:
+        - last_name: Smith
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          state: active
+          first_name: Bob
+          email: bob.smith@company.com
+        - last_name: Smith
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          state: active
+          first_name: Bob
+          email: bob.smith@company.com
+        name: Development
+        description: Cotnains all development sources
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+      properties:
+        id:
+          description: The unique ID of the project
+          format: uuid
+          type: string
+        name:
+          description: The name of the project
+          example: Development
+          type: string
+        description:
+          description: The description of the project
+          example: Cotnains all development sources
+          type: string
+        account_id:
+          description: The unique ID of the account the project belongs to
+          format: uuid
+          type: string
+        members:
+          description: An array of users that are members of this project
+          items:
+            $ref: '#/components/schemas/Project_members'
+          type: array
+      type: object
+    Team:
+      example:
+        account_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        roles:
+        - Admin
+        - Admin
+        members:
+        - last_name: Smith
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          first_name: Bob
+          email: bob.smith@company.com
+          username: bob.smith
+        - last_name: Smith
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          first_name: Bob
+          email: bob.smith@company.com
+          username: bob.smith
+        name: Development
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+      properties:
+        id:
+          description: The unique ID of the team
+          format: uuid
+          type: string
+        name:
+          description: The name of the team
+          example: Development
+          type: string
+        account_id:
+          description: The unique ID of the account the team belongs to
+          format: uuid
+          type: string
+        roles:
+          description: An array of roles assigned to the users in this team
+          items:
+            enum:
+            - Admin
+            type: string
+          type: array
+        members:
+          description: An array of users that are members of this team
+          items:
+            $ref: '#/components/schemas/Team_members'
+          type: array
+      type: object
+    Source:
+      example:
+        name: AKIA1234512345
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        state: active
+        type: AWS::Keys
+        display_name: HavaRO Account
+        info: AKIA1234512345
+      properties:
+        id:
+          description: The unique ID of the source.
+          format: uuid
+          type: string
+        type:
+          description: The type of source.
+          enum:
+          - AWS::Keys
+          - AWS::CrossAccountRole
+          - Azure::Credentials
+          - GCP::ServiceAccountCredentials
+          type: string
+        info:
+          description: "Information to uniquely identify the remote account this source\
+            \ imports. For instance, role ARN for Cross Account Role."
+          example: AKIA1234512345
+          type: string
+        name:
+          description: The default name the source is given on creation.
+          example: AKIA1234512345
+          type: string
+        display_name:
+          description: The name chosen by the user for this source.
+          example: HavaRO Account
+          type: string
+        state:
+          description: The current state of the source.
+          enum:
+          - active
+          - error
+          - invalid
+          - queued
+          - importing
+          - connecting
+          - enriching
+          type: string
+      type: object
+    SourcesAWSKey:
+      description: The parameters required to create an AWS Key Source
+      properties:
+        name:
+          description: The name for this source
+          example: AWS Key Source
+          type: string
+        type:
+          description: Must be set to AWS::Keys
+          enum:
+          - AWS::Keys
+          type: string
+        access_key:
+          description: The access key for your AWS account
+          example: AKIA1234512345
+          type: string
+        secret_key:
+          description: The secret key for your AWS account
+          example: v.co1A3/sqpdke
+          type: string
+      type: object
+    SourcesAWSCAR:
+      description: The parameters required to create an AWS Cross Account Role Source
+      properties:
+        name:
+          description: The name for this source
+          example: AWS CAR
+          type: string
+        type:
+          description: Must be set to AWS::CrossAccountRole
+          enum:
+          - AWS::CrossAccountRole
+          type: string
+        external_id:
+          description: The external ID used to uniquely identify access on the AWS
+            side. This value must be set to an MD5 of your account ID. You can find
+            this value in the 'Add Environment' prompt in Hava.
+          example: 7a740f3e0e88e0cb6b4e0223d4b49e90
+          type: string
+        role_arn:
+          description: The ARN of the role Hava is to assume in your account to import
+            resources
+          example: arn:aws:iam::12341234:role/Hava
+          type: string
+      type: object
+    SourcesAzureCredentials:
+      description: The parameters required to create an Azure Credentials Source
+      properties:
+        name:
+          description: The name for this source
+          example: Azure Source
+          type: string
+        type:
+          description: Must be set to Azure::Credentials
+          enum:
+          - Azure::Credentials
+          type: string
+        subscription_id:
+          description: The ID of the Azure subscription to import from
+          example: 926d4ee5-7486-454c-9d83-7e31f62b82a7
+          type: string
+        tenant_id:
+          description: The GUID representing the Active Directory Tenant
+          example: 4bf16671-37bf-4178-90a7-f0d64f6267f7
+          type: string
+        client_id:
+          description: The Client ID for your Service Principle
+          example: ac0a6484-d340-49af-b3a7-15c112e8dcaf
+          type: string
+        secret_key:
+          description: The Client Secret for your Service Principle
+          example: 123secret
+          type: string
+      type: object
+    EnvironmentRevision:
+      example:
+        from: 2000-01-23
+        id: bb124905-2e24-47be-af53-465b58dab0f0
+        to: 2000-01-23
+      properties:
+        id:
+          description: The unique ID of the environment version
+          example: bb124905-2e24-47be-af53-465b58dab0f0
+          format: uuid
+          type: string
+        from:
+          description: The start of the date range this version covers
+          format: date
+          type: string
+        to:
+          description: The end date of the range this version covers. Will be empty
+            if it's the latest version.
+          format: date
+          type: string
+      type: object
+    TokenSummary:
+      example:
+        last_used_at: 2000-01-23
+        account_id: bb124905-2e24-47be-af53-465b58dab0f0
+        name: Integration
+        id: bb124905-2e24-47be-af53-465b58dab0f0
+      properties:
+        id:
+          description: The unique ID of the API token
+          example: bb124905-2e24-47be-af53-465b58dab0f0
+          format: uuid
+          type: string
+        account_id:
+          description: The unique ID of the account this API token is in
+          example: bb124905-2e24-47be-af53-465b58dab0f0
+          format: uuid
+          type: string
+        name:
+          description: The name of the API token
+          example: Integration
+          type: string
+        last_used_at:
+          description: The last time this API token was used. Will be empty if it
+            has never been used.
+          format: date
+          type: string
+      type: object
+    Token:
+      example:
+        name: Integration
+        id: bb124905-2e24-47be-af53-465b58dab0f0
+        token: token
+      properties:
+        id:
+          description: The unique ID of the API token
+          example: bb124905-2e24-47be-af53-465b58dab0f0
+          format: uuid
+          type: string
+        name:
+          description: The name of the API token
+          example: Integration
+          type: string
+        token:
+          description: The unique token generated in the create request
+          type: string
+      type: object
+    EnvironmentSummary:
+      example:
+        sources:
+        - id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          display_name: Demo AWS
+        - id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          display_name: Demo AWS
+        query: vpc:vpc-1234
+        name: Hava VPC
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        state: active
+        environment_type: imported
+        views:
+        - image_name: fc5f0cb5-a153-4cda-af16-3c06a0716362-1594182700.png
+          regions:
+          - us-west-1
+          - us-west-2
+          image_url: https://bucket.s3.amazonaws.com/bucket/fc5f0cb5-a153-4cda-af16-3c06a0716362-1594182700.png
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          type: Views::Infrastructure
+          export_timestamp: 1594182700
+          revision_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          empty: false
+        - image_name: fc5f0cb5-a153-4cda-af16-3c06a0716362-1594182700.png
+          regions:
+          - us-west-1
+          - us-west-2
+          image_url: https://bucket.s3.amazonaws.com/bucket/fc5f0cb5-a153-4cda-af16-3c06a0716362-1594182700.png
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          type: Views::Infrastructure
+          export_timestamp: 1594182700
+          revision_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          empty: false
+      properties:
+        id:
+          description: The unique ID of the environment
+          format: uuid
+          type: string
+        name:
+          description: The name of the environment
+          example: Hava VPC
+          type: string
+        state:
+          description: The state of the environment
+          enum:
+          - active
+          - pending
+          type: string
+        query:
+          description: The query string used to create the environment
+          example: vpc:vpc-1234
+          type: string
+        environment_type:
+          description: Identifies whether the environment was imported or custom made
+            using search
+          enum:
+          - imported
+          - search
+          example: imported
+          type: string
+        views:
+          description: The different views for the environment
+          items:
+            $ref: '#/components/schemas/EnvironmentSummary_views'
+          type: array
+        sources:
+          description: The sources that contain the resources this environment covers.
+          items:
+            $ref: '#/components/schemas/EnvironmentSummary_sources'
+          type: array
+      type: object
+    Environment:
+      example:
+        sources:
+        - id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          display_name: Demo AWS
+        - id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          display_name: Demo AWS
+        query: vpc:vpc-1234
+        name: demo-vpc
+        current_revision:
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        state: active
+        environment_type: imported
+        facet:
+          resources:
+          - data: {}
+            price: 0
+            name: Demo Instance
+            provider_id: i-3947382478
+            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            type: Resources::AWS::EC2::Instance
+            region: us-west-1
+            connections:
+            - data:
+                mount_point: /dev/sd1
+              resource_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+              id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+              remote_resource_type: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+              remote_resource_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            - data:
+                mount_point: /dev/sd1
+              resource_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+              id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+              remote_resource_type: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+              remote_resource_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            tags:
+            - value: Demo Instance
+              key: Name
+            - value: Demo Instance
+              key: Name
+          - data: {}
+            price: 0
+            name: Demo Instance
+            provider_id: i-3947382478
+            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            type: Resources::AWS::EC2::Instance
+            region: us-west-1
+            connections:
+            - data:
+                mount_point: /dev/sd1
+              resource_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+              id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+              remote_resource_type: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+              remote_resource_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            - data:
+                mount_point: /dev/sd1
+              resource_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+              id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+              remote_resource_type: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+              remote_resource_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            tags:
+            - value: Demo Instance
+              key: Name
+            - value: Demo Instance
+              key: Name
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        views:
+        - image_name: fc5f0cb5-a153-4cda-af16-3c06a0716362-1594182700.png
+          regions:
+          - us-west-1
+          - us-west-2
+          image_url: https://bucket.s3.amazonaws.com/bucket/fc5f0cb5-a153-4cda-af16-3c06a0716362-1594182700.png
+          resources:
+          - id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          - id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          type: Views::Security
+          export_timestamp: 1594182700
+          revision_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          empty: false
+        - image_name: fc5f0cb5-a153-4cda-af16-3c06a0716362-1594182700.png
+          regions:
+          - us-west-1
+          - us-west-2
+          image_url: https://bucket.s3.amazonaws.com/bucket/fc5f0cb5-a153-4cda-af16-3c06a0716362-1594182700.png
+          resources:
+          - id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          - id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          type: Views::Security
+          export_timestamp: 1594182700
+          revision_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          empty: false
+        latest_revisions:
+          total_count: 5
+          limit_value: 6
+          total_pages: 5
+          map:
+          - from: 2000-01-23
+            id: bb124905-2e24-47be-af53-465b58dab0f0
+            to: 2000-01-23
+          - from: 2000-01-23
+            id: bb124905-2e24-47be-af53-465b58dab0f0
+            to: 2000-01-23
+          current_page: 1
+      properties:
+        id:
+          description: The unique ID of the environment
+          format: uuid
+          type: string
+        name:
+          example: demo-vpc
+          type: string
+        state:
+          description: Environment State
+          enum:
+          - active
+          - pending
+          type: string
+        query:
+          description: The query string used to create the environment
+          example: vpc:vpc-1234
+          type: string
+        environment_type:
+          description: Identifies whether the environment was imported or custom made
+            using search
+          enum:
+          - imported
+          - search
+          example: imported
+          type: string
+        views:
+          items:
+            $ref: '#/components/schemas/View'
+          type: array
+        facet:
+          $ref: '#/components/schemas/Environment_facet'
+        current_revision:
+          $ref: '#/components/schemas/Environment_current_revision'
+        sources:
+          description: The sources that contain the resources this environment covers.
+          items:
+            $ref: '#/components/schemas/EnvironmentSummary_sources'
+          type: array
+        latest_revisions:
+          $ref: '#/components/schemas/Environment_latest_revisions'
+      type: object
+    EnvironmentShare:
+      example:
+        environment_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        type: Share::Full
+      properties:
+        id:
+          description: The unique ID to be used in the embedded viewer snippet
+          format: uuid
+          type: string
+        environment_id:
+          description: The unique ID of the environment being share
+          format: uuid
+          type: string
+        type:
+          description: The type of share
+          example: Share::Full
+          type: string
+      type: object
+    Resource:
+      example:
+        data: {}
+        price: 0
+        name: Demo Instance
+        provider_id: i-3947382478
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        type: Resources::AWS::EC2::Instance
+        region: us-west-1
+        connections:
+        - data:
+            mount_point: /dev/sd1
+          resource_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          remote_resource_type: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          remote_resource_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        - data:
+            mount_point: /dev/sd1
+          resource_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          remote_resource_type: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          remote_resource_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        tags:
+        - value: Demo Instance
+          key: Name
+        - value: Demo Instance
+          key: Name
+      properties:
+        id:
+          description: The unique ID of the resource
+          format: uuid
+          type: string
+        name:
+          description: The name of the resource
+          example: Demo Instance
+          type: string
+        type:
+          description: The type of the resource
+          example: Resources::AWS::EC2::Instance
+          type: string
+        provider_id:
+          description: The ID assigned to this resource by the provider
+          example: i-3947382478
+          type: string
+        price:
+          description: The estimated price per month assigned by Hava
+          format: float
+          type: integer
+        region:
+          description: The region or location in which this resource is located
+          example: us-west-1
+          type: string
+        data:
+          description: Resource specific data
+          type: object
+        tags:
+          description: An array tags associated to this resource
+          items:
+            $ref: '#/components/schemas/Resource_tags'
+          type: array
+        connections:
+          description: A list of connections to other resources
+          items:
+            $ref: '#/components/schemas/Resource_connections'
+          type: array
+      type: object
+    Error:
+      properties:
+        code:
+          description: The error code relevant to this error
+          example: 422
+          format: int32
+          type: integer
+        type:
+          description: A short identifier for the error type
+          example: Invalid
+          type: string
+        message:
+          description: A description of the error encountered
+          example: Value is in an incorrect format
+          type: string
+      type: object
+    inline_response_200:
+      example:
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        state: active
+      properties:
+        id:
+          description: The unique ID of the job
+          format: uuid
+          type: string
+        state:
+          description: The state of the job
+          enum:
+          - active
+          - queued
+          - failed
+          - cancelled
+          - complete
+          type: string
+      type: object
+    inline_response_200_1:
+      example:
+        next_page_token: next_page_token
+        total_size: 0
+        results:
+        - account_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          roles:
+          - Admin
+          - Admin
+          members:
+          - last_name: Smith
+            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            first_name: Bob
+            email: bob.smith@company.com
+            username: bob.smith
+          - last_name: Smith
+            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            first_name: Bob
+            email: bob.smith@company.com
+            username: bob.smith
+          name: Development
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        - account_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          roles:
+          - Admin
+          - Admin
+          members:
+          - last_name: Smith
+            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            first_name: Bob
+            email: bob.smith@company.com
+            username: bob.smith
+          - last_name: Smith
+            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            first_name: Bob
+            email: bob.smith@company.com
+            username: bob.smith
+          name: Development
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+      properties:
+        next_page_token:
+          description: "The token to pass through to get the next page of results,\
+            \ if there are any."
+          type: string
+        total_size:
+          description: The total amount of results to be paginated
+          type: integer
+        results:
+          description: The results for the current page
+          items:
+            $ref: '#/components/schemas/Team'
+          type: array
+      type: object
+    account_id_teams_body:
+      properties:
+        name:
+          description: The name of the team to create
+          example: Development
+          type: string
+        roles:
+          description: An array of roles to assign the users in this team
+          items:
+            enum:
+            - Admin
+            type: string
+          type: array
+      type: object
+    teams_team_id_body:
+      properties:
+        name:
+          description: The updated name for the team
+          example: Development
+          type: string
+        roles:
+          description: The updated roles to assign the users in this team
+          items:
+            enum:
+            - Admin
+            type: string
+          type: array
+      type: object
+    inline_response_200_2:
+      example:
+        next_page_token: next_page_token
+        total_size: 0
+        results:
+        - account_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          members:
+          - last_name: Smith
+            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            state: active
+            first_name: Bob
+            email: bob.smith@company.com
+          - last_name: Smith
+            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            state: active
+            first_name: Bob
+            email: bob.smith@company.com
+          name: Development
+          description: Cotnains all development sources
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        - account_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          members:
+          - last_name: Smith
+            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            state: active
+            first_name: Bob
+            email: bob.smith@company.com
+          - last_name: Smith
+            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            state: active
+            first_name: Bob
+            email: bob.smith@company.com
+          name: Development
+          description: Cotnains all development sources
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+      properties:
+        next_page_token:
+          description: "The token to pass through to get the next page of results,\
+            \ if there are any."
+          type: string
+        total_size:
+          description: The total amount of results to be paginated
+          type: integer
+        results:
+          description: The results for the current page
+          items:
+            $ref: '#/components/schemas/Project'
+          type: array
+      type: object
+    account_id_projects_body:
+      properties:
+        name:
+          description: The name of the project to create
+          example: Development
+          type: string
+        description:
+          description: A description of the project
+          example: This project contains all development sources
+          type: string
+      type: object
+    projects_project_id_body:
+      properties:
+        name:
+          description: The updated name for the project
+          example: Development
+          type: string
+        description:
+          description: The updated description of the project
+          example: This project contains all development sources
+          type: string
+      type: object
+    inline_response_200_3:
+      example:
+        next_page_token: next_page_token
+        total_size: 0
+        results:
+        - last_used_at: 2000-01-23
+          account_id: bb124905-2e24-47be-af53-465b58dab0f0
+          name: Integration
+          id: bb124905-2e24-47be-af53-465b58dab0f0
+        - last_used_at: 2000-01-23
+          account_id: bb124905-2e24-47be-af53-465b58dab0f0
+          name: Integration
+          id: bb124905-2e24-47be-af53-465b58dab0f0
+      properties:
+        next_page_token:
+          description: "The token to pass through to get the next page of results,\
+            \ if there are any."
+          type: string
+        total_size:
+          description: The total amount of results to be paginated
+          type: integer
+        results:
+          description: The results for the current page
+          items:
+            $ref: '#/components/schemas/TokenSummary'
+          type: array
+      type: object
+    account_id_tokens_body:
+      properties:
+        name:
+          description: The name of the token to create
+          example: Integration
+          type: string
+      type: object
+    inline_response_200_4:
+      example:
+        next_page_token: next_page_token
+        total_size: 0
+        results:
+        - from: 2000-01-23
+          id: bb124905-2e24-47be-af53-465b58dab0f0
+          to: 2000-01-23
+        - from: 2000-01-23
+          id: bb124905-2e24-47be-af53-465b58dab0f0
+          to: 2000-01-23
+      properties:
+        next_page_token:
+          description: "The token to pass through to get the next page of results,\
+            \ if there are any."
+          type: string
+        total_size:
+          description: The total amount of results to be paginated
+          type: integer
+        results:
+          description: The results for the current page
+          items:
+            $ref: '#/components/schemas/EnvironmentRevision'
+          type: array
+      type: object
+    inline_response_200_5:
+      example:
+        next_page_token: next_page_token
+        total_size: 0
+        results:
+        - sources:
+          - id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            display_name: Demo AWS
+          - id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            display_name: Demo AWS
+          query: vpc:vpc-1234
+          name: Hava VPC
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          state: active
+          environment_type: imported
+          views:
+          - image_name: fc5f0cb5-a153-4cda-af16-3c06a0716362-1594182700.png
+            regions:
+            - us-west-1
+            - us-west-2
+            image_url: https://bucket.s3.amazonaws.com/bucket/fc5f0cb5-a153-4cda-af16-3c06a0716362-1594182700.png
+            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            type: Views::Infrastructure
+            export_timestamp: 1594182700
+            revision_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            empty: false
+          - image_name: fc5f0cb5-a153-4cda-af16-3c06a0716362-1594182700.png
+            regions:
+            - us-west-1
+            - us-west-2
+            image_url: https://bucket.s3.amazonaws.com/bucket/fc5f0cb5-a153-4cda-af16-3c06a0716362-1594182700.png
+            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            type: Views::Infrastructure
+            export_timestamp: 1594182700
+            revision_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            empty: false
+        - sources:
+          - id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            display_name: Demo AWS
+          - id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            display_name: Demo AWS
+          query: vpc:vpc-1234
+          name: Hava VPC
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          state: active
+          environment_type: imported
+          views:
+          - image_name: fc5f0cb5-a153-4cda-af16-3c06a0716362-1594182700.png
+            regions:
+            - us-west-1
+            - us-west-2
+            image_url: https://bucket.s3.amazonaws.com/bucket/fc5f0cb5-a153-4cda-af16-3c06a0716362-1594182700.png
+            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            type: Views::Infrastructure
+            export_timestamp: 1594182700
+            revision_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            empty: false
+          - image_name: fc5f0cb5-a153-4cda-af16-3c06a0716362-1594182700.png
+            regions:
+            - us-west-1
+            - us-west-2
+            image_url: https://bucket.s3.amazonaws.com/bucket/fc5f0cb5-a153-4cda-af16-3c06a0716362-1594182700.png
+            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            type: Views::Infrastructure
+            export_timestamp: 1594182700
+            revision_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            empty: false
+      properties:
+        next_page_token:
+          description: "The token to pass through to get the next page of results,\
+            \ if there are any."
+          type: string
+        total_size:
+          description: The total amount of results to be paginated
+          type: integer
+        results:
+          description: The results for the current page
+          items:
+            $ref: '#/components/schemas/EnvironmentSummary'
+          type: array
+      type: object
+    environments_body:
+      properties:
+        name:
+          description: The name for your environment
+          example: Test Search
+          type: string
+        query:
+          description: The query string used to create your environment
+          example: (vpc:vpc-1234 OR vpc:vpc-4567) AND CostCenter:DEV
+          type: string
+      required:
+      - query
+      type: object
+    environments_environment_id_body:
+      properties:
+        name:
+          description: The updated name for the environment
+          example: Dev Resources in vpc-1234
+          type: string
+        query:
+          description: The updated query string for the environment
+          example: vpc:vpc-1234 AND CostCenter:DEV
+          type: string
+        complete:
+          description: If true the environment will be set to active and display on
+            your environment list
+          example: true
+          type: boolean
+      required:
+      - query
+      type: object
+    inline_response_200_6:
+      example:
+        next_page_token: next_page_token
+        total_size: 0
+        results:
+        - environment_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          type: Share::Full
+        - environment_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          type: Share::Full
+      properties:
+        next_page_token:
+          description: "The token to pass through to get the next page of results,\
+            \ if there are any."
+          type: string
+        total_size:
+          description: The total amount of results to be paginated
+          type: integer
+        results:
+          description: The results for the current page
+          items:
+            $ref: '#/components/schemas/EnvironmentShare'
+          type: array
+      type: object
+    environmentsenvironment_idshares_config:
+      description: Configuration for the generated view. Only used for PNG
+      properties:
+        connections:
+          description: Display connections on the exported diagram
+          type: boolean
+        isometric:
+          description: Display diagram in isometric view
+          type: boolean
+        labels:
+          description: Display labels such as names on the diagram
+          type: boolean
+      type: object
+    environment_id_shares_body:
+      properties:
+        type:
+          description: The type of share to create
+          enum:
+          - Share::Full
+          - Share::Light
+          - Share::PNG
+          type: string
+        config:
+          $ref: '#/components/schemas/environmentsenvironment_idshares_config'
+      type: object
+    shares_share_id_body:
+      properties:
+        config:
+          $ref: '#/components/schemas/environmentsenvironment_idshares_config'
+      type: object
+    view_id_export_body:
+      properties:
+        export_format:
+          description: The format to export the view to
+          enum:
+          - pdf
+          - png
+          - vsdx
+          - csv
+          - json
+          type: string
+        connections:
+          description: Display connections on the exported diagram
+          type: boolean
+        isometric:
+          description: Display diagram in isometric view
+          type: boolean
+        labels:
+          description: Display labels such as names on the diagram
+          type: boolean
+        revision_id:
+          description: The ID of the view revision to export (optional)
+          format: uuid
+          type: string
+      type: object
+    inline_response_200_7:
+      example:
+        next_page_token: next_page_token
+        total_size: 0
+        results:
+        - name: Compliance
+          created_at: 2000-01-23
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          state: building
+          source:
+            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            display_name: display_name
+          type: Reports::Compliance
+        - name: Compliance
+          created_at: 2000-01-23
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          state: building
+          source:
+            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            display_name: display_name
+          type: Reports::Compliance
+      properties:
+        next_page_token:
+          description: "The token to pass through to get the next page of results,\
+            \ if there are any."
+          type: string
+        total_size:
+          description: The total amount of results to be paginated
+          type: integer
+        results:
+          description: The results for the current page
+          items:
+            $ref: '#/components/schemas/ReportSummary'
+          type: array
+      type: object
+    report_id_export_body:
+      properties:
+        export_format:
+          description: The format to export the report to
+          enum:
+          - pdf
+          type: string
+        export_option:
+          description: Toggle to show or hide the details in the findings section
+          enum:
+          - show
+          - hide
+          type: string
+      required:
+      - export_format
+      type: object
+    inline_response_200_8:
+      example:
+        next_page_token: next_page_token
+        total_size: 0
+        results:
+        - name: AKIA1234512345
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          state: active
+          type: AWS::Keys
+          display_name: HavaRO Account
+          info: AKIA1234512345
+        - name: AKIA1234512345
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          state: active
+          type: AWS::Keys
+          display_name: HavaRO Account
+          info: AKIA1234512345
+      properties:
+        next_page_token:
+          description: "The token to pass through to get the next page of results,\
+            \ if there are any."
+          type: string
+        total_size:
+          description: The total amount of results to be paginated
+          type: integer
+        results:
+          description: The results for the current page
+          items:
+            $ref: '#/components/schemas/Source'
+          type: array
+      type: object
+    sources_body:
+      example:
+        name: Example AWS Key
+        type: AWS::Keys
+        access_key: AKIA12341234
+        secret_key: v.co1A3/sqpdke
+      oneOf:
+      - $ref: '#/components/schemas/SourcesAWSKey'
+      - $ref: '#/components/schemas/SourcesAWSCAR'
+      - $ref: '#/components/schemas/SourcesAzureCredentials'
+    sources_body_1:
+      properties:
+        name:
+          description: The name for your source.
+          example: GCP Source
+          type: string
+        type:
+          description: Must be set to GCP::ServiceAccountCredentials
+          type: string
+        file:
+          description: Service Account Credentials file in JSON format.
+          format: binary
+          type: string
+      type: object
+    sources_source_id_body:
+      oneOf:
+      - $ref: '#/components/schemas/SourcesAWSKey'
+      - $ref: '#/components/schemas/SourcesAWSCAR'
+      - $ref: '#/components/schemas/SourcesAzureCredentials'
+    sources_source_id_body_1:
+      properties:
+        name:
+          description: The name for your source.
+          example: GCP Source
+          type: string
+        file:
+          description: Service Account Credentials file in JSON format.
+          format: binary
+          type: string
+      type: object
+    View_resources:
+      example:
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+      properties:
+        id:
+          description: The unique ID of the resource
+          format: uuid
+          type: string
+      type: object
+    ReportSummary_source:
+      example:
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        display_name: display_name
+      properties:
+        id:
+          description: The unique ID of the source
+          format: uuid
+          type: string
+        display_name:
+          description: The name of the source
+          type: string
+      type: object
+    Project_members:
+      example:
+        last_name: Smith
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        state: active
+        first_name: Bob
+        email: bob.smith@company.com
+      properties:
+        id:
+          description: The unique ID of the user
+          format: uuid
+          type: string
+        email:
+          description: The email of the user
+          example: bob.smith@company.com
+          format: email
+          type: string
+        first_name:
+          description: The first name of the user
+          example: Bob
+          type: string
+        last_name:
+          description: The last name of the user
+          example: Smith
+          type: string
+        state:
+          description: The users state
+          example: active
+          type: string
+      type: object
+    Team_members:
+      example:
+        last_name: Smith
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        first_name: Bob
+        email: bob.smith@company.com
+        username: bob.smith
+      properties:
+        id:
+          description: The unique ID of the user
+          format: uuid
+          type: string
+        username:
+          description: The username of the user
+          example: bob.smith
+          type: string
+        email:
+          description: The email of the user
+          example: bob.smith@company.com
+          format: email
+          type: string
+        first_name:
+          description: The first name of the user
+          example: Bob
+          type: string
+        last_name:
+          description: The last name of the user
+          example: Smith
+          type: string
+      type: object
+    EnvironmentSummary_views:
+      example:
+        image_name: fc5f0cb5-a153-4cda-af16-3c06a0716362-1594182700.png
+        regions:
+        - us-west-1
+        - us-west-2
+        image_url: https://bucket.s3.amazonaws.com/bucket/fc5f0cb5-a153-4cda-af16-3c06a0716362-1594182700.png
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        type: Views::Infrastructure
+        export_timestamp: 1594182700
+        revision_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        empty: false
+      properties:
+        id:
+          description: The unique ID of the view
+          format: uuid
+          type: string
+        type:
+          description: The type of view
+          enum:
+          - Views::Security
+          - Views::Infrastructure
+          - Views::Infrastructure::Extended
+          - Views::List
+          - Views::Container
+          example: Views::Infrastructure
+          type: string
+        image_name:
+          description: The name of the exported thumbnail for this view
+          example: fc5f0cb5-a153-4cda-af16-3c06a0716362-1594182700.png
+          type: string
+        image_url:
+          description: The location of the exported thumbnail for this view
+          example: https://bucket.s3.amazonaws.com/bucket/fc5f0cb5-a153-4cda-af16-3c06a0716362-1594182700.png
+          type: string
+        export_timestamp:
+          description: The creation timestamp for the exported thumnail
+          example: 1594182700
+          type: integer
+        revision_id:
+          description: The unique ID of the current version of this view
+          format: uuid
+          type: string
+        regions:
+          description: The regions or locations displayed in this view
+          example:
+          - us-west-1
+          - us-west-2
+          items:
+            type: string
+          type: array
+        empty:
+          description: Whether the view is considered empty and has no valuable resources
+            to display
+          example: false
+          type: boolean
+      type: object
+    EnvironmentSummary_sources:
+      example:
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        display_name: Demo AWS
+      properties:
+        id:
+          description: The unique ID of the source
+          format: uuid
+          type: string
+        display_name:
+          description: The user configured display name of the source
+          example: Demo AWS
+          type: string
+      type: object
+    Environment_facet:
+      description: The facet contains the resources that are projected to the views.
+      example:
+        resources:
+        - data: {}
+          price: 0
+          name: Demo Instance
+          provider_id: i-3947382478
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          type: Resources::AWS::EC2::Instance
+          region: us-west-1
+          connections:
+          - data:
+              mount_point: /dev/sd1
+            resource_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            remote_resource_type: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            remote_resource_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          - data:
+              mount_point: /dev/sd1
+            resource_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            remote_resource_type: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            remote_resource_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          tags:
+          - value: Demo Instance
+            key: Name
+          - value: Demo Instance
+            key: Name
+        - data: {}
+          price: 0
+          name: Demo Instance
+          provider_id: i-3947382478
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          type: Resources::AWS::EC2::Instance
+          region: us-west-1
+          connections:
+          - data:
+              mount_point: /dev/sd1
+            resource_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            remote_resource_type: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            remote_resource_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          - data:
+              mount_point: /dev/sd1
+            resource_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            remote_resource_type: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            remote_resource_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          tags:
+          - value: Demo Instance
+            key: Name
+          - value: Demo Instance
+            key: Name
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+      properties:
+        id:
+          description: The unique ID of the facet
+          format: uuid
+          type: string
+        resources:
+          description: All the resources that are included in the environment. Resources
+            can return different attributes based on their type.
+          items:
+            $ref: '#/components/schemas/Resource'
+          type: array
+      type: object
+    Environment_current_revision:
+      description: Information about the current version of this environment
+      example:
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+      properties:
+        id:
+          description: The unique ID of the current version of this environment
+          format: uuid
+          type: string
+      type: object
+    Environment_latest_revisions:
+      description: A list of the latest versions of this environment
+      example:
+        total_count: 5
+        limit_value: 6
+        total_pages: 5
+        map:
+        - from: 2000-01-23
+          id: bb124905-2e24-47be-af53-465b58dab0f0
+          to: 2000-01-23
+        - from: 2000-01-23
+          id: bb124905-2e24-47be-af53-465b58dab0f0
+          to: 2000-01-23
+        current_page: 1
+      properties:
+        limit_value:
+          description: The amount of results per page
+          type: integer
+        current_page:
+          description: The current page
+          type: integer
+        total_pages:
+          description: "The total pages, based on limit and total versions"
+          type: integer
+        total_count:
+          description: The total versions available
+          type: integer
+        map:
+          items:
+            $ref: '#/components/schemas/EnvironmentRevision'
+          type: array
+      type: object
+    Resource_tags:
+      example:
+        value: Demo Instance
+        key: Name
+      properties:
+        key:
+          description: The key of the tag
+          example: Name
+          type: string
+        value:
+          description: The value of the tag
+          example: Demo Instance
+          type: string
+      type: object
+    Resource_connections:
+      example:
+        data:
+          mount_point: /dev/sd1
+        resource_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        remote_resource_type: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        remote_resource_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+      properties:
+        id:
+          description: The unique ID of the connection
+          format: uuid
+          type: string
+        resource_id:
+          description: The unique ID of the resource this connection is from
+          format: uuid
+          type: string
+        remote_resource_id:
+          description: The unique ID of the resource this connection is to
+          format: uuid
+          type: string
+        remote_resource_type:
+          description: The type of the resource this connection is to
+          format: uuid
+          type: string
+        data:
+          description: Additional data related to this connection
+          example:
+            mount_point: /dev/sd1
+          properties: {}
+          type: object
+      type: object
+  securitySchemes:
+    api_key:
+      bearerFormat: JWT
+      scheme: bearer
+      type: http
