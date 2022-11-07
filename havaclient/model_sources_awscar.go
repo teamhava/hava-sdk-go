@@ -3,7 +3,7 @@ Hava
 
 Hava API
 
-API version: 1.1.1
+API version: 1.1.2
 Contact: support@hava.io
 */
 
@@ -25,6 +25,8 @@ type SourcesAWSCAR struct {
 	ExternalId *string `json:"external_id,omitempty"`
 	// The ARN of the role Hava is to assume in your account to import resources
 	RoleArn *string `json:"role_arn,omitempty"`
+	// The ID of the project the source will be added to. If not set the source will get added to the Default project
+	ProjectId *string `json:"project_id,omitempty"`
 }
 
 // NewSourcesAWSCAR instantiates a new SourcesAWSCAR object
@@ -172,6 +174,38 @@ func (o *SourcesAWSCAR) SetRoleArn(v string) {
 	o.RoleArn = &v
 }
 
+// GetProjectId returns the ProjectId field value if set, zero value otherwise.
+func (o *SourcesAWSCAR) GetProjectId() string {
+	if o == nil || isNil(o.ProjectId) {
+		var ret string
+		return ret
+	}
+	return *o.ProjectId
+}
+
+// GetProjectIdOk returns a tuple with the ProjectId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SourcesAWSCAR) GetProjectIdOk() (*string, bool) {
+	if o == nil || isNil(o.ProjectId) {
+		return nil, false
+	}
+	return o.ProjectId, true
+}
+
+// HasProjectId returns a boolean if a field has been set.
+func (o *SourcesAWSCAR) HasProjectId() bool {
+	if o != nil && !isNil(o.ProjectId) {
+		return true
+	}
+
+	return false
+}
+
+// SetProjectId gets a reference to the given string and assigns it to the ProjectId field.
+func (o *SourcesAWSCAR) SetProjectId(v string) {
+	o.ProjectId = &v
+}
+
 func (o SourcesAWSCAR) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if !isNil(o.Name) {
@@ -185,6 +219,9 @@ func (o SourcesAWSCAR) MarshalJSON() ([]byte, error) {
 	}
 	if !isNil(o.RoleArn) {
 		toSerialize["role_arn"] = o.RoleArn
+	}
+	if !isNil(o.ProjectId) {
+		toSerialize["project_id"] = o.ProjectId
 	}
 	return json.Marshal(toSerialize)
 }

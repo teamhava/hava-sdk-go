@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 ## ReportsIndex
 
-> InlineResponse2007 ReportsIndex(ctx).Page(page).PageSize(pageSize).Sort(sort).SortDir(sortDir).Token(token).Execute()
+> ReportsIndex200Response ReportsIndex(ctx).Page(page).PageSize(pageSize).Sort(sort).SortDir(sortDir).Token(token).Execute()
 
 List all reports
 
@@ -42,7 +42,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `ReportsApi.ReportsIndex``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `ReportsIndex`: InlineResponse2007
+    // response from `ReportsIndex`: ReportsIndex200Response
     fmt.Fprintf(os.Stdout, "Response from `ReportsApi.ReportsIndex`: %v\n", resp)
 }
 ```
@@ -66,7 +66,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse2007**](InlineResponse2007.md)
+[**ReportsIndex200Response**](ReportsIndex200Response.md)
 
 ### Authorization
 
@@ -84,7 +84,7 @@ Name | Type | Description  | Notes
 
 ## ReportsReportIdExportPost
 
-> ReportsReportIdExportPost(ctx, reportId).ExportFormat(exportFormat).ReportIdExportBody(reportIdExportBody).Execute()
+> ReportsReportIdExportPost(ctx, reportId).ExportFormat(exportFormat).ReportsReportIdExportPostRequest(reportsReportIdExportPostRequest).Execute()
 
 Export a report
 
@@ -103,11 +103,11 @@ import (
 func main() {
     reportId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | The unique ID of the report to export
     exportFormat := "exportFormat_example" // string | The format to export the report to
-    reportIdExportBody := *openapiclient.NewReportIdExportBody("ExportFormat_example") // ReportIdExportBody | 
+    reportsReportIdExportPostRequest := *openapiclient.NewReportsReportIdExportPostRequest("ExportFormat_example") // ReportsReportIdExportPostRequest | 
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ReportsApi.ReportsReportIdExportPost(context.Background(), reportId).ExportFormat(exportFormat).ReportIdExportBody(reportIdExportBody).Execute()
+    resp, r, err := apiClient.ReportsApi.ReportsReportIdExportPost(context.Background(), reportId).ExportFormat(exportFormat).ReportsReportIdExportPostRequest(reportsReportIdExportPostRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ReportsApi.ReportsReportIdExportPost``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -132,7 +132,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
  **exportFormat** | **string** | The format to export the report to | 
- **reportIdExportBody** | [**ReportIdExportBody**](ReportIdExportBody.md) |  | 
+ **reportsReportIdExportPostRequest** | [**ReportsReportIdExportPostRequest**](ReportsReportIdExportPostRequest.md) |  | 
 
 ### Return type
 

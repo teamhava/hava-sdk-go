@@ -3,7 +3,7 @@ Hava
 
 Hava API
 
-API version: 1.1.1
+API version: 1.1.2
 Contact: support@hava.io
 */
 
@@ -351,7 +351,7 @@ func (a *TeamsApiService) TeamMembersRemoveExecute(r ApiTeamMembersRemoveRequest
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode == 422 {
-			var v Error
+			var v []ErrorInner
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -379,11 +379,11 @@ type ApiTeamsCreateRequest struct {
 	ctx context.Context
 	ApiService *TeamsApiService
 	accountId string
-	accountIdTeamsBody *AccountIdTeamsBody
+	teamsCreateRequest *TeamsCreateRequest
 }
 
-func (r ApiTeamsCreateRequest) AccountIdTeamsBody(accountIdTeamsBody AccountIdTeamsBody) ApiTeamsCreateRequest {
-	r.accountIdTeamsBody = &accountIdTeamsBody
+func (r ApiTeamsCreateRequest) TeamsCreateRequest(teamsCreateRequest TeamsCreateRequest) ApiTeamsCreateRequest {
+	r.teamsCreateRequest = &teamsCreateRequest
 	return r
 }
 
@@ -430,8 +430,8 @@ func (a *TeamsApiService) TeamsCreateExecute(r ApiTeamsCreateRequest) (*Team, *h
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.accountIdTeamsBody == nil {
-		return localVarReturnValue, nil, reportError("accountIdTeamsBody is required and must be specified")
+	if r.teamsCreateRequest == nil {
+		return localVarReturnValue, nil, reportError("teamsCreateRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -452,7 +452,7 @@ func (a *TeamsApiService) TeamsCreateExecute(r ApiTeamsCreateRequest) (*Team, *h
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.accountIdTeamsBody
+	localVarPostBody = r.teamsCreateRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -476,7 +476,7 @@ func (a *TeamsApiService) TeamsCreateExecute(r ApiTeamsCreateRequest) (*Team, *h
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode == 422 {
-			var v Error
+			var v []ErrorInner
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -635,7 +635,7 @@ func (r ApiTeamsIndexRequest) Token(token string) ApiTeamsIndexRequest {
 	return r
 }
 
-func (r ApiTeamsIndexRequest) Execute() (*InlineResponse2001, *http.Response, error) {
+func (r ApiTeamsIndexRequest) Execute() (*TeamsIndex200Response, *http.Response, error) {
 	return r.ApiService.TeamsIndexExecute(r)
 }
 
@@ -655,13 +655,13 @@ func (a *TeamsApiService) TeamsIndex(ctx context.Context, accountId string) ApiT
 }
 
 // Execute executes the request
-//  @return InlineResponse2001
-func (a *TeamsApiService) TeamsIndexExecute(r ApiTeamsIndexRequest) (*InlineResponse2001, *http.Response, error) {
+//  @return TeamsIndex200Response
+func (a *TeamsApiService) TeamsIndexExecute(r ApiTeamsIndexRequest) (*TeamsIndex200Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *InlineResponse2001
+		localVarReturnValue  *TeamsIndex200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamsApiService.TeamsIndex")
@@ -855,11 +855,11 @@ type ApiTeamsUpdateRequest struct {
 	ApiService *TeamsApiService
 	accountId string
 	teamId string
-	teamsTeamIdBody *TeamsTeamIdBody
+	teamsUpdateRequest *TeamsUpdateRequest
 }
 
-func (r ApiTeamsUpdateRequest) TeamsTeamIdBody(teamsTeamIdBody TeamsTeamIdBody) ApiTeamsUpdateRequest {
-	r.teamsTeamIdBody = &teamsTeamIdBody
+func (r ApiTeamsUpdateRequest) TeamsUpdateRequest(teamsUpdateRequest TeamsUpdateRequest) ApiTeamsUpdateRequest {
+	r.teamsUpdateRequest = &teamsUpdateRequest
 	return r
 }
 
@@ -906,8 +906,8 @@ func (a *TeamsApiService) TeamsUpdateExecute(r ApiTeamsUpdateRequest) (*Team, *h
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.teamsTeamIdBody == nil {
-		return localVarReturnValue, nil, reportError("teamsTeamIdBody is required and must be specified")
+	if r.teamsUpdateRequest == nil {
+		return localVarReturnValue, nil, reportError("teamsUpdateRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -928,7 +928,7 @@ func (a *TeamsApiService) TeamsUpdateExecute(r ApiTeamsUpdateRequest) (*Team, *h
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.teamsTeamIdBody
+	localVarPostBody = r.teamsUpdateRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -952,7 +952,7 @@ func (a *TeamsApiService) TeamsUpdateExecute(r ApiTeamsUpdateRequest) (*Team, *h
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode == 400 {
-			var v Error
+			var v []ErrorInner
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -963,7 +963,7 @@ func (a *TeamsApiService) TeamsUpdateExecute(r ApiTeamsUpdateRequest) (*Team, *h
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 422 {
-			var v Error
+			var v []ErrorInner
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()

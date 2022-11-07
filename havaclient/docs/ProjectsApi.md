@@ -163,7 +163,7 @@ Name | Type | Description  | Notes
 
 ## ProjectsCreate
 
-> Project ProjectsCreate(ctx, accountId).AccountIdProjectsBody(accountIdProjectsBody).Execute()
+> Project ProjectsCreate(ctx, accountId).ProjectsCreateRequest(projectsCreateRequest).Execute()
 
 Create a project
 
@@ -181,11 +181,11 @@ import (
 
 func main() {
     accountId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | The unique ID of the account to create the project in
-    accountIdProjectsBody := *openapiclient.NewAccountIdProjectsBody() // AccountIdProjectsBody | 
+    projectsCreateRequest := *openapiclient.NewProjectsCreateRequest() // ProjectsCreateRequest | 
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ProjectsApi.ProjectsCreate(context.Background(), accountId).AccountIdProjectsBody(accountIdProjectsBody).Execute()
+    resp, r, err := apiClient.ProjectsApi.ProjectsCreate(context.Background(), accountId).ProjectsCreateRequest(projectsCreateRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ProjectsApi.ProjectsCreate``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -211,7 +211,7 @@ Other parameters are passed through a pointer to a apiProjectsCreateRequest stru
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **accountIdProjectsBody** | [**AccountIdProjectsBody**](AccountIdProjectsBody.md) |  | 
+ **projectsCreateRequest** | [**ProjectsCreateRequest**](ProjectsCreateRequest.md) |  | 
 
 ### Return type
 
@@ -304,7 +304,7 @@ Name | Type | Description  | Notes
 
 ## ProjectsIndex
 
-> InlineResponse2002 ProjectsIndex(ctx, accountId).Page(page).PageSize(pageSize).Sort(sort).SortDir(sortDir).Token(token).Execute()
+> ProjectsIndex200Response ProjectsIndex(ctx, accountId).Page(page).PageSize(pageSize).Sort(sort).SortDir(sortDir).Token(token).Execute()
 
 List all projects
 
@@ -335,7 +335,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `ProjectsApi.ProjectsIndex``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `ProjectsIndex`: InlineResponse2002
+    // response from `ProjectsIndex`: ProjectsIndex200Response
     fmt.Fprintf(os.Stdout, "Response from `ProjectsApi.ProjectsIndex`: %v\n", resp)
 }
 ```
@@ -364,7 +364,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse2002**](InlineResponse2002.md)
+[**ProjectsIndex200Response**](ProjectsIndex200Response.md)
 
 ### Authorization
 
@@ -453,7 +453,7 @@ Name | Type | Description  | Notes
 
 ## ProjectsUpdate
 
-> Project ProjectsUpdate(ctx, accountId, projectId).ProjectsProjectIdBody(projectsProjectIdBody).Execute()
+> Project ProjectsUpdate(ctx, accountId, projectId).ProjectsUpdateRequest(projectsUpdateRequest).Execute()
 
 Update a project
 
@@ -472,11 +472,11 @@ import (
 func main() {
     accountId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | The unique ID of the account the project is in
     projectId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | The unique ID of the project to update
-    projectsProjectIdBody := *openapiclient.NewProjectsProjectIdBody() // ProjectsProjectIdBody | 
+    projectsUpdateRequest := *openapiclient.NewProjectsUpdateRequest() // ProjectsUpdateRequest | 
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ProjectsApi.ProjectsUpdate(context.Background(), accountId, projectId).ProjectsProjectIdBody(projectsProjectIdBody).Execute()
+    resp, r, err := apiClient.ProjectsApi.ProjectsUpdate(context.Background(), accountId, projectId).ProjectsUpdateRequest(projectsUpdateRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ProjectsApi.ProjectsUpdate``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -504,7 +504,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **projectsProjectIdBody** | [**ProjectsProjectIdBody**](ProjectsProjectIdBody.md) |  | 
+ **projectsUpdateRequest** | [**ProjectsUpdateRequest**](ProjectsUpdateRequest.md) |  | 
 
 ### Return type
 

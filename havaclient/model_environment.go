@@ -3,7 +3,7 @@ Hava
 
 Hava API
 
-API version: 1.1.1
+API version: 1.1.2
 Contact: support@hava.io
 */
 
@@ -30,7 +30,7 @@ type Environment struct {
 	Facet *EnvironmentFacet `json:"facet,omitempty"`
 	CurrentRevision *EnvironmentCurrentRevision `json:"current_revision,omitempty"`
 	// The sources that contain the resources this environment covers.
-	Sources []EnvironmentSummarySources `json:"sources,omitempty"`
+	Sources []EnvironmentSummarySourcesInner `json:"sources,omitempty"`
 	LatestRevisions *EnvironmentLatestRevisions `json:"latest_revisions,omitempty"`
 }
 
@@ -308,9 +308,9 @@ func (o *Environment) SetCurrentRevision(v EnvironmentCurrentRevision) {
 }
 
 // GetSources returns the Sources field value if set, zero value otherwise.
-func (o *Environment) GetSources() []EnvironmentSummarySources {
+func (o *Environment) GetSources() []EnvironmentSummarySourcesInner {
 	if o == nil || isNil(o.Sources) {
-		var ret []EnvironmentSummarySources
+		var ret []EnvironmentSummarySourcesInner
 		return ret
 	}
 	return o.Sources
@@ -318,7 +318,7 @@ func (o *Environment) GetSources() []EnvironmentSummarySources {
 
 // GetSourcesOk returns a tuple with the Sources field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Environment) GetSourcesOk() ([]EnvironmentSummarySources, bool) {
+func (o *Environment) GetSourcesOk() ([]EnvironmentSummarySourcesInner, bool) {
 	if o == nil || isNil(o.Sources) {
 		return nil, false
 	}
@@ -334,8 +334,8 @@ func (o *Environment) HasSources() bool {
 	return false
 }
 
-// SetSources gets a reference to the given []EnvironmentSummarySources and assigns it to the Sources field.
-func (o *Environment) SetSources(v []EnvironmentSummarySources) {
+// SetSources gets a reference to the given []EnvironmentSummarySourcesInner and assigns it to the Sources field.
+func (o *Environment) SetSources(v []EnvironmentSummarySourcesInner) {
 	o.Sources = v
 }
 

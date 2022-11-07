@@ -3,7 +3,7 @@ Hava
 
 Hava API
 
-API version: 1.1.1
+API version: 1.1.2
 Contact: support@hava.io
 */
 
@@ -235,7 +235,7 @@ func (a *ProjectsApiService) ProjectMembersRemoveExecute(r ApiProjectMembersRemo
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode == 422 {
-			var v Error
+			var v []ErrorInner
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -263,11 +263,11 @@ type ApiProjectsCreateRequest struct {
 	ctx context.Context
 	ApiService *ProjectsApiService
 	accountId string
-	accountIdProjectsBody *AccountIdProjectsBody
+	projectsCreateRequest *ProjectsCreateRequest
 }
 
-func (r ApiProjectsCreateRequest) AccountIdProjectsBody(accountIdProjectsBody AccountIdProjectsBody) ApiProjectsCreateRequest {
-	r.accountIdProjectsBody = &accountIdProjectsBody
+func (r ApiProjectsCreateRequest) ProjectsCreateRequest(projectsCreateRequest ProjectsCreateRequest) ApiProjectsCreateRequest {
+	r.projectsCreateRequest = &projectsCreateRequest
 	return r
 }
 
@@ -311,8 +311,8 @@ func (a *ProjectsApiService) ProjectsCreateExecute(r ApiProjectsCreateRequest) (
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.accountIdProjectsBody == nil {
-		return localVarReturnValue, nil, reportError("accountIdProjectsBody is required and must be specified")
+	if r.projectsCreateRequest == nil {
+		return localVarReturnValue, nil, reportError("projectsCreateRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -333,7 +333,7 @@ func (a *ProjectsApiService) ProjectsCreateExecute(r ApiProjectsCreateRequest) (
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.accountIdProjectsBody
+	localVarPostBody = r.projectsCreateRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -357,7 +357,7 @@ func (a *ProjectsApiService) ProjectsCreateExecute(r ApiProjectsCreateRequest) (
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode == 422 {
-			var v Error
+			var v []ErrorInner
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -519,7 +519,7 @@ func (r ApiProjectsIndexRequest) Token(token string) ApiProjectsIndexRequest {
 	return r
 }
 
-func (r ApiProjectsIndexRequest) Execute() (*InlineResponse2002, *http.Response, error) {
+func (r ApiProjectsIndexRequest) Execute() (*ProjectsIndex200Response, *http.Response, error) {
 	return r.ApiService.ProjectsIndexExecute(r)
 }
 
@@ -539,13 +539,13 @@ func (a *ProjectsApiService) ProjectsIndex(ctx context.Context, accountId string
 }
 
 // Execute executes the request
-//  @return InlineResponse2002
-func (a *ProjectsApiService) ProjectsIndexExecute(r ApiProjectsIndexRequest) (*InlineResponse2002, *http.Response, error) {
+//  @return ProjectsIndex200Response
+func (a *ProjectsApiService) ProjectsIndexExecute(r ApiProjectsIndexRequest) (*ProjectsIndex200Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *InlineResponse2002
+		localVarReturnValue  *ProjectsIndex200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProjectsApiService.ProjectsIndex")
@@ -739,11 +739,11 @@ type ApiProjectsUpdateRequest struct {
 	ApiService *ProjectsApiService
 	accountId string
 	projectId string
-	projectsProjectIdBody *ProjectsProjectIdBody
+	projectsUpdateRequest *ProjectsUpdateRequest
 }
 
-func (r ApiProjectsUpdateRequest) ProjectsProjectIdBody(projectsProjectIdBody ProjectsProjectIdBody) ApiProjectsUpdateRequest {
-	r.projectsProjectIdBody = &projectsProjectIdBody
+func (r ApiProjectsUpdateRequest) ProjectsUpdateRequest(projectsUpdateRequest ProjectsUpdateRequest) ApiProjectsUpdateRequest {
+	r.projectsUpdateRequest = &projectsUpdateRequest
 	return r
 }
 
@@ -790,8 +790,8 @@ func (a *ProjectsApiService) ProjectsUpdateExecute(r ApiProjectsUpdateRequest) (
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.projectsProjectIdBody == nil {
-		return localVarReturnValue, nil, reportError("projectsProjectIdBody is required and must be specified")
+	if r.projectsUpdateRequest == nil {
+		return localVarReturnValue, nil, reportError("projectsUpdateRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -812,7 +812,7 @@ func (a *ProjectsApiService) ProjectsUpdateExecute(r ApiProjectsUpdateRequest) (
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.projectsProjectIdBody
+	localVarPostBody = r.projectsUpdateRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -836,7 +836,7 @@ func (a *ProjectsApiService) ProjectsUpdateExecute(r ApiProjectsUpdateRequest) (
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode == 422 {
-			var v Error
+			var v []ErrorInner
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()

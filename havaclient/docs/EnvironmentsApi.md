@@ -19,7 +19,7 @@ Method | HTTP request | Description
 
 ## EnvironmentRevisionsIndex
 
-> InlineResponse2004 EnvironmentRevisionsIndex(ctx, environmentId).Page(page).PageSize(pageSize).Sort(sort).SortDir(sortDir).Token(token).Execute()
+> EnvironmentRevisionsIndex200Response EnvironmentRevisionsIndex(ctx, environmentId).Page(page).PageSize(pageSize).Sort(sort).SortDir(sortDir).Token(token).Execute()
 
 List versions of an environment
 
@@ -50,7 +50,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `EnvironmentsApi.EnvironmentRevisionsIndex``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `EnvironmentRevisionsIndex`: InlineResponse2004
+    // response from `EnvironmentRevisionsIndex`: EnvironmentRevisionsIndex200Response
     fmt.Fprintf(os.Stdout, "Response from `EnvironmentsApi.EnvironmentRevisionsIndex`: %v\n", resp)
 }
 ```
@@ -79,7 +79,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse2004**](InlineResponse2004.md)
+[**EnvironmentRevisionsIndex200Response**](EnvironmentRevisionsIndex200Response.md)
 
 ### Authorization
 
@@ -97,7 +97,7 @@ Name | Type | Description  | Notes
 
 ## EnvironmentSharesCreate
 
-> EnvironmentShare EnvironmentSharesCreate(ctx, environmentId).EnvironmentIdSharesBody(environmentIdSharesBody).Execute()
+> EnvironmentShare EnvironmentSharesCreate(ctx, environmentId).EnvironmentSharesCreateRequest(environmentSharesCreateRequest).Execute()
 
 Generates an embedded environment token. If the provided view type exists it will return the share details, otherwise it will return a job that will generate the share details.
 
@@ -115,11 +115,11 @@ import (
 
 func main() {
     environmentId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | The unique ID of the environment
-    environmentIdSharesBody := *openapiclient.NewEnvironmentIdSharesBody() // EnvironmentIdSharesBody | 
+    environmentSharesCreateRequest := *openapiclient.NewEnvironmentSharesCreateRequest() // EnvironmentSharesCreateRequest | 
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.EnvironmentsApi.EnvironmentSharesCreate(context.Background(), environmentId).EnvironmentIdSharesBody(environmentIdSharesBody).Execute()
+    resp, r, err := apiClient.EnvironmentsApi.EnvironmentSharesCreate(context.Background(), environmentId).EnvironmentSharesCreateRequest(environmentSharesCreateRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `EnvironmentsApi.EnvironmentSharesCreate``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -145,7 +145,7 @@ Other parameters are passed through a pointer to a apiEnvironmentSharesCreateReq
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **environmentIdSharesBody** | [**EnvironmentIdSharesBody**](EnvironmentIdSharesBody.md) |  | 
+ **environmentSharesCreateRequest** | [**EnvironmentSharesCreateRequest**](EnvironmentSharesCreateRequest.md) |  | 
 
 ### Return type
 
@@ -238,7 +238,7 @@ Name | Type | Description  | Notes
 
 ## EnvironmentSharesList
 
-> InlineResponse2006 EnvironmentSharesList(ctx, environmentId).Page(page).PageSize(pageSize).Sort(sort).SortDir(sortDir).Token(token).Execute()
+> EnvironmentSharesList200Response EnvironmentSharesList(ctx, environmentId).Page(page).PageSize(pageSize).Sort(sort).SortDir(sortDir).Token(token).Execute()
 
 List shares of the specific environment
 
@@ -269,7 +269,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `EnvironmentsApi.EnvironmentSharesList``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `EnvironmentSharesList`: InlineResponse2006
+    // response from `EnvironmentSharesList`: EnvironmentSharesList200Response
     fmt.Fprintf(os.Stdout, "Response from `EnvironmentsApi.EnvironmentSharesList`: %v\n", resp)
 }
 ```
@@ -298,7 +298,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse2006**](InlineResponse2006.md)
+[**EnvironmentSharesList200Response**](EnvironmentSharesList200Response.md)
 
 ### Authorization
 
@@ -316,7 +316,7 @@ Name | Type | Description  | Notes
 
 ## EnvironmentSharesUpdate
 
-> EnvironmentSharesUpdate(ctx, environmentId, shareId).SharesShareIdBody(sharesShareIdBody).Execute()
+> EnvironmentSharesUpdate(ctx, environmentId, shareId).EnvironmentSharesUpdateRequest(environmentSharesUpdateRequest).Execute()
 
 Update the details of the specified environment share. Used to change the config for PNG shares.
 
@@ -335,11 +335,11 @@ import (
 func main() {
     environmentId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | The unique ID of the environment
     shareId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | The unique ID of the environment share
-    sharesShareIdBody := *openapiclient.NewSharesShareIdBody() // SharesShareIdBody | 
+    environmentSharesUpdateRequest := *openapiclient.NewEnvironmentSharesUpdateRequest() // EnvironmentSharesUpdateRequest | 
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.EnvironmentsApi.EnvironmentSharesUpdate(context.Background(), environmentId, shareId).SharesShareIdBody(sharesShareIdBody).Execute()
+    resp, r, err := apiClient.EnvironmentsApi.EnvironmentSharesUpdate(context.Background(), environmentId, shareId).EnvironmentSharesUpdateRequest(environmentSharesUpdateRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `EnvironmentsApi.EnvironmentSharesUpdate``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -365,7 +365,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **sharesShareIdBody** | [**SharesShareIdBody**](SharesShareIdBody.md) |  | 
+ **environmentSharesUpdateRequest** | [**EnvironmentSharesUpdateRequest**](EnvironmentSharesUpdateRequest.md) |  | 
 
 ### Return type
 
@@ -387,7 +387,7 @@ Name | Type | Description  | Notes
 
 ## EnvironmentsCreate
 
-> Environment EnvironmentsCreate(ctx).EnvironmentsBody(environmentsBody).Execute()
+> Environment EnvironmentsCreate(ctx).EnvironmentsCreateRequest(environmentsCreateRequest).Execute()
 
 Create an environment using a query
 
@@ -406,11 +406,11 @@ import (
 )
 
 func main() {
-    environmentsBody := *openapiclient.NewEnvironmentsBody("(vpc:vpc-1234 OR vpc:vpc-4567) AND CostCenter:DEV") // EnvironmentsBody | 
+    environmentsCreateRequest := *openapiclient.NewEnvironmentsCreateRequest("(vpc:vpc-1234 OR vpc:vpc-4567) AND CostCenter:DEV") // EnvironmentsCreateRequest | 
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.EnvironmentsApi.EnvironmentsCreate(context.Background()).EnvironmentsBody(environmentsBody).Execute()
+    resp, r, err := apiClient.EnvironmentsApi.EnvironmentsCreate(context.Background()).EnvironmentsCreateRequest(environmentsCreateRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `EnvironmentsApi.EnvironmentsCreate``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -431,7 +431,7 @@ Other parameters are passed through a pointer to a apiEnvironmentsCreateRequest 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **environmentsBody** | [**EnvironmentsBody**](EnvironmentsBody.md) |  | 
+ **environmentsCreateRequest** | [**EnvironmentsCreateRequest**](EnvironmentsCreateRequest.md) |  | 
 
 ### Return type
 
@@ -521,7 +521,7 @@ Name | Type | Description  | Notes
 
 ## EnvironmentsIndex
 
-> InlineResponse2005 EnvironmentsIndex(ctx).Page(page).PageSize(pageSize).Sort(sort).SortDir(sortDir).Token(token).Execute()
+> EnvironmentsIndex200Response EnvironmentsIndex(ctx).Page(page).PageSize(pageSize).Sort(sort).SortDir(sortDir).Token(token).Execute()
 
 List environments
 
@@ -551,7 +551,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `EnvironmentsApi.EnvironmentsIndex``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `EnvironmentsIndex`: InlineResponse2005
+    // response from `EnvironmentsIndex`: EnvironmentsIndex200Response
     fmt.Fprintf(os.Stdout, "Response from `EnvironmentsApi.EnvironmentsIndex`: %v\n", resp)
 }
 ```
@@ -575,7 +575,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse2005**](InlineResponse2005.md)
+[**EnvironmentsIndex200Response**](EnvironmentsIndex200Response.md)
 
 ### Authorization
 
@@ -663,7 +663,7 @@ Name | Type | Description  | Notes
 
 ## EnvironmentsUpdate
 
-> Environment EnvironmentsUpdate(ctx, environmentId).EnvironmentsEnvironmentIdBody(environmentsEnvironmentIdBody).Execute()
+> Environment EnvironmentsUpdate(ctx, environmentId).EnvironmentsUpdateRequest(environmentsUpdateRequest).Execute()
 
 Update a custom environment
 
@@ -683,11 +683,11 @@ import (
 
 func main() {
     environmentId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | The unique ID of the environment to update
-    environmentsEnvironmentIdBody := *openapiclient.NewEnvironmentsEnvironmentIdBody("vpc:vpc-1234 AND CostCenter:DEV") // EnvironmentsEnvironmentIdBody |  (optional)
+    environmentsUpdateRequest := *openapiclient.NewEnvironmentsUpdateRequest("vpc:vpc-1234 AND CostCenter:DEV") // EnvironmentsUpdateRequest |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.EnvironmentsApi.EnvironmentsUpdate(context.Background(), environmentId).EnvironmentsEnvironmentIdBody(environmentsEnvironmentIdBody).Execute()
+    resp, r, err := apiClient.EnvironmentsApi.EnvironmentsUpdate(context.Background(), environmentId).EnvironmentsUpdateRequest(environmentsUpdateRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `EnvironmentsApi.EnvironmentsUpdate``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -713,7 +713,7 @@ Other parameters are passed through a pointer to a apiEnvironmentsUpdateRequest 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **environmentsEnvironmentIdBody** | [**EnvironmentsEnvironmentIdBody**](EnvironmentsEnvironmentIdBody.md) |  | 
+ **environmentsUpdateRequest** | [**EnvironmentsUpdateRequest**](EnvironmentsUpdateRequest.md) |  | 
 
 ### Return type
 

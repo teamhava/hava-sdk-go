@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **Name** | Pointer to **string** | The name of the project | [optional] 
 **Description** | Pointer to **string** | The description of the project | [optional] 
 **AccountId** | Pointer to **string** | The unique ID of the account the project belongs to | [optional] 
-**Members** | Pointer to [**[]ProjectMembers**](ProjectMembers.md) | An array of users that are members of this project | [optional] 
+**Members** | Pointer to [**[]ProjectMembersInner**](ProjectMembersInner.md) | An array of users that are members of this project | [optional] 
 
 ## Methods
 
@@ -131,20 +131,20 @@ HasAccountId returns a boolean if a field has been set.
 
 ### GetMembers
 
-`func (o *Project) GetMembers() []ProjectMembers`
+`func (o *Project) GetMembers() []ProjectMembersInner`
 
 GetMembers returns the Members field if non-nil, zero value otherwise.
 
 ### GetMembersOk
 
-`func (o *Project) GetMembersOk() (*[]ProjectMembers, bool)`
+`func (o *Project) GetMembersOk() (*[]ProjectMembersInner, bool)`
 
 GetMembersOk returns a tuple with the Members field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMembers
 
-`func (o *Project) SetMembers(v []ProjectMembers)`
+`func (o *Project) SetMembers(v []ProjectMembersInner)`
 
 SetMembers sets Members field to given value.
 

@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **TenantId** | Pointer to **string** | The GUID representing the Active Directory Tenant | [optional] 
 **ClientId** | Pointer to **string** | The Client ID for your Service Principle | [optional] 
 **SecretKey** | Pointer to **string** | The Client Secret for your Service Principle | [optional] 
+**ProjectId** | Pointer to **string** | The ID of the project the source will be added to. If not set the source will get added to the Default project | [optional] 
 
 ## Methods
 
@@ -179,6 +180,31 @@ SetSecretKey sets SecretKey field to given value.
 `func (o *SourcesAzureCredentials) HasSecretKey() bool`
 
 HasSecretKey returns a boolean if a field has been set.
+
+### GetProjectId
+
+`func (o *SourcesAzureCredentials) GetProjectId() string`
+
+GetProjectId returns the ProjectId field if non-nil, zero value otherwise.
+
+### GetProjectIdOk
+
+`func (o *SourcesAzureCredentials) GetProjectIdOk() (*string, bool)`
+
+GetProjectIdOk returns a tuple with the ProjectId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetProjectId
+
+`func (o *SourcesAzureCredentials) SetProjectId(v string)`
+
+SetProjectId sets ProjectId field to given value.
+
+### HasProjectId
+
+`func (o *SourcesAzureCredentials) HasProjectId() bool`
+
+HasProjectId returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

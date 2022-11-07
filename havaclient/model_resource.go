@@ -3,7 +3,7 @@ Hava
 
 Hava API
 
-API version: 1.1.1
+API version: 1.1.2
 Contact: support@hava.io
 */
 
@@ -32,9 +32,9 @@ type Resource struct {
 	// Resource specific data
 	Data map[string]interface{} `json:"data,omitempty"`
 	// An array tags associated to this resource
-	Tags []ResourceTags `json:"tags,omitempty"`
+	Tags []ResourceTagsInner `json:"tags,omitempty"`
 	// A list of connections to other resources
-	Connections []ResourceConnections `json:"connections,omitempty"`
+	Connections []ResourceConnectionsInner `json:"connections,omitempty"`
 }
 
 // NewResource instantiates a new Resource object
@@ -279,9 +279,9 @@ func (o *Resource) SetData(v map[string]interface{}) {
 }
 
 // GetTags returns the Tags field value if set, zero value otherwise.
-func (o *Resource) GetTags() []ResourceTags {
+func (o *Resource) GetTags() []ResourceTagsInner {
 	if o == nil || isNil(o.Tags) {
-		var ret []ResourceTags
+		var ret []ResourceTagsInner
 		return ret
 	}
 	return o.Tags
@@ -289,7 +289,7 @@ func (o *Resource) GetTags() []ResourceTags {
 
 // GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Resource) GetTagsOk() ([]ResourceTags, bool) {
+func (o *Resource) GetTagsOk() ([]ResourceTagsInner, bool) {
 	if o == nil || isNil(o.Tags) {
 		return nil, false
 	}
@@ -305,15 +305,15 @@ func (o *Resource) HasTags() bool {
 	return false
 }
 
-// SetTags gets a reference to the given []ResourceTags and assigns it to the Tags field.
-func (o *Resource) SetTags(v []ResourceTags) {
+// SetTags gets a reference to the given []ResourceTagsInner and assigns it to the Tags field.
+func (o *Resource) SetTags(v []ResourceTagsInner) {
 	o.Tags = v
 }
 
 // GetConnections returns the Connections field value if set, zero value otherwise.
-func (o *Resource) GetConnections() []ResourceConnections {
+func (o *Resource) GetConnections() []ResourceConnectionsInner {
 	if o == nil || isNil(o.Connections) {
-		var ret []ResourceConnections
+		var ret []ResourceConnectionsInner
 		return ret
 	}
 	return o.Connections
@@ -321,7 +321,7 @@ func (o *Resource) GetConnections() []ResourceConnections {
 
 // GetConnectionsOk returns a tuple with the Connections field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Resource) GetConnectionsOk() ([]ResourceConnections, bool) {
+func (o *Resource) GetConnectionsOk() ([]ResourceConnectionsInner, bool) {
 	if o == nil || isNil(o.Connections) {
 		return nil, false
 	}
@@ -337,8 +337,8 @@ func (o *Resource) HasConnections() bool {
 	return false
 }
 
-// SetConnections gets a reference to the given []ResourceConnections and assigns it to the Connections field.
-func (o *Resource) SetConnections(v []ResourceConnections) {
+// SetConnections gets a reference to the given []ResourceConnectionsInner and assigns it to the Connections field.
+func (o *Resource) SetConnections(v []ResourceConnectionsInner) {
 	o.Connections = v
 }
 

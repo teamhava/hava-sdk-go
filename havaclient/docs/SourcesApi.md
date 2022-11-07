@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 ## SourcesCreate
 
-> Source SourcesCreate(ctx).SourcesBody(sourcesBody).Execute()
+> Source SourcesCreate(ctx).SourcesCreateRequest(sourcesCreateRequest).Execute()
 
 Create a source
 
@@ -34,11 +34,11 @@ import (
 )
 
 func main() {
-    sourcesBody := openapiclient.sources_body{SourcesAWSCAR: openapiclient.NewSourcesAWSCAR()} // SourcesBody | To create an AWS or Azure source you need to pass the parameters through in a JSON object. To create a Google Cloud source you need to upload your Service Account Credentials as a multi-part file upload.
+    sourcesCreateRequest := openapiclient.sources_create_request{SourcesAWSCAR: openapiclient.NewSourcesAWSCAR()} // SourcesCreateRequest | To create an AWS or Azure source you need to pass the parameters through in a JSON object. To create a Google Cloud source you need to upload your Service Account Credentials as a multi-part file upload.
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SourcesApi.SourcesCreate(context.Background()).SourcesBody(sourcesBody).Execute()
+    resp, r, err := apiClient.SourcesApi.SourcesCreate(context.Background()).SourcesCreateRequest(sourcesCreateRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `SourcesApi.SourcesCreate``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -59,7 +59,7 @@ Other parameters are passed through a pointer to a apiSourcesCreateRequest struc
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **sourcesBody** | [**SourcesBody**](SourcesBody.md) | To create an AWS or Azure source you need to pass the parameters through in a JSON object. To create a Google Cloud source you need to upload your Service Account Credentials as a multi-part file upload. | 
+ **sourcesCreateRequest** | [**SourcesCreateRequest**](SourcesCreateRequest.md) | To create an AWS or Azure source you need to pass the parameters through in a JSON object. To create a Google Cloud source you need to upload your Service Account Credentials as a multi-part file upload. | 
 
 ### Return type
 
@@ -149,7 +149,7 @@ Name | Type | Description  | Notes
 
 ## SourcesIndex
 
-> InlineResponse2008 SourcesIndex(ctx).Page(page).PageSize(pageSize).Sort(sort).SortDir(sortDir).Token(token).Execute()
+> SourcesIndex200Response SourcesIndex(ctx).Page(page).PageSize(pageSize).Sort(sort).SortDir(sortDir).Token(token).Execute()
 
 List all sources
 
@@ -179,7 +179,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `SourcesApi.SourcesIndex``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `SourcesIndex`: InlineResponse2008
+    // response from `SourcesIndex`: SourcesIndex200Response
     fmt.Fprintf(os.Stdout, "Response from `SourcesApi.SourcesIndex`: %v\n", resp)
 }
 ```
@@ -203,7 +203,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse2008**](InlineResponse2008.md)
+[**SourcesIndex200Response**](SourcesIndex200Response.md)
 
 ### Authorization
 
@@ -359,7 +359,7 @@ Name | Type | Description  | Notes
 
 ## SourcesUpdate
 
-> Source SourcesUpdate(ctx, sourceId).SourcesSourceIdBody(sourcesSourceIdBody).Execute()
+> Source SourcesUpdate(ctx, sourceId).SourcesUpdateRequest(sourcesUpdateRequest).Execute()
 
 Update a source
 
@@ -379,11 +379,11 @@ import (
 
 func main() {
     sourceId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-    sourcesSourceIdBody := openapiclient.sources_source_id_body{SourcesAWSCAR: openapiclient.NewSourcesAWSCAR()} // SourcesSourceIdBody | Parameters for updating your source. Any properties not defined will not be updated. (optional)
+    sourcesUpdateRequest := openapiclient.sources_update_request{SourcesAWSCAR: openapiclient.NewSourcesAWSCAR()} // SourcesUpdateRequest | Parameters for updating your source. Any properties not defined will not be updated. (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SourcesApi.SourcesUpdate(context.Background(), sourceId).SourcesSourceIdBody(sourcesSourceIdBody).Execute()
+    resp, r, err := apiClient.SourcesApi.SourcesUpdate(context.Background(), sourceId).SourcesUpdateRequest(sourcesUpdateRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `SourcesApi.SourcesUpdate``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -409,7 +409,7 @@ Other parameters are passed through a pointer to a apiSourcesUpdateRequest struc
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **sourcesSourceIdBody** | [**SourcesSourceIdBody**](SourcesSourceIdBody.md) | Parameters for updating your source. Any properties not defined will not be updated. | 
+ **sourcesUpdateRequest** | [**SourcesUpdateRequest**](SourcesUpdateRequest.md) | Parameters for updating your source. Any properties not defined will not be updated. | 
 
 ### Return type
 

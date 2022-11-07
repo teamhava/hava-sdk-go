@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## ViewsExport
 
-> ViewsExport(ctx, viewId).ViewIdExportBody(viewIdExportBody).Execute()
+> ViewsExport(ctx, viewId).ViewsExportRequest(viewsExportRequest).Execute()
 
 Export a view
 
@@ -30,11 +30,11 @@ import (
 
 func main() {
     viewId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-    viewIdExportBody := *openapiclient.NewViewIdExportBody() // ViewIdExportBody | 
+    viewsExportRequest := *openapiclient.NewViewsExportRequest() // ViewsExportRequest | 
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ViewsApi.ViewsExport(context.Background(), viewId).ViewIdExportBody(viewIdExportBody).Execute()
+    resp, r, err := apiClient.ViewsApi.ViewsExport(context.Background(), viewId).ViewsExportRequest(viewsExportRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ViewsApi.ViewsExport``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -58,7 +58,7 @@ Other parameters are passed through a pointer to a apiViewsExportRequest struct 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **viewIdExportBody** | [**ViewIdExportBody**](ViewIdExportBody.md) |  | 
+ **viewsExportRequest** | [**ViewsExportRequest**](ViewsExportRequest.md) |  | 
 
 ### Return type
 

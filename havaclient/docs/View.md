@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **RevisionId** | Pointer to **string** | The unique ID of the current version of this view | [optional] 
 **Regions** | Pointer to **[]string** | The regions or locations displayed in this view | [optional] 
 **Empty** | Pointer to **bool** | Whether the view is considered empty and has no valuable resources to display | [optional] 
-**Resources** | Pointer to [**[]ViewResources**](ViewResources.md) | A list of resource ID&#39;s to be displayed. Only returned for list view. | [optional] 
+**Resources** | Pointer to [**[]ViewResourcesInner**](ViewResourcesInner.md) | A list of resource ID&#39;s to be displayed. Only returned for list view. | [optional] 
 
 ## Methods
 
@@ -235,20 +235,20 @@ HasEmpty returns a boolean if a field has been set.
 
 ### GetResources
 
-`func (o *View) GetResources() []ViewResources`
+`func (o *View) GetResources() []ViewResourcesInner`
 
 GetResources returns the Resources field if non-nil, zero value otherwise.
 
 ### GetResourcesOk
 
-`func (o *View) GetResourcesOk() (*[]ViewResources, bool)`
+`func (o *View) GetResourcesOk() (*[]ViewResourcesInner, bool)`
 
 GetResourcesOk returns a tuple with the Resources field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetResources
 
-`func (o *View) SetResources(v []ViewResources)`
+`func (o *View) SetResources(v []ViewResourcesInner)`
 
 SetResources sets Resources field to given value.
 

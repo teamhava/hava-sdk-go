@@ -3,7 +3,7 @@ Hava
 
 Hava API
 
-API version: 1.1.1
+API version: 1.1.2
 Contact: support@hava.io
 */
 
@@ -26,7 +26,7 @@ type Team struct {
 	// An array of roles assigned to the users in this team
 	Roles []string `json:"roles,omitempty"`
 	// An array of users that are members of this team
-	Members []TeamMembers `json:"members,omitempty"`
+	Members []TeamMembersInner `json:"members,omitempty"`
 }
 
 // NewTeam instantiates a new Team object
@@ -175,9 +175,9 @@ func (o *Team) SetRoles(v []string) {
 }
 
 // GetMembers returns the Members field value if set, zero value otherwise.
-func (o *Team) GetMembers() []TeamMembers {
+func (o *Team) GetMembers() []TeamMembersInner {
 	if o == nil || isNil(o.Members) {
-		var ret []TeamMembers
+		var ret []TeamMembersInner
 		return ret
 	}
 	return o.Members
@@ -185,7 +185,7 @@ func (o *Team) GetMembers() []TeamMembers {
 
 // GetMembersOk returns a tuple with the Members field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Team) GetMembersOk() ([]TeamMembers, bool) {
+func (o *Team) GetMembersOk() ([]TeamMembersInner, bool) {
 	if o == nil || isNil(o.Members) {
 		return nil, false
 	}
@@ -201,8 +201,8 @@ func (o *Team) HasMembers() bool {
 	return false
 }
 
-// SetMembers gets a reference to the given []TeamMembers and assigns it to the Members field.
-func (o *Team) SetMembers(v []TeamMembers) {
+// SetMembers gets a reference to the given []TeamMembersInner and assigns it to the Members field.
+func (o *Team) SetMembers(v []TeamMembersInner) {
 	o.Members = v
 }
 

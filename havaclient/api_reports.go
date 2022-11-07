@@ -3,7 +3,7 @@ Hava
 
 Hava API
 
-API version: 1.1.1
+API version: 1.1.2
 Contact: support@hava.io
 */
 
@@ -64,7 +64,7 @@ func (r ApiReportsIndexRequest) Token(token string) ApiReportsIndexRequest {
 	return r
 }
 
-func (r ApiReportsIndexRequest) Execute() (*InlineResponse2007, *http.Response, error) {
+func (r ApiReportsIndexRequest) Execute() (*ReportsIndex200Response, *http.Response, error) {
 	return r.ApiService.ReportsIndexExecute(r)
 }
 
@@ -82,13 +82,13 @@ func (a *ReportsApiService) ReportsIndex(ctx context.Context) ApiReportsIndexReq
 }
 
 // Execute executes the request
-//  @return InlineResponse2007
-func (a *ReportsApiService) ReportsIndexExecute(r ApiReportsIndexRequest) (*InlineResponse2007, *http.Response, error) {
+//  @return ReportsIndex200Response
+func (a *ReportsApiService) ReportsIndexExecute(r ApiReportsIndexRequest) (*ReportsIndex200Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *InlineResponse2007
+		localVarReturnValue  *ReportsIndex200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ReportsApiService.ReportsIndex")
@@ -176,7 +176,7 @@ type ApiReportsReportIdExportPostRequest struct {
 	ApiService *ReportsApiService
 	reportId string
 	exportFormat *string
-	reportIdExportBody *ReportIdExportBody
+	reportsReportIdExportPostRequest *ReportsReportIdExportPostRequest
 }
 
 // The format to export the report to
@@ -185,8 +185,8 @@ func (r ApiReportsReportIdExportPostRequest) ExportFormat(exportFormat string) A
 	return r
 }
 
-func (r ApiReportsReportIdExportPostRequest) ReportIdExportBody(reportIdExportBody ReportIdExportBody) ApiReportsReportIdExportPostRequest {
-	r.reportIdExportBody = &reportIdExportBody
+func (r ApiReportsReportIdExportPostRequest) ReportsReportIdExportPostRequest(reportsReportIdExportPostRequest ReportsReportIdExportPostRequest) ApiReportsReportIdExportPostRequest {
+	r.reportsReportIdExportPostRequest = &reportsReportIdExportPostRequest
 	return r
 }
 
@@ -231,8 +231,8 @@ func (a *ReportsApiService) ReportsReportIdExportPostExecute(r ApiReportsReportI
 	if r.exportFormat == nil {
 		return nil, reportError("exportFormat is required and must be specified")
 	}
-	if r.reportIdExportBody == nil {
-		return nil, reportError("reportIdExportBody is required and must be specified")
+	if r.reportsReportIdExportPostRequest == nil {
+		return nil, reportError("reportsReportIdExportPostRequest is required and must be specified")
 	}
 
 	localVarQueryParams.Add("export_format", parameterToString(*r.exportFormat, ""))
@@ -254,7 +254,7 @@ func (a *ReportsApiService) ReportsReportIdExportPostExecute(r ApiReportsReportI
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.reportIdExportBody
+	localVarPostBody = r.reportsReportIdExportPostRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
@@ -278,7 +278,7 @@ func (a *ReportsApiService) ReportsReportIdExportPostExecute(r ApiReportsReportI
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode == 422 {
-			var v Error
+			var v []ErrorInner
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()

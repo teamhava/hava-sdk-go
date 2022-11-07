@@ -3,7 +3,7 @@ Hava
 
 Hava API
 
-API version: 1.1.1
+API version: 1.1.2
 Contact: support@hava.io
 */
 
@@ -26,7 +26,7 @@ type Project struct {
 	// The unique ID of the account the project belongs to
 	AccountId *string `json:"account_id,omitempty"`
 	// An array of users that are members of this project
-	Members []ProjectMembers `json:"members,omitempty"`
+	Members []ProjectMembersInner `json:"members,omitempty"`
 }
 
 // NewProject instantiates a new Project object
@@ -175,9 +175,9 @@ func (o *Project) SetAccountId(v string) {
 }
 
 // GetMembers returns the Members field value if set, zero value otherwise.
-func (o *Project) GetMembers() []ProjectMembers {
+func (o *Project) GetMembers() []ProjectMembersInner {
 	if o == nil || isNil(o.Members) {
-		var ret []ProjectMembers
+		var ret []ProjectMembersInner
 		return ret
 	}
 	return o.Members
@@ -185,7 +185,7 @@ func (o *Project) GetMembers() []ProjectMembers {
 
 // GetMembersOk returns a tuple with the Members field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Project) GetMembersOk() ([]ProjectMembers, bool) {
+func (o *Project) GetMembersOk() ([]ProjectMembersInner, bool) {
 	if o == nil || isNil(o.Members) {
 		return nil, false
 	}
@@ -201,8 +201,8 @@ func (o *Project) HasMembers() bool {
 	return false
 }
 
-// SetMembers gets a reference to the given []ProjectMembers and assigns it to the Members field.
-func (o *Project) SetMembers(v []ProjectMembers) {
+// SetMembers gets a reference to the given []ProjectMembersInner and assigns it to the Members field.
+func (o *Project) SetMembers(v []ProjectMembersInner) {
 	o.Members = v
 }
 

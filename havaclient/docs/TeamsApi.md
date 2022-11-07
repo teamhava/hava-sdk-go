@@ -237,7 +237,7 @@ Name | Type | Description  | Notes
 
 ## TeamsCreate
 
-> Team TeamsCreate(ctx, accountId).AccountIdTeamsBody(accountIdTeamsBody).Execute()
+> Team TeamsCreate(ctx, accountId).TeamsCreateRequest(teamsCreateRequest).Execute()
 
 Create a team
 
@@ -257,11 +257,11 @@ import (
 
 func main() {
     accountId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | The unique ID of the account to create a team in
-    accountIdTeamsBody := *openapiclient.NewAccountIdTeamsBody() // AccountIdTeamsBody | 
+    teamsCreateRequest := *openapiclient.NewTeamsCreateRequest() // TeamsCreateRequest | 
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.TeamsApi.TeamsCreate(context.Background(), accountId).AccountIdTeamsBody(accountIdTeamsBody).Execute()
+    resp, r, err := apiClient.TeamsApi.TeamsCreate(context.Background(), accountId).TeamsCreateRequest(teamsCreateRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `TeamsApi.TeamsCreate``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -287,7 +287,7 @@ Other parameters are passed through a pointer to a apiTeamsCreateRequest struct 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **accountIdTeamsBody** | [**AccountIdTeamsBody**](AccountIdTeamsBody.md) |  | 
+ **teamsCreateRequest** | [**TeamsCreateRequest**](TeamsCreateRequest.md) |  | 
 
 ### Return type
 
@@ -378,7 +378,7 @@ Name | Type | Description  | Notes
 
 ## TeamsIndex
 
-> InlineResponse2001 TeamsIndex(ctx, accountId).Page(page).PageSize(pageSize).Sort(sort).SortDir(sortDir).Token(token).Execute()
+> TeamsIndex200Response TeamsIndex(ctx, accountId).Page(page).PageSize(pageSize).Sort(sort).SortDir(sortDir).Token(token).Execute()
 
 List all teams
 
@@ -409,7 +409,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `TeamsApi.TeamsIndex``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `TeamsIndex`: InlineResponse2001
+    // response from `TeamsIndex`: TeamsIndex200Response
     fmt.Fprintf(os.Stdout, "Response from `TeamsApi.TeamsIndex`: %v\n", resp)
 }
 ```
@@ -438,7 +438,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse2001**](InlineResponse2001.md)
+[**TeamsIndex200Response**](TeamsIndex200Response.md)
 
 ### Authorization
 
@@ -527,7 +527,7 @@ Name | Type | Description  | Notes
 
 ## TeamsUpdate
 
-> Team TeamsUpdate(ctx, accountId, teamId).TeamsTeamIdBody(teamsTeamIdBody).Execute()
+> Team TeamsUpdate(ctx, accountId, teamId).TeamsUpdateRequest(teamsUpdateRequest).Execute()
 
 Update a team
 
@@ -546,11 +546,11 @@ import (
 func main() {
     accountId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | The unique ID of the account the team is in
     teamId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | The unique ID of the team to update
-    teamsTeamIdBody := *openapiclient.NewTeamsTeamIdBody() // TeamsTeamIdBody | 
+    teamsUpdateRequest := *openapiclient.NewTeamsUpdateRequest() // TeamsUpdateRequest | 
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.TeamsApi.TeamsUpdate(context.Background(), accountId, teamId).TeamsTeamIdBody(teamsTeamIdBody).Execute()
+    resp, r, err := apiClient.TeamsApi.TeamsUpdate(context.Background(), accountId, teamId).TeamsUpdateRequest(teamsUpdateRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `TeamsApi.TeamsUpdate``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -578,7 +578,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **teamsTeamIdBody** | [**TeamsTeamIdBody**](TeamsTeamIdBody.md) |  | 
+ **teamsUpdateRequest** | [**TeamsUpdateRequest**](TeamsUpdateRequest.md) |  | 
 
 ### Return type
 

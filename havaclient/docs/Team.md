@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **Name** | Pointer to **string** | The name of the team | [optional] 
 **AccountId** | Pointer to **string** | The unique ID of the account the team belongs to | [optional] 
 **Roles** | Pointer to **[]string** | An array of roles assigned to the users in this team | [optional] 
-**Members** | Pointer to [**[]TeamMembers**](TeamMembers.md) | An array of users that are members of this team | [optional] 
+**Members** | Pointer to [**[]TeamMembersInner**](TeamMembersInner.md) | An array of users that are members of this team | [optional] 
 
 ## Methods
 
@@ -131,20 +131,20 @@ HasRoles returns a boolean if a field has been set.
 
 ### GetMembers
 
-`func (o *Team) GetMembers() []TeamMembers`
+`func (o *Team) GetMembers() []TeamMembersInner`
 
 GetMembers returns the Members field if non-nil, zero value otherwise.
 
 ### GetMembersOk
 
-`func (o *Team) GetMembersOk() (*[]TeamMembers, bool)`
+`func (o *Team) GetMembersOk() (*[]TeamMembersInner, bool)`
 
 GetMembersOk returns a tuple with the Members field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMembers
 
-`func (o *Team) SetMembers(v []TeamMembers)`
+`func (o *Team) SetMembers(v []TeamMembersInner)`
 
 SetMembers sets Members field to given value.
 

@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## JobsShow
 
-> InlineResponse200 JobsShow(ctx, jobId).Execute()
+> JobsShow200Response JobsShow(ctx, jobId).Execute()
 
 Get a job
 
@@ -36,7 +36,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `JobsApi.JobsShow``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `JobsShow`: InlineResponse200
+    // response from `JobsShow`: JobsShow200Response
     fmt.Fprintf(os.Stdout, "Response from `JobsApi.JobsShow`: %v\n", resp)
 }
 ```
@@ -60,7 +60,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse200**](InlineResponse200.md)
+[**JobsShow200Response**](JobsShow200Response.md)
 
 ### Authorization
 

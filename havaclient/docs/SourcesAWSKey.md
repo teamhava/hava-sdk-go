@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **Type** | Pointer to **string** | Must be set to AWS::Keys | [optional] 
 **AccessKey** | Pointer to **string** | The access key for your AWS account | [optional] 
 **SecretKey** | Pointer to **string** | The secret key for your AWS account | [optional] 
+**ProjectId** | Pointer to **string** | The ID of the project the source will be added to. If not set the source will get added to the Default project | [optional] 
 
 ## Methods
 
@@ -127,6 +128,31 @@ SetSecretKey sets SecretKey field to given value.
 `func (o *SourcesAWSKey) HasSecretKey() bool`
 
 HasSecretKey returns a boolean if a field has been set.
+
+### GetProjectId
+
+`func (o *SourcesAWSKey) GetProjectId() string`
+
+GetProjectId returns the ProjectId field if non-nil, zero value otherwise.
+
+### GetProjectIdOk
+
+`func (o *SourcesAWSKey) GetProjectIdOk() (*string, bool)`
+
+GetProjectIdOk returns a tuple with the ProjectId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetProjectId
+
+`func (o *SourcesAWSKey) SetProjectId(v string)`
+
+SetProjectId sets ProjectId field to given value.
+
+### HasProjectId
+
+`func (o *SourcesAWSKey) HasProjectId() bool`
+
+HasProjectId returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -3,7 +3,7 @@ Hava
 
 Hava API
 
-API version: 1.1.1
+API version: 1.1.2
 Contact: support@hava.io
 */
 
@@ -34,7 +34,7 @@ type View struct {
 	// Whether the view is considered empty and has no valuable resources to display
 	Empty *bool `json:"empty,omitempty"`
 	// A list of resource ID's to be displayed. Only returned for list view.
-	Resources []ViewResources `json:"resources,omitempty"`
+	Resources []ViewResourcesInner `json:"resources,omitempty"`
 }
 
 // NewView instantiates a new View object
@@ -311,9 +311,9 @@ func (o *View) SetEmpty(v bool) {
 }
 
 // GetResources returns the Resources field value if set, zero value otherwise.
-func (o *View) GetResources() []ViewResources {
+func (o *View) GetResources() []ViewResourcesInner {
 	if o == nil || isNil(o.Resources) {
-		var ret []ViewResources
+		var ret []ViewResourcesInner
 		return ret
 	}
 	return o.Resources
@@ -321,7 +321,7 @@ func (o *View) GetResources() []ViewResources {
 
 // GetResourcesOk returns a tuple with the Resources field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *View) GetResourcesOk() ([]ViewResources, bool) {
+func (o *View) GetResourcesOk() ([]ViewResourcesInner, bool) {
 	if o == nil || isNil(o.Resources) {
 		return nil, false
 	}
@@ -337,8 +337,8 @@ func (o *View) HasResources() bool {
 	return false
 }
 
-// SetResources gets a reference to the given []ViewResources and assigns it to the Resources field.
-func (o *View) SetResources(v []ViewResources) {
+// SetResources gets a reference to the given []ViewResourcesInner and assigns it to the Resources field.
+func (o *View) SetResources(v []ViewResourcesInner) {
 	o.Resources = v
 }
 

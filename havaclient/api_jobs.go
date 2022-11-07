@@ -3,7 +3,7 @@ Hava
 
 Hava API
 
-API version: 1.1.1
+API version: 1.1.2
 Contact: support@hava.io
 */
 
@@ -30,7 +30,7 @@ type ApiJobsShowRequest struct {
 	jobId string
 }
 
-func (r ApiJobsShowRequest) Execute() (*InlineResponse200, *http.Response, error) {
+func (r ApiJobsShowRequest) Execute() (*JobsShow200Response, *http.Response, error) {
 	return r.ApiService.JobsShowExecute(r)
 }
 
@@ -50,13 +50,13 @@ func (a *JobsApiService) JobsShow(ctx context.Context, jobId string) ApiJobsShow
 }
 
 // Execute executes the request
-//  @return InlineResponse200
-func (a *JobsApiService) JobsShowExecute(r ApiJobsShowRequest) (*InlineResponse200, *http.Response, error) {
+//  @return JobsShow200Response
+func (a *JobsApiService) JobsShowExecute(r ApiJobsShowRequest) (*JobsShow200Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *InlineResponse200
+		localVarReturnValue  *JobsShow200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "JobsApiService.JobsShow")

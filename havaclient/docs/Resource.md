@@ -11,8 +11,8 @@ Name | Type | Description | Notes
 **Price** | Pointer to **int32** | The estimated price per month assigned by Hava | [optional] 
 **Region** | Pointer to **string** | The region or location in which this resource is located | [optional] 
 **Data** | Pointer to **map[string]interface{}** | Resource specific data | [optional] 
-**Tags** | Pointer to [**[]ResourceTags**](ResourceTags.md) | An array tags associated to this resource | [optional] 
-**Connections** | Pointer to [**[]ResourceConnections**](ResourceConnections.md) | A list of connections to other resources | [optional] 
+**Tags** | Pointer to [**[]ResourceTagsInner**](ResourceTagsInner.md) | An array tags associated to this resource | [optional] 
+**Connections** | Pointer to [**[]ResourceConnectionsInner**](ResourceConnectionsInner.md) | A list of connections to other resources | [optional] 
 
 ## Methods
 
@@ -210,20 +210,20 @@ HasData returns a boolean if a field has been set.
 
 ### GetTags
 
-`func (o *Resource) GetTags() []ResourceTags`
+`func (o *Resource) GetTags() []ResourceTagsInner`
 
 GetTags returns the Tags field if non-nil, zero value otherwise.
 
 ### GetTagsOk
 
-`func (o *Resource) GetTagsOk() (*[]ResourceTags, bool)`
+`func (o *Resource) GetTagsOk() (*[]ResourceTagsInner, bool)`
 
 GetTagsOk returns a tuple with the Tags field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTags
 
-`func (o *Resource) SetTags(v []ResourceTags)`
+`func (o *Resource) SetTags(v []ResourceTagsInner)`
 
 SetTags sets Tags field to given value.
 
@@ -235,20 +235,20 @@ HasTags returns a boolean if a field has been set.
 
 ### GetConnections
 
-`func (o *Resource) GetConnections() []ResourceConnections`
+`func (o *Resource) GetConnections() []ResourceConnectionsInner`
 
 GetConnections returns the Connections field if non-nil, zero value otherwise.
 
 ### GetConnectionsOk
 
-`func (o *Resource) GetConnectionsOk() (*[]ResourceConnections, bool)`
+`func (o *Resource) GetConnectionsOk() (*[]ResourceConnectionsInner, bool)`
 
 GetConnectionsOk returns a tuple with the Connections field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetConnections
 
-`func (o *Resource) SetConnections(v []ResourceConnections)`
+`func (o *Resource) SetConnections(v []ResourceConnectionsInner)`
 
 SetConnections sets Connections field to given value.
 

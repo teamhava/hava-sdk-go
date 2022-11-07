@@ -3,7 +3,7 @@ Hava
 
 Hava API
 
-API version: 1.1.1
+API version: 1.1.2
 Contact: support@hava.io
 */
 
@@ -28,11 +28,11 @@ type ApiViewsExportRequest struct {
 	ctx context.Context
 	ApiService *ViewsApiService
 	viewId string
-	viewIdExportBody *ViewIdExportBody
+	viewsExportRequest *ViewsExportRequest
 }
 
-func (r ApiViewsExportRequest) ViewIdExportBody(viewIdExportBody ViewIdExportBody) ApiViewsExportRequest {
-	r.viewIdExportBody = &viewIdExportBody
+func (r ApiViewsExportRequest) ViewsExportRequest(viewsExportRequest ViewsExportRequest) ApiViewsExportRequest {
+	r.viewsExportRequest = &viewsExportRequest
 	return r
 }
 
@@ -77,8 +77,8 @@ func (a *ViewsApiService) ViewsExportExecute(r ApiViewsExportRequest) (*http.Res
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.viewIdExportBody == nil {
-		return nil, reportError("viewIdExportBody is required and must be specified")
+	if r.viewsExportRequest == nil {
+		return nil, reportError("viewsExportRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -99,7 +99,7 @@ func (a *ViewsApiService) ViewsExportExecute(r ApiViewsExportRequest) (*http.Res
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.viewIdExportBody
+	localVarPostBody = r.viewsExportRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
@@ -123,7 +123,7 @@ func (a *ViewsApiService) ViewsExportExecute(r ApiViewsExportRequest) (*http.Res
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode == 422 {
-			var v Error
+			var v []ErrorInner
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()

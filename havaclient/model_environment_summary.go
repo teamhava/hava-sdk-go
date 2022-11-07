@@ -3,7 +3,7 @@ Hava
 
 Hava API
 
-API version: 1.1.1
+API version: 1.1.2
 Contact: support@hava.io
 */
 
@@ -28,9 +28,9 @@ type EnvironmentSummary struct {
 	// Identifies whether the environment was imported or custom made using search
 	EnvironmentType *string `json:"environment_type,omitempty"`
 	// The different views for the environment
-	Views []EnvironmentSummaryViews `json:"views,omitempty"`
+	Views []EnvironmentSummaryViewsInner `json:"views,omitempty"`
 	// The sources that contain the resources this environment covers.
-	Sources []EnvironmentSummarySources `json:"sources,omitempty"`
+	Sources []EnvironmentSummarySourcesInner `json:"sources,omitempty"`
 }
 
 // NewEnvironmentSummary instantiates a new EnvironmentSummary object
@@ -211,9 +211,9 @@ func (o *EnvironmentSummary) SetEnvironmentType(v string) {
 }
 
 // GetViews returns the Views field value if set, zero value otherwise.
-func (o *EnvironmentSummary) GetViews() []EnvironmentSummaryViews {
+func (o *EnvironmentSummary) GetViews() []EnvironmentSummaryViewsInner {
 	if o == nil || isNil(o.Views) {
-		var ret []EnvironmentSummaryViews
+		var ret []EnvironmentSummaryViewsInner
 		return ret
 	}
 	return o.Views
@@ -221,7 +221,7 @@ func (o *EnvironmentSummary) GetViews() []EnvironmentSummaryViews {
 
 // GetViewsOk returns a tuple with the Views field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EnvironmentSummary) GetViewsOk() ([]EnvironmentSummaryViews, bool) {
+func (o *EnvironmentSummary) GetViewsOk() ([]EnvironmentSummaryViewsInner, bool) {
 	if o == nil || isNil(o.Views) {
 		return nil, false
 	}
@@ -237,15 +237,15 @@ func (o *EnvironmentSummary) HasViews() bool {
 	return false
 }
 
-// SetViews gets a reference to the given []EnvironmentSummaryViews and assigns it to the Views field.
-func (o *EnvironmentSummary) SetViews(v []EnvironmentSummaryViews) {
+// SetViews gets a reference to the given []EnvironmentSummaryViewsInner and assigns it to the Views field.
+func (o *EnvironmentSummary) SetViews(v []EnvironmentSummaryViewsInner) {
 	o.Views = v
 }
 
 // GetSources returns the Sources field value if set, zero value otherwise.
-func (o *EnvironmentSummary) GetSources() []EnvironmentSummarySources {
+func (o *EnvironmentSummary) GetSources() []EnvironmentSummarySourcesInner {
 	if o == nil || isNil(o.Sources) {
-		var ret []EnvironmentSummarySources
+		var ret []EnvironmentSummarySourcesInner
 		return ret
 	}
 	return o.Sources
@@ -253,7 +253,7 @@ func (o *EnvironmentSummary) GetSources() []EnvironmentSummarySources {
 
 // GetSourcesOk returns a tuple with the Sources field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EnvironmentSummary) GetSourcesOk() ([]EnvironmentSummarySources, bool) {
+func (o *EnvironmentSummary) GetSourcesOk() ([]EnvironmentSummarySourcesInner, bool) {
 	if o == nil || isNil(o.Sources) {
 		return nil, false
 	}
@@ -269,8 +269,8 @@ func (o *EnvironmentSummary) HasSources() bool {
 	return false
 }
 
-// SetSources gets a reference to the given []EnvironmentSummarySources and assigns it to the Sources field.
-func (o *EnvironmentSummary) SetSources(v []EnvironmentSummarySources) {
+// SetSources gets a reference to the given []EnvironmentSummarySourcesInner and assigns it to the Sources field.
+func (o *EnvironmentSummary) SetSources(v []EnvironmentSummarySourcesInner) {
 	o.Sources = v
 }
 

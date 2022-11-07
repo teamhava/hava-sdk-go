@@ -9,8 +9,8 @@ Name | Type | Description | Notes
 **State** | Pointer to **string** | The state of the environment | [optional] 
 **Query** | Pointer to **string** | The query string used to create the environment | [optional] 
 **EnvironmentType** | Pointer to **string** | Identifies whether the environment was imported or custom made using search | [optional] 
-**Views** | Pointer to [**[]EnvironmentSummaryViews**](EnvironmentSummaryViews.md) | The different views for the environment | [optional] 
-**Sources** | Pointer to [**[]EnvironmentSummarySources**](EnvironmentSummarySources.md) | The sources that contain the resources this environment covers. | [optional] 
+**Views** | Pointer to [**[]EnvironmentSummaryViewsInner**](EnvironmentSummaryViewsInner.md) | The different views for the environment | [optional] 
+**Sources** | Pointer to [**[]EnvironmentSummarySourcesInner**](EnvironmentSummarySourcesInner.md) | The sources that contain the resources this environment covers. | [optional] 
 
 ## Methods
 
@@ -158,20 +158,20 @@ HasEnvironmentType returns a boolean if a field has been set.
 
 ### GetViews
 
-`func (o *EnvironmentSummary) GetViews() []EnvironmentSummaryViews`
+`func (o *EnvironmentSummary) GetViews() []EnvironmentSummaryViewsInner`
 
 GetViews returns the Views field if non-nil, zero value otherwise.
 
 ### GetViewsOk
 
-`func (o *EnvironmentSummary) GetViewsOk() (*[]EnvironmentSummaryViews, bool)`
+`func (o *EnvironmentSummary) GetViewsOk() (*[]EnvironmentSummaryViewsInner, bool)`
 
 GetViewsOk returns a tuple with the Views field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetViews
 
-`func (o *EnvironmentSummary) SetViews(v []EnvironmentSummaryViews)`
+`func (o *EnvironmentSummary) SetViews(v []EnvironmentSummaryViewsInner)`
 
 SetViews sets Views field to given value.
 
@@ -183,20 +183,20 @@ HasViews returns a boolean if a field has been set.
 
 ### GetSources
 
-`func (o *EnvironmentSummary) GetSources() []EnvironmentSummarySources`
+`func (o *EnvironmentSummary) GetSources() []EnvironmentSummarySourcesInner`
 
 GetSources returns the Sources field if non-nil, zero value otherwise.
 
 ### GetSourcesOk
 
-`func (o *EnvironmentSummary) GetSourcesOk() (*[]EnvironmentSummarySources, bool)`
+`func (o *EnvironmentSummary) GetSourcesOk() (*[]EnvironmentSummarySourcesInner, bool)`
 
 GetSourcesOk returns a tuple with the Sources field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSources
 
-`func (o *EnvironmentSummary) SetSources(v []EnvironmentSummarySources)`
+`func (o *EnvironmentSummary) SetSources(v []EnvironmentSummarySourcesInner)`
 
 SetSources sets Sources field to given value.
 

@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 ## ApiTokensCreate
 
-> Token ApiTokensCreate(ctx, accountId).AccountIdTokensBody(accountIdTokensBody).Execute()
+> Token ApiTokensCreate(ctx, accountId).ApiTokensCreateRequest(apiTokensCreateRequest).Execute()
 
 Generate a new token
 
@@ -32,11 +32,11 @@ import (
 
 func main() {
     accountId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | The unique ID of the account to create a team in
-    accountIdTokensBody := *openapiclient.NewAccountIdTokensBody() // AccountIdTokensBody | 
+    apiTokensCreateRequest := *openapiclient.NewApiTokensCreateRequest() // ApiTokensCreateRequest | 
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.APITokensApi.ApiTokensCreate(context.Background(), accountId).AccountIdTokensBody(accountIdTokensBody).Execute()
+    resp, r, err := apiClient.APITokensApi.ApiTokensCreate(context.Background(), accountId).ApiTokensCreateRequest(apiTokensCreateRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `APITokensApi.ApiTokensCreate``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -62,7 +62,7 @@ Other parameters are passed through a pointer to a apiApiTokensCreateRequest str
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **accountIdTokensBody** | [**AccountIdTokensBody**](AccountIdTokensBody.md) |  | 
+ **apiTokensCreateRequest** | [**ApiTokensCreateRequest**](ApiTokensCreateRequest.md) |  | 
 
 ### Return type
 
@@ -153,7 +153,7 @@ Name | Type | Description  | Notes
 
 ## ApiTokensIndex
 
-> InlineResponse2003 ApiTokensIndex(ctx, accountId).Page(page).PageSize(pageSize).Sort(sort).SortDir(sortDir).Token(token).Execute()
+> ApiTokensIndex200Response ApiTokensIndex(ctx, accountId).Page(page).PageSize(pageSize).Sort(sort).SortDir(sortDir).Token(token).Execute()
 
 List all API tokens in the specified account
 
@@ -184,7 +184,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `APITokensApi.ApiTokensIndex``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `ApiTokensIndex`: InlineResponse2003
+    // response from `ApiTokensIndex`: ApiTokensIndex200Response
     fmt.Fprintf(os.Stdout, "Response from `APITokensApi.ApiTokensIndex`: %v\n", resp)
 }
 ```
@@ -213,7 +213,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse2003**](InlineResponse2003.md)
+[**ApiTokensIndex200Response**](ApiTokensIndex200Response.md)
 
 ### Authorization
 

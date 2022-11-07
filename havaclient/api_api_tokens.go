@@ -3,7 +3,7 @@ Hava
 
 Hava API
 
-API version: 1.1.1
+API version: 1.1.2
 Contact: support@hava.io
 */
 
@@ -28,11 +28,11 @@ type ApiApiTokensCreateRequest struct {
 	ctx context.Context
 	ApiService *APITokensApiService
 	accountId string
-	accountIdTokensBody *AccountIdTokensBody
+	apiTokensCreateRequest *ApiTokensCreateRequest
 }
 
-func (r ApiApiTokensCreateRequest) AccountIdTokensBody(accountIdTokensBody AccountIdTokensBody) ApiApiTokensCreateRequest {
-	r.accountIdTokensBody = &accountIdTokensBody
+func (r ApiApiTokensCreateRequest) ApiTokensCreateRequest(apiTokensCreateRequest ApiTokensCreateRequest) ApiApiTokensCreateRequest {
+	r.apiTokensCreateRequest = &apiTokensCreateRequest
 	return r
 }
 
@@ -79,8 +79,8 @@ func (a *APITokensApiService) ApiTokensCreateExecute(r ApiApiTokensCreateRequest
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.accountIdTokensBody == nil {
-		return localVarReturnValue, nil, reportError("accountIdTokensBody is required and must be specified")
+	if r.apiTokensCreateRequest == nil {
+		return localVarReturnValue, nil, reportError("apiTokensCreateRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -101,7 +101,7 @@ func (a *APITokensApiService) ApiTokensCreateExecute(r ApiApiTokensCreateRequest
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.accountIdTokensBody
+	localVarPostBody = r.apiTokensCreateRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -125,7 +125,7 @@ func (a *APITokensApiService) ApiTokensCreateExecute(r ApiApiTokensCreateRequest
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode == 422 {
-			var v Error
+			var v []ErrorInner
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -284,7 +284,7 @@ func (r ApiApiTokensIndexRequest) Token(token string) ApiApiTokensIndexRequest {
 	return r
 }
 
-func (r ApiApiTokensIndexRequest) Execute() (*InlineResponse2003, *http.Response, error) {
+func (r ApiApiTokensIndexRequest) Execute() (*ApiTokensIndex200Response, *http.Response, error) {
 	return r.ApiService.ApiTokensIndexExecute(r)
 }
 
@@ -304,13 +304,13 @@ func (a *APITokensApiService) ApiTokensIndex(ctx context.Context, accountId stri
 }
 
 // Execute executes the request
-//  @return InlineResponse2003
-func (a *APITokensApiService) ApiTokensIndexExecute(r ApiApiTokensIndexRequest) (*InlineResponse2003, *http.Response, error) {
+//  @return ApiTokensIndex200Response
+func (a *APITokensApiService) ApiTokensIndexExecute(r ApiApiTokensIndexRequest) (*ApiTokensIndex200Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *InlineResponse2003
+		localVarReturnValue  *ApiTokensIndex200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "APITokensApiService.ApiTokensIndex")

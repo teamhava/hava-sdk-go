@@ -5,7 +5,7 @@ info:
   description: Hava API
   termsOfService: https://hava.io/tos/
   title: Hava
-  version: 1.1.1
+  version: 1.1.2
 externalDocs:
   description: Find out more about Hava
   url: https://docs.hava.io
@@ -64,7 +64,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_200'
+                $ref: '#/components/schemas/jobs_show_200_response'
           description: Returns the state of the job if it failed or is still running
         "303":
           description: Redirects to the resource created by the job once complete
@@ -274,7 +274,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_200_1'
+                $ref: '#/components/schemas/teams_index_200_response'
           description: OK
       summary: List all teams
       tags:
@@ -297,7 +297,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/account_id_teams_body'
+              $ref: '#/components/schemas/teams_create_request'
         required: true
       responses:
         "201":
@@ -405,7 +405,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/teams_team_id_body'
+              $ref: '#/components/schemas/teams_update_request'
         required: true
       responses:
         "201":
@@ -584,7 +584,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_200_2'
+                $ref: '#/components/schemas/projects_index_200_response'
           description: OK
       summary: List all projects
       tags:
@@ -605,7 +605,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/account_id_projects_body'
+              $ref: '#/components/schemas/projects_create_request'
         required: true
       responses:
         "201":
@@ -713,7 +713,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/projects_project_id_body'
+              $ref: '#/components/schemas/projects_update_request'
         required: true
       responses:
         "201":
@@ -796,7 +796,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_200_3'
+                $ref: '#/components/schemas/api_tokens_index_200_response'
           description: OK
       summary: List all API tokens in the specified account
       tags:
@@ -819,7 +819,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/account_id_tokens_body'
+              $ref: '#/components/schemas/api_tokens_create_request'
         required: true
       responses:
         "201":
@@ -927,7 +927,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_200_4'
+                $ref: '#/components/schemas/environment_revisions_index_200_response'
           description: OK
         "404":
           description: Environment not found
@@ -988,7 +988,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_200_5'
+                $ref: '#/components/schemas/environments_index_200_response'
           description: OK
       summary: List environments
       tags:
@@ -1005,7 +1005,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/environments_body'
+              $ref: '#/components/schemas/environments_create_request'
         required: true
       responses:
         "200":
@@ -1095,7 +1095,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/environments_environment_id_body'
+              $ref: '#/components/schemas/environments_update_request'
         required: false
       responses:
         "200":
@@ -1172,7 +1172,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_200_6'
+                $ref: '#/components/schemas/environment_shares_list_200_response'
           description: OK
       summary: List shares of the specific environment
       tags:
@@ -1193,7 +1193,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/environment_id_shares_body'
+              $ref: '#/components/schemas/environment_shares_create_request'
         required: true
       responses:
         "200":
@@ -1278,7 +1278,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/shares_share_id_body'
+              $ref: '#/components/schemas/environment_shares_update_request'
         required: true
       responses:
         "202":
@@ -1315,11 +1315,9 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/view_id_export_body'
+              $ref: '#/components/schemas/views_export_request'
         required: true
       responses:
-        "200":
-          description: OK
         "202":
           description: Export queued
           headers:
@@ -1394,7 +1392,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_200_7'
+                $ref: '#/components/schemas/reports_index_200_response'
           description: OK
       summary: List all reports
       tags:
@@ -1449,7 +1447,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/report_id_export_body'
+              $ref: '#/components/schemas/_reports__report_id__export_post_request'
         required: true
       responses:
         "200":
@@ -1576,7 +1574,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_200_8'
+                $ref: '#/components/schemas/sources_index_200_response'
           description: OK
       summary: List all sources
       tags:
@@ -1589,10 +1587,10 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/sources_body'
+              $ref: '#/components/schemas/sources_create_request'
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/sources_body_1'
+              $ref: '#/components/schemas/sources_create_request_1'
         description: To create an AWS or Azure source you need to pass the parameters
           through in a JSON object. To create a Google Cloud source you need to upload
           your Service Account Credentials as a multi-part file upload.
@@ -1681,10 +1679,10 @@ paths:
               access_key: AKIA12341234
               secret_key: v.co1A3/sqpdke
             schema:
-              $ref: '#/components/schemas/sources_source_id_body'
+              $ref: '#/components/schemas/sources_update_request'
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/sources_source_id_body_1'
+              $ref: '#/components/schemas/sources_update_request_1'
         description: Parameters for updating your source. Any properties not defined
           will not be updated.
       responses:
@@ -1769,7 +1767,7 @@ components:
           description: A list of resource ID's to be displayed. Only returned for
             list view.
           items:
-            $ref: '#/components/schemas/View_resources'
+            $ref: '#/components/schemas/View_resources_inner'
           type: array
       type: object
     ReportSummary:
@@ -1808,7 +1806,7 @@ components:
       type: object
     Report:
       example:
-        data: {}
+        data: "{}"
         name: Compliance
         created_at: 2000-01-23
         id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
@@ -1876,7 +1874,7 @@ components:
         members:
           description: An array of users that are members of this project
           items:
-            $ref: '#/components/schemas/Project_members'
+            $ref: '#/components/schemas/Project_members_inner'
           type: array
       type: object
     Team:
@@ -1921,7 +1919,7 @@ components:
         members:
           description: An array of users that are members of this team
           items:
-            $ref: '#/components/schemas/Team_members'
+            $ref: '#/components/schemas/Team_members_inner'
           type: array
       type: object
     Source:
@@ -1990,6 +1988,12 @@ components:
           description: The secret key for your AWS account
           example: v.co1A3/sqpdke
           type: string
+        project_id:
+          description: The ID of the project the source will be added to. If not set
+            the source will get added to the Default project
+          example: a1c258cb-9222-4876-9050-f3a1bacf45df
+          format: uuid
+          type: string
       type: object
     SourcesAWSCAR:
       description: The parameters required to create an AWS Cross Account Role Source
@@ -2013,6 +2017,12 @@ components:
           description: The ARN of the role Hava is to assume in your account to import
             resources
           example: arn:aws:iam::12341234:role/Hava
+          type: string
+        project_id:
+          description: The ID of the project the source will be added to. If not set
+            the source will get added to the Default project
+          example: a1c258cb-9222-4876-9050-f3a1bacf45df
+          format: uuid
           type: string
       type: object
     SourcesAzureCredentials:
@@ -2042,6 +2052,12 @@ components:
         secret_key:
           description: The Client Secret for your Service Principle
           example: 123secret
+          type: string
+        project_id:
+          description: The ID of the project the source will be added to. If not set
+            the source will get added to the Default project
+          example: a1c258cb-9222-4876-9050-f3a1bacf45df
+          format: uuid
           type: string
       type: object
     EnvironmentRevision:
@@ -2174,12 +2190,12 @@ components:
         views:
           description: The different views for the environment
           items:
-            $ref: '#/components/schemas/EnvironmentSummary_views'
+            $ref: '#/components/schemas/EnvironmentSummary_views_inner'
           type: array
         sources:
           description: The sources that contain the resources this environment covers.
           items:
-            $ref: '#/components/schemas/EnvironmentSummary_sources'
+            $ref: '#/components/schemas/EnvironmentSummary_sources_inner'
           type: array
       type: object
     Environment:
@@ -2198,7 +2214,7 @@ components:
         environment_type: imported
         facet:
           resources:
-          - data: {}
+          - data: "{}"
             price: 0
             name: Demo Instance
             provider_id: i-3947382478
@@ -2223,7 +2239,7 @@ components:
               key: Name
             - value: Demo Instance
               key: Name
-          - data: {}
+          - data: "{}"
             price: 0
             name: Demo Instance
             provider_id: i-3947382478
@@ -2325,7 +2341,7 @@ components:
         sources:
           description: The sources that contain the resources this environment covers.
           items:
-            $ref: '#/components/schemas/EnvironmentSummary_sources'
+            $ref: '#/components/schemas/EnvironmentSummary_sources_inner'
           type: array
         latest_revisions:
           $ref: '#/components/schemas/Environment_latest_revisions'
@@ -2351,7 +2367,7 @@ components:
       type: object
     Resource:
       example:
-        data: {}
+        data: "{}"
         price: 0
         name: Demo Instance
         provider_id: i-3947382478
@@ -2407,31 +2423,20 @@ components:
         tags:
           description: An array tags associated to this resource
           items:
-            $ref: '#/components/schemas/Resource_tags'
+            $ref: '#/components/schemas/Resource_tags_inner'
           type: array
         connections:
           description: A list of connections to other resources
           items:
-            $ref: '#/components/schemas/Resource_connections'
+            $ref: '#/components/schemas/Resource_connections_inner'
           type: array
       type: object
     Error:
-      properties:
-        code:
-          description: The error code relevant to this error
-          example: 422
-          format: int32
-          type: integer
-        type:
-          description: A short identifier for the error type
-          example: Invalid
-          type: string
-        message:
-          description: A description of the error encountered
-          example: Value is in an incorrect format
-          type: string
-      type: object
-    inline_response_200:
+      description: A list of error objects
+      items:
+        $ref: '#/components/schemas/Error_inner'
+      type: array
+    jobs_show_200_response:
       example:
         id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
         state: active
@@ -2450,7 +2455,7 @@ components:
           - complete
           type: string
       type: object
-    inline_response_200_1:
+    teams_index_200_response:
       example:
         next_page_token: next_page_token
         total_size: 0
@@ -2503,7 +2508,7 @@ components:
             $ref: '#/components/schemas/Team'
           type: array
       type: object
-    account_id_teams_body:
+    teams_create_request:
       properties:
         name:
           description: The name of the team to create
@@ -2517,7 +2522,7 @@ components:
             type: string
           type: array
       type: object
-    teams_team_id_body:
+    teams_update_request:
       properties:
         name:
           description: The updated name for the team
@@ -2531,7 +2536,7 @@ components:
             type: string
           type: array
       type: object
-    inline_response_200_2:
+    projects_index_200_response:
       example:
         next_page_token: next_page_token
         total_size: 0
@@ -2580,7 +2585,7 @@ components:
             $ref: '#/components/schemas/Project'
           type: array
       type: object
-    account_id_projects_body:
+    projects_create_request:
       properties:
         name:
           description: The name of the project to create
@@ -2591,7 +2596,7 @@ components:
           example: This project contains all development sources
           type: string
       type: object
-    projects_project_id_body:
+    projects_update_request:
       properties:
         name:
           description: The updated name for the project
@@ -2602,7 +2607,7 @@ components:
           example: This project contains all development sources
           type: string
       type: object
-    inline_response_200_3:
+    api_tokens_index_200_response:
       example:
         next_page_token: next_page_token
         total_size: 0
@@ -2629,14 +2634,14 @@ components:
             $ref: '#/components/schemas/TokenSummary'
           type: array
       type: object
-    account_id_tokens_body:
+    api_tokens_create_request:
       properties:
         name:
           description: The name of the token to create
           example: Integration
           type: string
       type: object
-    inline_response_200_4:
+    environment_revisions_index_200_response:
       example:
         next_page_token: next_page_token
         total_size: 0
@@ -2661,7 +2666,7 @@ components:
             $ref: '#/components/schemas/EnvironmentRevision'
           type: array
       type: object
-    inline_response_200_5:
+    environments_index_200_response:
       example:
         next_page_token: next_page_token
         total_size: 0
@@ -2742,7 +2747,7 @@ components:
             $ref: '#/components/schemas/EnvironmentSummary'
           type: array
       type: object
-    environments_body:
+    environments_create_request:
       properties:
         name:
           description: The name for your environment
@@ -2755,7 +2760,7 @@ components:
       required:
       - query
       type: object
-    environments_environment_id_body:
+    environments_update_request:
       properties:
         name:
           description: The updated name for the environment
@@ -2773,7 +2778,7 @@ components:
       required:
       - query
       type: object
-    inline_response_200_6:
+    environment_shares_list_200_response:
       example:
         next_page_token: next_page_token
         total_size: 0
@@ -2798,7 +2803,7 @@ components:
             $ref: '#/components/schemas/EnvironmentShare'
           type: array
       type: object
-    environmentsenvironment_idshares_config:
+    environment_shares_create_request_config:
       description: Configuration for the generated view. Only used for PNG
       properties:
         connections:
@@ -2811,7 +2816,7 @@ components:
           description: Display labels such as names on the diagram
           type: boolean
       type: object
-    environment_id_shares_body:
+    environment_shares_create_request:
       properties:
         type:
           description: The type of share to create
@@ -2821,14 +2826,14 @@ components:
           - Share::PNG
           type: string
         config:
-          $ref: '#/components/schemas/environmentsenvironment_idshares_config'
+          $ref: '#/components/schemas/environment_shares_create_request_config'
       type: object
-    shares_share_id_body:
+    environment_shares_update_request:
       properties:
         config:
-          $ref: '#/components/schemas/environmentsenvironment_idshares_config'
+          $ref: '#/components/schemas/environment_shares_create_request_config'
       type: object
-    view_id_export_body:
+    views_export_request:
       properties:
         export_format:
           description: The format to export the view to
@@ -2853,7 +2858,7 @@ components:
           format: uuid
           type: string
       type: object
-    inline_response_200_7:
+    reports_index_200_response:
       example:
         next_page_token: next_page_token
         total_size: 0
@@ -2888,7 +2893,7 @@ components:
             $ref: '#/components/schemas/ReportSummary'
           type: array
       type: object
-    report_id_export_body:
+    _reports__report_id__export_post_request:
       properties:
         export_format:
           description: The format to export the report to
@@ -2904,7 +2909,7 @@ components:
       required:
       - export_format
       type: object
-    inline_response_200_8:
+    sources_index_200_response:
       example:
         next_page_token: next_page_token
         total_size: 0
@@ -2935,7 +2940,7 @@ components:
             $ref: '#/components/schemas/Source'
           type: array
       type: object
-    sources_body:
+    sources_create_request:
       example:
         name: Example AWS Key
         type: AWS::Keys
@@ -2945,11 +2950,17 @@ components:
       - $ref: '#/components/schemas/SourcesAWSKey'
       - $ref: '#/components/schemas/SourcesAWSCAR'
       - $ref: '#/components/schemas/SourcesAzureCredentials'
-    sources_body_1:
+    sources_create_request_1:
       properties:
         name:
           description: The name for your source.
           example: GCP Source
+          type: string
+        project_id:
+          description: The ID of the project the source will be added to. If not set
+            the source will get added to the Default project
+          example: a1c258cb-9222-4876-9050-f3a1bacf45df
+          format: uuid
           type: string
         type:
           description: Must be set to GCP::ServiceAccountCredentials
@@ -2959,12 +2970,12 @@ components:
           format: binary
           type: string
       type: object
-    sources_source_id_body:
+    sources_update_request:
       oneOf:
       - $ref: '#/components/schemas/SourcesAWSKey'
       - $ref: '#/components/schemas/SourcesAWSCAR'
       - $ref: '#/components/schemas/SourcesAzureCredentials'
-    sources_source_id_body_1:
+    sources_update_request_1:
       properties:
         name:
           description: The name for your source.
@@ -2975,7 +2986,7 @@ components:
           format: binary
           type: string
       type: object
-    View_resources:
+    View_resources_inner:
       example:
         id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
       properties:
@@ -2997,7 +3008,7 @@ components:
           description: The name of the source
           type: string
       type: object
-    Project_members:
+    Project_members_inner:
       example:
         last_name: Smith
         id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
@@ -3027,7 +3038,7 @@ components:
           example: active
           type: string
       type: object
-    Team_members:
+    Team_members_inner:
       example:
         last_name: Smith
         id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
@@ -3057,7 +3068,7 @@ components:
           example: Smith
           type: string
       type: object
-    EnvironmentSummary_views:
+    EnvironmentSummary_views_inner:
       example:
         image_name: fc5f0cb5-a153-4cda-af16-3c06a0716362-1594182700.png
         regions:
@@ -3114,7 +3125,7 @@ components:
           example: false
           type: boolean
       type: object
-    EnvironmentSummary_sources:
+    EnvironmentSummary_sources_inner:
       example:
         id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
         display_name: Demo AWS
@@ -3132,7 +3143,7 @@ components:
       description: The facet contains the resources that are projected to the views.
       example:
         resources:
-        - data: {}
+        - data: "{}"
           price: 0
           name: Demo Instance
           provider_id: i-3947382478
@@ -3157,7 +3168,7 @@ components:
             key: Name
           - value: Demo Instance
             key: Name
-        - data: {}
+        - data: "{}"
           price: 0
           name: Demo Instance
           provider_id: i-3947382478
@@ -3237,7 +3248,7 @@ components:
             $ref: '#/components/schemas/EnvironmentRevision'
           type: array
       type: object
-    Resource_tags:
+    Resource_tags_inner:
       example:
         value: Demo Instance
         key: Name
@@ -3251,7 +3262,7 @@ components:
           example: Demo Instance
           type: string
       type: object
-    Resource_connections:
+    Resource_connections_inner:
       example:
         data:
           mount_point: /dev/sd1
@@ -3282,6 +3293,25 @@ components:
             mount_point: /dev/sd1
           properties: {}
           type: object
+      type: object
+    Error_inner:
+      properties:
+        code:
+          description: The error code relevant to this error
+          example: invalid
+          type: string
+        title:
+          description: A short desription for the error type
+          example: Validation Error
+          type: string
+        detail:
+          description: A detailed message of the error encountered
+          example: role_arn already exists
+          type: string
+        path:
+          description: The path to the value that caused the error
+          example: role_arn
+          type: string
       type: object
   securitySchemes:
     api_key:

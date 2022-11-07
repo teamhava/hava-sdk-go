@@ -3,7 +3,7 @@ Hava
 
 Hava API
 
-API version: 1.1.1
+API version: 1.1.2
 Contact: support@hava.io
 */
 
@@ -27,12 +27,12 @@ type SourcesApiService service
 type ApiSourcesCreateRequest struct {
 	ctx context.Context
 	ApiService *SourcesApiService
-	sourcesBody *SourcesBody
+	sourcesCreateRequest *SourcesCreateRequest
 }
 
 // To create an AWS or Azure source you need to pass the parameters through in a JSON object. To create a Google Cloud source you need to upload your Service Account Credentials as a multi-part file upload.
-func (r ApiSourcesCreateRequest) SourcesBody(sourcesBody SourcesBody) ApiSourcesCreateRequest {
-	r.sourcesBody = &sourcesBody
+func (r ApiSourcesCreateRequest) SourcesCreateRequest(sourcesCreateRequest SourcesCreateRequest) ApiSourcesCreateRequest {
+	r.sourcesCreateRequest = &sourcesCreateRequest
 	return r
 }
 
@@ -76,8 +76,8 @@ func (a *SourcesApiService) SourcesCreateExecute(r ApiSourcesCreateRequest) (*So
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.sourcesBody == nil {
-		return localVarReturnValue, nil, reportError("sourcesBody is required and must be specified")
+	if r.sourcesCreateRequest == nil {
+		return localVarReturnValue, nil, reportError("sourcesCreateRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -98,7 +98,7 @@ func (a *SourcesApiService) SourcesCreateExecute(r ApiSourcesCreateRequest) (*So
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.sourcesBody
+	localVarPostBody = r.sourcesCreateRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -122,7 +122,7 @@ func (a *SourcesApiService) SourcesCreateExecute(r ApiSourcesCreateRequest) (*So
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode == 422 {
-			var v Error
+			var v []ErrorInner
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -287,7 +287,7 @@ func (r ApiSourcesIndexRequest) Token(token string) ApiSourcesIndexRequest {
 	return r
 }
 
-func (r ApiSourcesIndexRequest) Execute() (*InlineResponse2008, *http.Response, error) {
+func (r ApiSourcesIndexRequest) Execute() (*SourcesIndex200Response, *http.Response, error) {
 	return r.ApiService.SourcesIndexExecute(r)
 }
 
@@ -305,13 +305,13 @@ func (a *SourcesApiService) SourcesIndex(ctx context.Context) ApiSourcesIndexReq
 }
 
 // Execute executes the request
-//  @return InlineResponse2008
-func (a *SourcesApiService) SourcesIndexExecute(r ApiSourcesIndexRequest) (*InlineResponse2008, *http.Response, error) {
+//  @return SourcesIndex200Response
+func (a *SourcesApiService) SourcesIndexExecute(r ApiSourcesIndexRequest) (*SourcesIndex200Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *InlineResponse2008
+		localVarReturnValue  *SourcesIndex200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SourcesApiService.SourcesIndex")
@@ -594,7 +594,7 @@ func (a *SourcesApiService) SourcesSyncExecute(r ApiSourcesSyncRequest) (*http.R
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode == 422 {
-			var v Error
+			var v []ErrorInner
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -613,12 +613,12 @@ type ApiSourcesUpdateRequest struct {
 	ctx context.Context
 	ApiService *SourcesApiService
 	sourceId string
-	sourcesSourceIdBody *SourcesSourceIdBody
+	sourcesUpdateRequest *SourcesUpdateRequest
 }
 
 // Parameters for updating your source. Any properties not defined will not be updated.
-func (r ApiSourcesUpdateRequest) SourcesSourceIdBody(sourcesSourceIdBody SourcesSourceIdBody) ApiSourcesUpdateRequest {
-	r.sourcesSourceIdBody = &sourcesSourceIdBody
+func (r ApiSourcesUpdateRequest) SourcesUpdateRequest(sourcesUpdateRequest SourcesUpdateRequest) ApiSourcesUpdateRequest {
+	r.sourcesUpdateRequest = &sourcesUpdateRequest
 	return r
 }
 
@@ -684,7 +684,7 @@ func (a *SourcesApiService) SourcesUpdateExecute(r ApiSourcesUpdateRequest) (*So
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.sourcesSourceIdBody
+	localVarPostBody = r.sourcesUpdateRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -708,7 +708,7 @@ func (a *SourcesApiService) SourcesUpdateExecute(r ApiSourcesUpdateRequest) (*So
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode == 422 {
-			var v Error
+			var v []ErrorInner
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()

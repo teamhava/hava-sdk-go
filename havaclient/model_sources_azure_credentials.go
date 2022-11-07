@@ -3,7 +3,7 @@ Hava
 
 Hava API
 
-API version: 1.1.1
+API version: 1.1.2
 Contact: support@hava.io
 */
 
@@ -29,6 +29,8 @@ type SourcesAzureCredentials struct {
 	ClientId *string `json:"client_id,omitempty"`
 	// The Client Secret for your Service Principle
 	SecretKey *string `json:"secret_key,omitempty"`
+	// The ID of the project the source will be added to. If not set the source will get added to the Default project
+	ProjectId *string `json:"project_id,omitempty"`
 }
 
 // NewSourcesAzureCredentials instantiates a new SourcesAzureCredentials object
@@ -240,6 +242,38 @@ func (o *SourcesAzureCredentials) SetSecretKey(v string) {
 	o.SecretKey = &v
 }
 
+// GetProjectId returns the ProjectId field value if set, zero value otherwise.
+func (o *SourcesAzureCredentials) GetProjectId() string {
+	if o == nil || isNil(o.ProjectId) {
+		var ret string
+		return ret
+	}
+	return *o.ProjectId
+}
+
+// GetProjectIdOk returns a tuple with the ProjectId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SourcesAzureCredentials) GetProjectIdOk() (*string, bool) {
+	if o == nil || isNil(o.ProjectId) {
+		return nil, false
+	}
+	return o.ProjectId, true
+}
+
+// HasProjectId returns a boolean if a field has been set.
+func (o *SourcesAzureCredentials) HasProjectId() bool {
+	if o != nil && !isNil(o.ProjectId) {
+		return true
+	}
+
+	return false
+}
+
+// SetProjectId gets a reference to the given string and assigns it to the ProjectId field.
+func (o *SourcesAzureCredentials) SetProjectId(v string) {
+	o.ProjectId = &v
+}
+
 func (o SourcesAzureCredentials) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if !isNil(o.Name) {
@@ -259,6 +293,9 @@ func (o SourcesAzureCredentials) MarshalJSON() ([]byte, error) {
 	}
 	if !isNil(o.SecretKey) {
 		toSerialize["secret_key"] = o.SecretKey
+	}
+	if !isNil(o.ProjectId) {
+		toSerialize["project_id"] = o.ProjectId
 	}
 	return json.Marshal(toSerialize)
 }

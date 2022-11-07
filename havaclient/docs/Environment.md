@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **Views** | Pointer to [**[]View**](View.md) |  | [optional] 
 **Facet** | Pointer to [**EnvironmentFacet**](EnvironmentFacet.md) |  | [optional] 
 **CurrentRevision** | Pointer to [**EnvironmentCurrentRevision**](EnvironmentCurrentRevision.md) |  | [optional] 
-**Sources** | Pointer to [**[]EnvironmentSummarySources**](EnvironmentSummarySources.md) | The sources that contain the resources this environment covers. | [optional] 
+**Sources** | Pointer to [**[]EnvironmentSummarySourcesInner**](EnvironmentSummarySourcesInner.md) | The sources that contain the resources this environment covers. | [optional] 
 **LatestRevisions** | Pointer to [**EnvironmentLatestRevisions**](EnvironmentLatestRevisions.md) |  | [optional] 
 
 ## Methods
@@ -236,20 +236,20 @@ HasCurrentRevision returns a boolean if a field has been set.
 
 ### GetSources
 
-`func (o *Environment) GetSources() []EnvironmentSummarySources`
+`func (o *Environment) GetSources() []EnvironmentSummarySourcesInner`
 
 GetSources returns the Sources field if non-nil, zero value otherwise.
 
 ### GetSourcesOk
 
-`func (o *Environment) GetSourcesOk() (*[]EnvironmentSummarySources, bool)`
+`func (o *Environment) GetSourcesOk() (*[]EnvironmentSummarySourcesInner, bool)`
 
 GetSourcesOk returns a tuple with the Sources field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSources
 
-`func (o *Environment) SetSources(v []EnvironmentSummarySources)`
+`func (o *Environment) SetSources(v []EnvironmentSummarySourcesInner)`
 
 SetSources sets Sources field to given value.
 

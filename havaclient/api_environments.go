@@ -3,7 +3,7 @@ Hava
 
 Hava API
 
-API version: 1.1.1
+API version: 1.1.2
 Contact: support@hava.io
 */
 
@@ -65,7 +65,7 @@ func (r ApiEnvironmentRevisionsIndexRequest) Token(token string) ApiEnvironmentR
 	return r
 }
 
-func (r ApiEnvironmentRevisionsIndexRequest) Execute() (*InlineResponse2004, *http.Response, error) {
+func (r ApiEnvironmentRevisionsIndexRequest) Execute() (*EnvironmentRevisionsIndex200Response, *http.Response, error) {
 	return r.ApiService.EnvironmentRevisionsIndexExecute(r)
 }
 
@@ -85,13 +85,13 @@ func (a *EnvironmentsApiService) EnvironmentRevisionsIndex(ctx context.Context, 
 }
 
 // Execute executes the request
-//  @return InlineResponse2004
-func (a *EnvironmentsApiService) EnvironmentRevisionsIndexExecute(r ApiEnvironmentRevisionsIndexRequest) (*InlineResponse2004, *http.Response, error) {
+//  @return EnvironmentRevisionsIndex200Response
+func (a *EnvironmentsApiService) EnvironmentRevisionsIndexExecute(r ApiEnvironmentRevisionsIndexRequest) (*EnvironmentRevisionsIndex200Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *InlineResponse2004
+		localVarReturnValue  *EnvironmentRevisionsIndex200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EnvironmentsApiService.EnvironmentRevisionsIndex")
@@ -179,11 +179,11 @@ type ApiEnvironmentSharesCreateRequest struct {
 	ctx context.Context
 	ApiService *EnvironmentsApiService
 	environmentId string
-	environmentIdSharesBody *EnvironmentIdSharesBody
+	environmentSharesCreateRequest *EnvironmentSharesCreateRequest
 }
 
-func (r ApiEnvironmentSharesCreateRequest) EnvironmentIdSharesBody(environmentIdSharesBody EnvironmentIdSharesBody) ApiEnvironmentSharesCreateRequest {
-	r.environmentIdSharesBody = &environmentIdSharesBody
+func (r ApiEnvironmentSharesCreateRequest) EnvironmentSharesCreateRequest(environmentSharesCreateRequest EnvironmentSharesCreateRequest) ApiEnvironmentSharesCreateRequest {
+	r.environmentSharesCreateRequest = &environmentSharesCreateRequest
 	return r
 }
 
@@ -227,8 +227,8 @@ func (a *EnvironmentsApiService) EnvironmentSharesCreateExecute(r ApiEnvironment
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.environmentIdSharesBody == nil {
-		return localVarReturnValue, nil, reportError("environmentIdSharesBody is required and must be specified")
+	if r.environmentSharesCreateRequest == nil {
+		return localVarReturnValue, nil, reportError("environmentSharesCreateRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -249,7 +249,7 @@ func (a *EnvironmentsApiService) EnvironmentSharesCreateExecute(r ApiEnvironment
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.environmentIdSharesBody
+	localVarPostBody = r.environmentSharesCreateRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -433,7 +433,7 @@ func (r ApiEnvironmentSharesListRequest) Token(token string) ApiEnvironmentShare
 	return r
 }
 
-func (r ApiEnvironmentSharesListRequest) Execute() (*InlineResponse2006, *http.Response, error) {
+func (r ApiEnvironmentSharesListRequest) Execute() (*EnvironmentSharesList200Response, *http.Response, error) {
 	return r.ApiService.EnvironmentSharesListExecute(r)
 }
 
@@ -453,13 +453,13 @@ func (a *EnvironmentsApiService) EnvironmentSharesList(ctx context.Context, envi
 }
 
 // Execute executes the request
-//  @return InlineResponse2006
-func (a *EnvironmentsApiService) EnvironmentSharesListExecute(r ApiEnvironmentSharesListRequest) (*InlineResponse2006, *http.Response, error) {
+//  @return EnvironmentSharesList200Response
+func (a *EnvironmentsApiService) EnvironmentSharesListExecute(r ApiEnvironmentSharesListRequest) (*EnvironmentSharesList200Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *InlineResponse2006
+		localVarReturnValue  *EnvironmentSharesList200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EnvironmentsApiService.EnvironmentSharesList")
@@ -548,11 +548,11 @@ type ApiEnvironmentSharesUpdateRequest struct {
 	ApiService *EnvironmentsApiService
 	environmentId string
 	shareId string
-	sharesShareIdBody *SharesShareIdBody
+	environmentSharesUpdateRequest *EnvironmentSharesUpdateRequest
 }
 
-func (r ApiEnvironmentSharesUpdateRequest) SharesShareIdBody(sharesShareIdBody SharesShareIdBody) ApiEnvironmentSharesUpdateRequest {
-	r.sharesShareIdBody = &sharesShareIdBody
+func (r ApiEnvironmentSharesUpdateRequest) EnvironmentSharesUpdateRequest(environmentSharesUpdateRequest EnvironmentSharesUpdateRequest) ApiEnvironmentSharesUpdateRequest {
+	r.environmentSharesUpdateRequest = &environmentSharesUpdateRequest
 	return r
 }
 
@@ -597,8 +597,8 @@ func (a *EnvironmentsApiService) EnvironmentSharesUpdateExecute(r ApiEnvironment
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.sharesShareIdBody == nil {
-		return nil, reportError("sharesShareIdBody is required and must be specified")
+	if r.environmentSharesUpdateRequest == nil {
+		return nil, reportError("environmentSharesUpdateRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -619,7 +619,7 @@ func (a *EnvironmentsApiService) EnvironmentSharesUpdateExecute(r ApiEnvironment
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.sharesShareIdBody
+	localVarPostBody = r.environmentSharesUpdateRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
@@ -651,11 +651,11 @@ func (a *EnvironmentsApiService) EnvironmentSharesUpdateExecute(r ApiEnvironment
 type ApiEnvironmentsCreateRequest struct {
 	ctx context.Context
 	ApiService *EnvironmentsApiService
-	environmentsBody *EnvironmentsBody
+	environmentsCreateRequest *EnvironmentsCreateRequest
 }
 
-func (r ApiEnvironmentsCreateRequest) EnvironmentsBody(environmentsBody EnvironmentsBody) ApiEnvironmentsCreateRequest {
-	r.environmentsBody = &environmentsBody
+func (r ApiEnvironmentsCreateRequest) EnvironmentsCreateRequest(environmentsCreateRequest EnvironmentsCreateRequest) ApiEnvironmentsCreateRequest {
+	r.environmentsCreateRequest = &environmentsCreateRequest
 	return r
 }
 
@@ -703,8 +703,8 @@ func (a *EnvironmentsApiService) EnvironmentsCreateExecute(r ApiEnvironmentsCrea
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.environmentsBody == nil {
-		return localVarReturnValue, nil, reportError("environmentsBody is required and must be specified")
+	if r.environmentsCreateRequest == nil {
+		return localVarReturnValue, nil, reportError("environmentsCreateRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -725,7 +725,7 @@ func (a *EnvironmentsApiService) EnvironmentsCreateExecute(r ApiEnvironmentsCrea
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.environmentsBody
+	localVarPostBody = r.environmentsCreateRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -896,7 +896,7 @@ func (r ApiEnvironmentsIndexRequest) Token(token string) ApiEnvironmentsIndexReq
 	return r
 }
 
-func (r ApiEnvironmentsIndexRequest) Execute() (*InlineResponse2005, *http.Response, error) {
+func (r ApiEnvironmentsIndexRequest) Execute() (*EnvironmentsIndex200Response, *http.Response, error) {
 	return r.ApiService.EnvironmentsIndexExecute(r)
 }
 
@@ -914,13 +914,13 @@ func (a *EnvironmentsApiService) EnvironmentsIndex(ctx context.Context) ApiEnvir
 }
 
 // Execute executes the request
-//  @return InlineResponse2005
-func (a *EnvironmentsApiService) EnvironmentsIndexExecute(r ApiEnvironmentsIndexRequest) (*InlineResponse2005, *http.Response, error) {
+//  @return EnvironmentsIndex200Response
+func (a *EnvironmentsApiService) EnvironmentsIndexExecute(r ApiEnvironmentsIndexRequest) (*EnvironmentsIndex200Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *InlineResponse2005
+		localVarReturnValue  *EnvironmentsIndex200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EnvironmentsApiService.EnvironmentsIndex")
@@ -1118,11 +1118,11 @@ type ApiEnvironmentsUpdateRequest struct {
 	ctx context.Context
 	ApiService *EnvironmentsApiService
 	environmentId string
-	environmentsEnvironmentIdBody *EnvironmentsEnvironmentIdBody
+	environmentsUpdateRequest *EnvironmentsUpdateRequest
 }
 
-func (r ApiEnvironmentsUpdateRequest) EnvironmentsEnvironmentIdBody(environmentsEnvironmentIdBody EnvironmentsEnvironmentIdBody) ApiEnvironmentsUpdateRequest {
-	r.environmentsEnvironmentIdBody = &environmentsEnvironmentIdBody
+func (r ApiEnvironmentsUpdateRequest) EnvironmentsUpdateRequest(environmentsUpdateRequest EnvironmentsUpdateRequest) ApiEnvironmentsUpdateRequest {
+	r.environmentsUpdateRequest = &environmentsUpdateRequest
 	return r
 }
 
@@ -1192,7 +1192,7 @@ func (a *EnvironmentsApiService) EnvironmentsUpdateExecute(r ApiEnvironmentsUpda
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.environmentsEnvironmentIdBody
+	localVarPostBody = r.environmentsUpdateRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
