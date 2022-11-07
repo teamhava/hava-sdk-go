@@ -128,7 +128,7 @@ func (a *SourcesApiService) SourcesCreateExecute(r ApiSourcesCreateRequest) (*So
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-            		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+            		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v[0])
             		newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
