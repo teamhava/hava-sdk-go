@@ -9,4 +9,5 @@ generate:
     -i /local/swagger.yaml \
     -g go \
     -o /local/havaclient \
-    -c /local/genconfig.yml
+    -c /local/genconfig.yml \
+    -t /local/templates
