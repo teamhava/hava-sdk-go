@@ -1,3 +1,9 @@
+.PHONY: validate
+
+validate:
+    docker run --rm -v "${PWD}:/local" openapitools/openapi-generator-cli validate \
+    -i /local/swagger.yaml
+
 generate:
 	docker run --rm -v "${PWD}:/local" openapitools/openapi-generator-cli generate \
     -i /local/swagger.yaml \

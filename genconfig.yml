@@ -1,1 +1,13 @@
 packageName: havaclient
+
+isGoSubmodule: true
+
+gitRepoId: hava-sdk-go
+gitUserId: teamhava
+
+globalProperties:
+  apiTests: false
+  modelTests: false
+  apis: "Sources"
+  models: ""
+  supportingFiles: ""

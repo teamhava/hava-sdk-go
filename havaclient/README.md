@@ -22,7 +22,7 @@ go get golang.org/x/net/context
 Put the package under your project folder and add the following in import:
 
 ```golang
-import havaclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+import havaclient "github.com/teamhava/hava-sdk-go/havaclient"
 ```
 
 To use a proxy, set the environment variable `HTTP_PROXY`:
@@ -78,46 +78,12 @@ All URIs are relative to *https://api.hava.io*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*APITokensApi* | [**ApiTokensCreate**](docs/APITokensApi.md#apitokenscreate) | **Post** /accounts/{account_id}/tokens | Generate a new token
-*APITokensApi* | [**ApiTokensDelete**](docs/APITokensApi.md#apitokensdelete) | **Delete** /accounts/{account_id}/tokens/{token_id} | Delete an API token
-*APITokensApi* | [**ApiTokensIndex**](docs/APITokensApi.md#apitokensindex) | **Get** /accounts/{account_id}/tokens | List all API tokens in the specified account
-*EnvironmentsApi* | [**EnvironmentRevisionsIndex**](docs/EnvironmentsApi.md#environmentrevisionsindex) | **Get** /environments/{environment_id}/revisions | List versions of an environment
-*EnvironmentsApi* | [**EnvironmentSharesCreate**](docs/EnvironmentsApi.md#environmentsharescreate) | **Post** /environments/{environment_id}/shares | Generates an embedded environment token. If the provided view type exists it will return the share details, otherwise it will return a job that will generate the share details.
-*EnvironmentsApi* | [**EnvironmentSharesFind**](docs/EnvironmentsApi.md#environmentsharesfind) | **Get** /environments/{environment_id}/shares/{share_id} | Return the details of the specified environment share
-*EnvironmentsApi* | [**EnvironmentSharesList**](docs/EnvironmentsApi.md#environmentshareslist) | **Get** /environments/{environment_id}/shares | List shares of the specific environment
-*EnvironmentsApi* | [**EnvironmentSharesUpdate**](docs/EnvironmentsApi.md#environmentsharesupdate) | **Put** /environments/{environment_id}/shares/{share_id} | Update the details of the specified environment share. Used to change the config for PNG shares.
-*EnvironmentsApi* | [**EnvironmentsCreate**](docs/EnvironmentsApi.md#environmentscreate) | **Post** /environments | Create an environment using a query
-*EnvironmentsApi* | [**EnvironmentsDestroy**](docs/EnvironmentsApi.md#environmentsdestroy) | **Delete** /environments/{environment_id} | Delete a custom environment
-*EnvironmentsApi* | [**EnvironmentsIndex**](docs/EnvironmentsApi.md#environmentsindex) | **Get** /environments | List environments
-*EnvironmentsApi* | [**EnvironmentsShow**](docs/EnvironmentsApi.md#environmentsshow) | **Get** /environments/{environment_id} | Get an environment
-*EnvironmentsApi* | [**EnvironmentsUpdate**](docs/EnvironmentsApi.md#environmentsupdate) | **Put** /environments/{environment_id} | Update a custom environment
-*JobsApi* | [**JobsShow**](docs/JobsApi.md#jobsshow) | **Get** /jobs/{job_id} | Get a job
-*ProjectsApi* | [**ProjectMembersAdd**](docs/ProjectsApi.md#projectmembersadd) | **Post** /accounts/{account_id}/projects/{project_id}/members | Add member to project
-*ProjectsApi* | [**ProjectMembersRemove**](docs/ProjectsApi.md#projectmembersremove) | **Delete** /accounts/{account_id}/projects/{project_id}/members/{user_id} | Remove member from project
-*ProjectsApi* | [**ProjectsCreate**](docs/ProjectsApi.md#projectscreate) | **Post** /accounts/{account_id}/projects | Create a project
-*ProjectsApi* | [**ProjectsDestroy**](docs/ProjectsApi.md#projectsdestroy) | **Delete** /accounts/{account_id}/projects/{project_id} | Delete a project
-*ProjectsApi* | [**ProjectsIndex**](docs/ProjectsApi.md#projectsindex) | **Get** /accounts/{account_id}/projects | List all projects
-*ProjectsApi* | [**ProjectsShow**](docs/ProjectsApi.md#projectsshow) | **Get** /accounts/{account_id}/projects/{project_id} | Get a project
-*ProjectsApi* | [**ProjectsUpdate**](docs/ProjectsApi.md#projectsupdate) | **Put** /accounts/{account_id}/projects/{project_id} | Update a project
-*ReportsApi* | [**ReportsIndex**](docs/ReportsApi.md#reportsindex) | **Get** /reports | List all reports
-*ReportsApi* | [**ReportsReportIdExportPost**](docs/ReportsApi.md#reportsreportidexportpost) | **Post** /reports/{report_id}/export | Export a report
-*ReportsApi* | [**ReportsShow**](docs/ReportsApi.md#reportsshow) | **Get** /reports/{report_id} | Get a report
-*ResourcesApi* | [**ResourcesExport**](docs/ResourcesApi.md#resourcesexport) | **Get** /resources/export | Export resources to JSON
 *SourcesApi* | [**SourcesCreate**](docs/SourcesApi.md#sourcescreate) | **Post** /sources | Create a source
 *SourcesApi* | [**SourcesDestroy**](docs/SourcesApi.md#sourcesdestroy) | **Delete** /sources/{source_id} | Delete a source and all associated resources and environments
 *SourcesApi* | [**SourcesIndex**](docs/SourcesApi.md#sourcesindex) | **Get** /sources | List all sources
 *SourcesApi* | [**SourcesShow**](docs/SourcesApi.md#sourcesshow) | **Get** /sources/{source_id} | Get a source
 *SourcesApi* | [**SourcesSync**](docs/SourcesApi.md#sourcessync) | **Post** /sources/{source_id}/sync | Import the latest resources for this source
 *SourcesApi* | [**SourcesUpdate**](docs/SourcesApi.md#sourcesupdate) | **Put** /sources/{source_id} | Update a source
-*TeamsApi* | [**TeamMembersAdd**](docs/TeamsApi.md#teammembersadd) | **Post** /accounts/{account_id}/teams/{team_id}/members | Add member to team
-*TeamsApi* | [**TeamMembersInvite**](docs/TeamsApi.md#teammembersinvite) | **Post** /accounts/{account_id}/teams/{team_id}/members/invite | Invite a user to Hava and add them to the team
-*TeamsApi* | [**TeamMembersRemove**](docs/TeamsApi.md#teammembersremove) | **Delete** /accounts/{account_id}/teams/{team_id}/members/{user_id} | Remove member from team
-*TeamsApi* | [**TeamsCreate**](docs/TeamsApi.md#teamscreate) | **Post** /accounts/{account_id}/teams | Create a team
-*TeamsApi* | [**TeamsDestroy**](docs/TeamsApi.md#teamsdestroy) | **Delete** /accounts/{account_id}/teams/{team_id} | Delete a team and remove all members from your account
-*TeamsApi* | [**TeamsIndex**](docs/TeamsApi.md#teamsindex) | **Get** /accounts/{account_id}/teams | List all teams
-*TeamsApi* | [**TeamsShow**](docs/TeamsApi.md#teamsshow) | **Get** /accounts/{account_id}/teams/{team_id} | Get a team
-*TeamsApi* | [**TeamsUpdate**](docs/TeamsApi.md#teamsupdate) | **Put** /accounts/{account_id}/teams/{team_id} | Update a team
-*ViewsApi* | [**ViewsExport**](docs/ViewsApi.md#viewsexport) | **Post** /views/{view_id}/export | Export a view
 
 
 ## Documentation For Models
