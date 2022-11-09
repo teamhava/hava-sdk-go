@@ -1,4 +1,6 @@
-# Go API client for havaclient
+# Go API client for Hava.io
+
+> Note: This SDK is under active development and is not ready for use in any production systems. There is no guarantee that there will not be breaking changes with no notice
 
 Hava API
 
