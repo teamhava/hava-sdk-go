@@ -1,6 +1,6 @@
 packageName: havaclient
 
-isGoSubmodule: true
+isGoSubmodule: false
 
 gitRepoId: hava-sdk-go
 gitUserId: teamhava

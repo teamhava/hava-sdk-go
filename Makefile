@@ -6,8 +6,8 @@ validate:
 
 generate:
 	docker run --rm -v "${PWD}:/local" openapitools/openapi-generator-cli generate \
-    -i /local/swagger.yaml \
+    -i /local/generatorconf/swagger.yaml \
     -g go \
-    -o /local/havaclient \
-    -c /local/genconfig.yml \
-    -t /local/templates
+    -o /local/ \
+    -c /local/generatorconf/genconfig.yml \
+    -t /local/generatorconf/templates
