@@ -1591,9 +1591,9 @@ paths:
           multipart/form-data:
             schema:
               $ref: '#/components/schemas/sources_create_request_1'
-        description: To create an AWS or Azure source you need to pass the parameters
-          through in a JSON object. To create a Google Cloud source you need to upload
-          your Service Account Credentials as a multi-part file upload.
+        description: |-
+          To create an AWS, Azure, or GCP source you need to pass the parameters through in a JSON object.
+          The multipart/form-data method for adding a GCP source has been depricated and will stop working in a future version.
         required: true
       responses:
         "200":
@@ -2058,6 +2058,23 @@ components:
             the source will get added to the Default project
           example: a1c258cb-9222-4876-9050-f3a1bacf45df
           format: uuid
+          type: string
+      type: object
+    SourcesGCPServiceAccountCredentials:
+      description: The parameters required to create a GCP Service Account Credentials
+        Source
+      properties:
+        name:
+          example: GCP Source
+          type: string
+        type:
+          description: Must be set to GCP::ServiceAccountCredentials
+          enum:
+          - GCP::ServiceAccountCredentials
+          type: string
+        encoded_file:
+          description: Base64 encoded credentials file
+          format: byte
           type: string
       type: object
     EnvironmentRevision:
@@ -2950,22 +2967,28 @@ components:
       - $ref: '#/components/schemas/SourcesAWSKey'
       - $ref: '#/components/schemas/SourcesAWSCAR'
       - $ref: '#/components/schemas/SourcesAzureCredentials'
+      - $ref: '#/components/schemas/SourcesGCPServiceAccountCredentials'
     sources_create_request_1:
+      deprecated: true
       properties:
         name:
+          deprecated: true
           description: The name for your source.
           example: GCP Source
           type: string
         project_id:
+          deprecated: true
           description: The ID of the project the source will be added to. If not set
             the source will get added to the Default project
           example: a1c258cb-9222-4876-9050-f3a1bacf45df
           format: uuid
           type: string
         type:
+          deprecated: true
           description: Must be set to GCP::ServiceAccountCredentials
           type: string
         file:
+          deprecated: true
           description: Service Account Credentials file in JSON format.
           format: binary
           type: string

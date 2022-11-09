@@ -127,6 +127,7 @@ Class | Method | HTTP request | Description
  - [SourcesAWSKey](docs/SourcesAWSKey.md)
  - [SourcesAzureCredentials](docs/SourcesAzureCredentials.md)
  - [SourcesCreateRequest](docs/SourcesCreateRequest.md)
+ - [SourcesGCPServiceAccountCredentials](docs/SourcesGCPServiceAccountCredentials.md)
  - [SourcesIndex200Response](docs/SourcesIndex200Response.md)
  - [SourcesUpdateRequest](docs/SourcesUpdateRequest.md)
  - [Team](docs/Team.md)

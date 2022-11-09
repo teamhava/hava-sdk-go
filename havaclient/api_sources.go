@@ -30,7 +30,7 @@ type ApiSourcesCreateRequest struct {
 	sourcesCreateRequest *SourcesCreateRequest
 }
 
-// To create an AWS or Azure source you need to pass the parameters through in a JSON object. To create a Google Cloud source you need to upload your Service Account Credentials as a multi-part file upload.
+// To create an AWS, Azure, or GCP source you need to pass the parameters through in a JSON object. The multipart/form-data method for adding a GCP source has been depricated and will stop working in a future version.
 func (r ApiSourcesCreateRequest) SourcesCreateRequest(sourcesCreateRequest SourcesCreateRequest) ApiSourcesCreateRequest {
 	r.sourcesCreateRequest = &sourcesCreateRequest
 	return r

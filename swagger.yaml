@@ -1619,9 +1619,9 @@ paths:
       operationId: 'sources#create'
       requestBody:
         description: >-
-          To create an AWS or Azure source you need to pass the parameters
-          through in a JSON object. To create a Google Cloud source you need to
-          upload your Service Account Credentials as a multi-part file upload.
+          To create an AWS, Azure, or GCP source you need to pass the parameters through in a JSON object.
+          
+          The multipart/form-data method for adding a GCP source has been depricated and will stop working in a future version.
         content:
           application/json:
             schema:
@@ -1629,6 +1629,7 @@ paths:
                 - $ref: '#/components/schemas/SourcesAWSKey'
                 - $ref: '#/components/schemas/SourcesAWSCAR'
                 - $ref: '#/components/schemas/SourcesAzureCredentials'
+                - $ref: '#/components/schemas/SourcesGCPServiceAccountCredentials'
               example:
                 name: Example AWS Key
                 type: 'AWS::Keys'
@@ -1636,21 +1637,26 @@ paths:
                 secret_key: v.co1A3/sqpdke
           multipart/form-data:
             schema:
+              deprecated: true
               type: object
               properties:
                 name:
+                  deprecated: true
                   type: string
                   description: The name for your source.
                   example: GCP Source
                 project_id:
+                  deprecated: true
                   type: string
                   description: The ID of the project the source will be added to. If not set the source will get added to the Default project
                   format: uuid
                   example: a1c258cb-9222-4876-9050-f3a1bacf45df
                 type:
+                  deprecated: true
                   type: string
                   description: 'Must be set to GCP::ServiceAccountCredentials'
                 file:
+                  deprecated: true
                   type: string
                   format: binary
                   description: Service Account Credentials file in JSON format.
@@ -2110,6 +2116,22 @@ components:
           description: The ID of the project the source will be added to. If not set the source will get added to the Default project
           format: uuid
           example: a1c258cb-9222-4876-9050-f3a1bacf45df
+    SourcesGCPServiceAccountCredentials:
+      description: The parameters required to create a GCP Service Account Credentials Source
+      type: object
+      properties:
+        name:
+          type: string
+          example: GCP Source
+        type:
+          type: string
+          description: 'Must be set to GCP::ServiceAccountCredentials'
+          enum:
+            - 'GCP::ServiceAccountCredentials'
+        encoded_file:
+          type: string
+          description: 'Base64 encoded credentials file'
+          format: byte
     EnvironmentRevision:
       type: object
       properties:

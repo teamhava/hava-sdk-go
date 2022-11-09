@@ -45,6 +45,7 @@ docs/SourcesAWSKey.md
 docs/SourcesApi.md
 docs/SourcesAzureCredentials.md
 docs/SourcesCreateRequest.md
+docs/SourcesGCPServiceAccountCredentials.md
 docs/SourcesIndex200Response.md
 docs/SourcesUpdateRequest.md
 docs/Team.md
@@ -99,6 +100,7 @@ model_sources_aws_key.go
 model_sources_awscar.go
 model_sources_azure_credentials.go
 model_sources_create_request.go
+model_sources_gcp_service_account_credentials.go
 model_sources_index_200_response.go
 model_sources_update_request.go
 model_team.go

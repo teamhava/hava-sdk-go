@@ -628,5 +628,5 @@ func formatErrorMessage(status string, v *[]ErrorInner) string {
     err := (*v)[0]
 
     // status title (detail)
-    return fmt.Sprintf("%s Title: %s Details: %s Path: %s", status, *err.Title, *err.Detail, *err.Path)
+    return fmt.Sprintf("%s Error: %s Details: %s", status, *err.Title, *err.Detail)
 }

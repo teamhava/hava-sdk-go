@@ -34,7 +34,7 @@ import (
 )
 
 func main() {
-    sourcesCreateRequest := openapiclient.sources_create_request{SourcesAWSCAR: openapiclient.NewSourcesAWSCAR()} // SourcesCreateRequest | To create an AWS or Azure source you need to pass the parameters through in a JSON object. To create a Google Cloud source you need to upload your Service Account Credentials as a multi-part file upload.
+    sourcesCreateRequest := openapiclient.sources_create_request{SourcesAWSCAR: openapiclient.NewSourcesAWSCAR()} // SourcesCreateRequest | To create an AWS, Azure, or GCP source you need to pass the parameters through in a JSON object. The multipart/form-data method for adding a GCP source has been depricated and will stop working in a future version.
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
@@ -59,7 +59,7 @@ Other parameters are passed through a pointer to a apiSourcesCreateRequest struc
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **sourcesCreateRequest** | [**SourcesCreateRequest**](SourcesCreateRequest.md) | To create an AWS or Azure source you need to pass the parameters through in a JSON object. To create a Google Cloud source you need to upload your Service Account Credentials as a multi-part file upload. | 
+ **sourcesCreateRequest** | [**SourcesCreateRequest**](SourcesCreateRequest.md) | To create an AWS, Azure, or GCP source you need to pass the parameters through in a JSON object. The multipart/form-data method for adding a GCP source has been depricated and will stop working in a future version. | 
 
 ### Return type
 
