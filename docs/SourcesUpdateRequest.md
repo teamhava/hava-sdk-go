@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | Pointer to **string** | The name for this source | [optional] 
-**Type** | Pointer to **string** | Must be set to Azure::Credentials | [optional] 
+**Name** | Pointer to **string** |  | [optional] 
+**Type** | Pointer to **string** | Must be set to GCP::ServiceAccountCredentials | [optional] 
 **AccessKey** | Pointer to **string** | The access key for your AWS account | [optional] 
 **SecretKey** | Pointer to **string** | The Client Secret for your Service Principle | [optional] 
 **ProjectId** | Pointer to **string** | The ID of the project the source will be added to. If not set the source will get added to the Default project | [optional] 
@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 **SubscriptionId** | Pointer to **string** | The ID of the Azure subscription to import from | [optional] 
 **TenantId** | Pointer to **string** | The GUID representing the Active Directory Tenant | [optional] 
 **ClientId** | Pointer to **string** | The Client ID for your Service Principle | [optional] 
+**EncodedFile** | Pointer to **string** | Base64 encoded credentials file | [optional] 
 
 ## Methods
 
@@ -283,6 +284,31 @@ SetClientId sets ClientId field to given value.
 `func (o *SourcesUpdateRequest) HasClientId() bool`
 
 HasClientId returns a boolean if a field has been set.
+
+### GetEncodedFile
+
+`func (o *SourcesUpdateRequest) GetEncodedFile() string`
+
+GetEncodedFile returns the EncodedFile field if non-nil, zero value otherwise.
+
+### GetEncodedFileOk
+
+`func (o *SourcesUpdateRequest) GetEncodedFileOk() (*string, bool)`
+
+GetEncodedFileOk returns a tuple with the EncodedFile field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEncodedFile
+
+`func (o *SourcesUpdateRequest) SetEncodedFile(v string)`
+
+SetEncodedFile sets EncodedFile field to given value.
+
+### HasEncodedFile
+
+`func (o *SourcesUpdateRequest) HasEncodedFile() bool`
+
+HasEncodedFile returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

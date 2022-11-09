@@ -21,6 +21,7 @@ type SourcesUpdateRequest struct {
 	SourcesAWSCAR *SourcesAWSCAR
 	SourcesAWSKey *SourcesAWSKey
 	SourcesAzureCredentials *SourcesAzureCredentials
+	SourcesGCPServiceAccountCredentials *SourcesGCPServiceAccountCredentials
 }
 
 // SourcesAWSCARAsSourcesUpdateRequest is a convenience function that returns SourcesAWSCAR wrapped in SourcesUpdateRequest
@@ -41,6 +42,13 @@ func SourcesAWSKeyAsSourcesUpdateRequest(v *SourcesAWSKey) SourcesUpdateRequest 
 func SourcesAzureCredentialsAsSourcesUpdateRequest(v *SourcesAzureCredentials) SourcesUpdateRequest {
 	return SourcesUpdateRequest{
 		SourcesAzureCredentials: v,
+	}
+}
+
+// SourcesGCPServiceAccountCredentialsAsSourcesUpdateRequest is a convenience function that returns SourcesGCPServiceAccountCredentials wrapped in SourcesUpdateRequest
+func SourcesGCPServiceAccountCredentialsAsSourcesUpdateRequest(v *SourcesGCPServiceAccountCredentials) SourcesUpdateRequest {
+	return SourcesUpdateRequest{
+		SourcesGCPServiceAccountCredentials: v,
 	}
 }
 
@@ -88,11 +96,25 @@ func (dst *SourcesUpdateRequest) UnmarshalJSON(data []byte) error {
 		dst.SourcesAzureCredentials = nil
 	}
 
+	// try to unmarshal data into SourcesGCPServiceAccountCredentials
+	err = newStrictDecoder(data).Decode(&dst.SourcesGCPServiceAccountCredentials)
+	if err == nil {
+		jsonSourcesGCPServiceAccountCredentials, _ := json.Marshal(dst.SourcesGCPServiceAccountCredentials)
+		if string(jsonSourcesGCPServiceAccountCredentials) == "{}" { // empty struct
+			dst.SourcesGCPServiceAccountCredentials = nil
+		} else {
+			match++
+		}
+	} else {
+		dst.SourcesGCPServiceAccountCredentials = nil
+	}
+
 	if match > 1 { // more than 1 match
 		// reset to nil
 		dst.SourcesAWSCAR = nil
 		dst.SourcesAWSKey = nil
 		dst.SourcesAzureCredentials = nil
+		dst.SourcesGCPServiceAccountCredentials = nil
 
 		return fmt.Errorf("data matches more than one schema in oneOf(SourcesUpdateRequest)")
 	} else if match == 1 {
@@ -116,6 +138,10 @@ func (src SourcesUpdateRequest) MarshalJSON() ([]byte, error) {
 		return json.Marshal(&src.SourcesAzureCredentials)
 	}
 
+	if src.SourcesGCPServiceAccountCredentials != nil {
+		return json.Marshal(&src.SourcesGCPServiceAccountCredentials)
+	}
+
 	return nil, nil // no data in oneOf schemas
 }
 
@@ -134,6 +160,10 @@ func (obj *SourcesUpdateRequest) GetActualInstance() (interface{}) {
 
 	if obj.SourcesAzureCredentials != nil {
 		return obj.SourcesAzureCredentials
+	}
+
+	if obj.SourcesGCPServiceAccountCredentials != nil {
+		return obj.SourcesGCPServiceAccountCredentials
 	}
 
 	// all schemas are nil

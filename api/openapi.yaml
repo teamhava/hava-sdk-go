@@ -2998,6 +2998,7 @@ components:
       - $ref: '#/components/schemas/SourcesAWSKey'
       - $ref: '#/components/schemas/SourcesAWSCAR'
       - $ref: '#/components/schemas/SourcesAzureCredentials'
+      - $ref: '#/components/schemas/SourcesGCPServiceAccountCredentials'
     sources_update_request_1:
       properties:
         name:

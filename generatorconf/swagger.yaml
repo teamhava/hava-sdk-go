@@ -1721,6 +1721,7 @@ paths:
                 - $ref: '#/components/schemas/SourcesAWSKey'
                 - $ref: '#/components/schemas/SourcesAWSCAR'
                 - $ref: '#/components/schemas/SourcesAzureCredentials'
+                - $ref: '#/components/schemas/SourcesGCPServiceAccountCredentials'
             example:
               name: Updated AWS Key
               access_key: AKIA12341234
