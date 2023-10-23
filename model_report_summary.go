@@ -3,7 +3,7 @@ Hava
 
 Hava API
 
-API version: 1.1.2
+API version: 1.1.3
 Contact: support@hava.io
 */
 
@@ -26,7 +26,7 @@ type ReportSummary struct {
 	// The date and time the report was generated
 	CreatedAt *string `json:"created_at,omitempty"`
 	// The type of report
-	Type *string `json:"type,omitempty"`
+	Type   *string              `json:"type,omitempty"`
 	Source *ReportSummarySource `json:"source,omitempty"`
 }
 
@@ -297,5 +297,3 @@ func (v *NullableReportSummary) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

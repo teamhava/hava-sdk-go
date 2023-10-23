@@ -3,7 +3,7 @@ Hava
 
 Hava API
 
-API version: 1.1.2
+API version: 1.1.3
 Contact: support@hava.io
 */
 
@@ -42,7 +42,7 @@ var (
 	xmlCheck  = regexp.MustCompile(`(?i:(?:application|text)/xml)`)
 )
 
-// APIClient manages communication with the Hava API v1.1.2
+// APIClient manages communication with the Hava API v1.1.3
 // In most cases there should be only one, shared, APIClient.
 type APIClient struct {
 	cfg    *Configuration
@@ -191,9 +191,9 @@ func (c *APIClient) GetConfig() *Configuration {
 }
 
 type formFile struct {
-		fileBytes []byte
-		fileName string
-		formFileName string
+	fileBytes    []byte
+	fileName     string
+	formFileName string
 }
 
 // prepareRequest build the request
@@ -247,11 +247,11 @@ func (c *APIClient) prepareRequest(
 				w.Boundary()
 				part, err := w.CreateFormFile(formFile.formFileName, filepath.Base(formFile.fileName))
 				if err != nil {
-						return nil, err
+					return nil, err
 				}
 				_, err = part.Write(formFile.fileBytes)
 				if err != nil {
-						return nil, err
+					return nil, err
 				}
 			}
 		}
@@ -566,13 +566,13 @@ func (e GenericOpenAPIError) Model() interface{} {
 // format error message using title and detail when model implements rfc7807
 func formatErrorMessage(status string, v *[]ErrorInner) string {
 
-		if len(*v) == 0 {
-			return status
-		}
+	if len(*v) == 0 {
+		return status
+	}
 
-		// get first error in slice 
-    err := (*v)[0]
+	// get first error in slice
+	err := (*v)[0]
 
-    // status title (detail)
-    return fmt.Sprintf("%s Error: %s Details: %s", status, *err.Title, *err.Detail)
+	// status title (detail)
+	return fmt.Sprintf("%s Error: %s Details: %s", status, *err.Title, *err.Detail)
 }

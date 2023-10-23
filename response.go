@@ -3,7 +3,7 @@ Hava
 
 Hava API
 
-API version: 1.1.2
+API version: 1.1.3
 Contact: support@hava.io
 */
 

@@ -3,7 +3,7 @@ Hava
 
 Hava API
 
-API version: 1.1.2
+API version: 1.1.3
 Contact: support@hava.io
 */
 
@@ -25,6 +25,12 @@ type ViewsExportRequest struct {
 	Isometric *bool `json:"isometric,omitempty"`
 	// Display labels such as names on the diagram
 	Labels *bool `json:"labels,omitempty"`
+	// Adds a timestamp to the export that shows when the environment was generated. Only available in PNG and PDF
+	Timestamp *bool `json:"timestamp,omitempty"`
+	// For Azure diagrams this option will display resources grouped by Virtual Network instead of Resource Groups.
+	HideResourceGroups *bool `json:"hide_resource_groups,omitempty"`
+	// Will hide any network containers that have no visible resources in them. Networks consist of AWS and GCP VPC's and Azure Virtual Networks.
+	HideEmptyNetworks *bool `json:"hide_empty_networks,omitempty"`
 	// The ID of the view revision to export (optional)
 	RevisionId *string `json:"revision_id,omitempty"`
 }
@@ -174,6 +180,102 @@ func (o *ViewsExportRequest) SetLabels(v bool) {
 	o.Labels = &v
 }
 
+// GetTimestamp returns the Timestamp field value if set, zero value otherwise.
+func (o *ViewsExportRequest) GetTimestamp() bool {
+	if o == nil || isNil(o.Timestamp) {
+		var ret bool
+		return ret
+	}
+	return *o.Timestamp
+}
+
+// GetTimestampOk returns a tuple with the Timestamp field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ViewsExportRequest) GetTimestampOk() (*bool, bool) {
+	if o == nil || isNil(o.Timestamp) {
+		return nil, false
+	}
+	return o.Timestamp, true
+}
+
+// HasTimestamp returns a boolean if a field has been set.
+func (o *ViewsExportRequest) HasTimestamp() bool {
+	if o != nil && !isNil(o.Timestamp) {
+		return true
+	}
+
+	return false
+}
+
+// SetTimestamp gets a reference to the given bool and assigns it to the Timestamp field.
+func (o *ViewsExportRequest) SetTimestamp(v bool) {
+	o.Timestamp = &v
+}
+
+// GetHideResourceGroups returns the HideResourceGroups field value if set, zero value otherwise.
+func (o *ViewsExportRequest) GetHideResourceGroups() bool {
+	if o == nil || isNil(o.HideResourceGroups) {
+		var ret bool
+		return ret
+	}
+	return *o.HideResourceGroups
+}
+
+// GetHideResourceGroupsOk returns a tuple with the HideResourceGroups field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ViewsExportRequest) GetHideResourceGroupsOk() (*bool, bool) {
+	if o == nil || isNil(o.HideResourceGroups) {
+		return nil, false
+	}
+	return o.HideResourceGroups, true
+}
+
+// HasHideResourceGroups returns a boolean if a field has been set.
+func (o *ViewsExportRequest) HasHideResourceGroups() bool {
+	if o != nil && !isNil(o.HideResourceGroups) {
+		return true
+	}
+
+	return false
+}
+
+// SetHideResourceGroups gets a reference to the given bool and assigns it to the HideResourceGroups field.
+func (o *ViewsExportRequest) SetHideResourceGroups(v bool) {
+	o.HideResourceGroups = &v
+}
+
+// GetHideEmptyNetworks returns the HideEmptyNetworks field value if set, zero value otherwise.
+func (o *ViewsExportRequest) GetHideEmptyNetworks() bool {
+	if o == nil || isNil(o.HideEmptyNetworks) {
+		var ret bool
+		return ret
+	}
+	return *o.HideEmptyNetworks
+}
+
+// GetHideEmptyNetworksOk returns a tuple with the HideEmptyNetworks field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ViewsExportRequest) GetHideEmptyNetworksOk() (*bool, bool) {
+	if o == nil || isNil(o.HideEmptyNetworks) {
+		return nil, false
+	}
+	return o.HideEmptyNetworks, true
+}
+
+// HasHideEmptyNetworks returns a boolean if a field has been set.
+func (o *ViewsExportRequest) HasHideEmptyNetworks() bool {
+	if o != nil && !isNil(o.HideEmptyNetworks) {
+		return true
+	}
+
+	return false
+}
+
+// SetHideEmptyNetworks gets a reference to the given bool and assigns it to the HideEmptyNetworks field.
+func (o *ViewsExportRequest) SetHideEmptyNetworks(v bool) {
+	o.HideEmptyNetworks = &v
+}
+
 // GetRevisionId returns the RevisionId field value if set, zero value otherwise.
 func (o *ViewsExportRequest) GetRevisionId() string {
 	if o == nil || isNil(o.RevisionId) {
@@ -220,6 +322,15 @@ func (o ViewsExportRequest) MarshalJSON() ([]byte, error) {
 	if !isNil(o.Labels) {
 		toSerialize["labels"] = o.Labels
 	}
+	if !isNil(o.Timestamp) {
+		toSerialize["timestamp"] = o.Timestamp
+	}
+	if !isNil(o.HideResourceGroups) {
+		toSerialize["hide_resource_groups"] = o.HideResourceGroups
+	}
+	if !isNil(o.HideEmptyNetworks) {
+		toSerialize["hide_empty_networks"] = o.HideEmptyNetworks
+	}
 	if !isNil(o.RevisionId) {
 		toSerialize["revision_id"] = o.RevisionId
 	}
@@ -261,5 +372,3 @@ func (v *NullableViewsExportRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

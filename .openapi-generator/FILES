@@ -13,6 +13,7 @@ docs/EnvironmentFacet.md
 docs/EnvironmentLatestRevisions.md
 docs/EnvironmentRevision.md
 docs/EnvironmentRevisionsIndex200Response.md
+docs/EnvironmentSearchResult.md
 docs/EnvironmentShare.md
 docs/EnvironmentSharesCreateRequest.md
 docs/EnvironmentSharesCreateRequestConfig.md
@@ -39,6 +40,7 @@ docs/ReportsReportIdExportPostRequest.md
 docs/Resource.md
 docs/ResourceConnectionsInner.md
 docs/ResourceTagsInner.md
+docs/SearchEnvironments202Response.md
 docs/Source.md
 docs/SourcesAWSCAR.md
 docs/SourcesAWSKey.md
@@ -70,6 +72,7 @@ model_environment_facet.go
 model_environment_latest_revisions.go
 model_environment_revision.go
 model_environment_revisions_index_200_response.go
+model_environment_search_result.go
 model_environment_share.go
 model_environment_shares_create_request.go
 model_environment_shares_create_request_config.go
@@ -95,6 +98,7 @@ model_reports_index_200_response.go
 model_resource.go
 model_resource_connections_inner.go
 model_resource_tags_inner.go
+model_search_environments_202_response.go
 model_source.go
 model_sources_aws_key.go
 model_sources_awscar.go

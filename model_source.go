@@ -3,7 +3,7 @@ Hava
 
 Hava API
 
-API version: 1.1.2
+API version: 1.1.3
 Contact: support@hava.io
 */
 
@@ -298,5 +298,3 @@ func (v *NullableSource) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

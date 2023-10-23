@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | Pointer to **string** | The name of the team to create | [optional] 
-**Roles** | Pointer to **[]string** | An array of roles to assign the users in this team | [optional] 
+**Name** | **string** | The name of the team to create | 
+**Roles** | Pointer to **[]string** | An optional array of roles to assign the users in this team | [optional] 
 
 ## Methods
 
 ### NewTeamsCreateRequest
 
-`func NewTeamsCreateRequest() *TeamsCreateRequest`
+`func NewTeamsCreateRequest(name string, ) *TeamsCreateRequest`
 
 NewTeamsCreateRequest instantiates a new TeamsCreateRequest object
 This constructor will assign default values to properties that have it defined,
@@ -45,11 +45,6 @@ and a boolean to check if the value has been set.
 
 SetName sets Name field to given value.
 
-### HasName
-
-`func (o *TeamsCreateRequest) HasName() bool`
-
-HasName returns a boolean if a field has been set.
 
 ### GetRoles
 

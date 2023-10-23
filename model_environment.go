@@ -3,7 +3,7 @@ Hava
 
 Hava API
 
-API version: 1.1.2
+API version: 1.1.3
 Contact: support@hava.io
 */
 
@@ -18,20 +18,20 @@ import (
 // Environment struct for Environment
 type Environment struct {
 	// The unique ID of the environment
-	Id *string `json:"id,omitempty"`
+	Id   *string `json:"id,omitempty"`
 	Name *string `json:"name,omitempty"`
 	// Environment State
 	State *string `json:"state,omitempty"`
 	// The query string used to create the environment
 	Query *string `json:"query,omitempty"`
 	// Identifies whether the environment was imported or custom made using search
-	EnvironmentType *string `json:"environment_type,omitempty"`
-	Views []View `json:"views,omitempty"`
-	Facet *EnvironmentFacet `json:"facet,omitempty"`
+	EnvironmentType *string                     `json:"environment_type,omitempty"`
+	Views           []View                      `json:"views,omitempty"`
+	Facet           *EnvironmentFacet           `json:"facet,omitempty"`
 	CurrentRevision *EnvironmentCurrentRevision `json:"current_revision,omitempty"`
 	// The sources that contain the resources this environment covers.
-	Sources []EnvironmentSummarySourcesInner `json:"sources,omitempty"`
-	LatestRevisions *EnvironmentLatestRevisions `json:"latest_revisions,omitempty"`
+	Sources         []EnvironmentSummarySourcesInner `json:"sources,omitempty"`
+	LatestRevisions *EnvironmentLatestRevisions      `json:"latest_revisions,omitempty"`
 }
 
 // NewEnvironment instantiates a new Environment object
@@ -441,5 +441,3 @@ func (v *NullableEnvironment) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

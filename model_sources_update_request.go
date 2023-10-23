@@ -3,7 +3,7 @@ Hava
 
 Hava API
 
-API version: 1.1.2
+API version: 1.1.3
 Contact: support@hava.io
 */
 
@@ -18,9 +18,9 @@ import (
 
 // SourcesUpdateRequest - struct for SourcesUpdateRequest
 type SourcesUpdateRequest struct {
-	SourcesAWSCAR *SourcesAWSCAR
-	SourcesAWSKey *SourcesAWSKey
-	SourcesAzureCredentials *SourcesAzureCredentials
+	SourcesAWSCAR                       *SourcesAWSCAR
+	SourcesAWSKey                       *SourcesAWSKey
+	SourcesAzureCredentials             *SourcesAzureCredentials
 	SourcesGCPServiceAccountCredentials *SourcesGCPServiceAccountCredentials
 }
 
@@ -51,7 +51,6 @@ func SourcesGCPServiceAccountCredentialsAsSourcesUpdateRequest(v *SourcesGCPServ
 		SourcesGCPServiceAccountCredentials: v,
 	}
 }
-
 
 // Unmarshal JSON data into one of the pointers in the struct
 func (dst *SourcesUpdateRequest) UnmarshalJSON(data []byte) error {
@@ -146,7 +145,7 @@ func (src SourcesUpdateRequest) MarshalJSON() ([]byte, error) {
 }
 
 // Get the actual instance
-func (obj *SourcesUpdateRequest) GetActualInstance() (interface{}) {
+func (obj *SourcesUpdateRequest) GetActualInstance() interface{} {
 	if obj == nil {
 		return nil
 	}
@@ -205,5 +204,3 @@ func (v *NullableSourcesUpdateRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

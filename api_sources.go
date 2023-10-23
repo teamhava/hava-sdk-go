@@ -3,7 +3,7 @@ Hava
 
 Hava API
 
-API version: 1.1.2
+API version: 1.1.3
 Contact: support@hava.io
 */
 
@@ -20,13 +20,12 @@ import (
 	"strings"
 )
 
-
 // SourcesApiService SourcesApi service
 type SourcesApiService service
 
 type ApiSourcesCreateRequest struct {
-	ctx context.Context
-	ApiService *SourcesApiService
+	ctx                  context.Context
+	ApiService           *SourcesApiService
 	sourcesCreateRequest *SourcesCreateRequest
 }
 
@@ -45,25 +44,25 @@ SourcesCreate Create a source
 
 By providing a different combination of attributes this method can be used to create sources for AWS, Azure, and GCP. For information on how to create the credentials required check out the [Hava documentation](https://docs.hava.io). You can see the required values for the different source types by clicking the 'Schema' link below. Change the Request body to 'multipart/form-data' to see GCP credential parameters.
 
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiSourcesCreateRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiSourcesCreateRequest
 */
 func (a *SourcesApiService) SourcesCreate(ctx context.Context) ApiSourcesCreateRequest {
 	return ApiSourcesCreateRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return Source
+//
+//	@return Source
 func (a *SourcesApiService) SourcesCreateExecute(r ApiSourcesCreateRequest) (*Source, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Source
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Source
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SourcesApiService.SourcesCreate")
@@ -128,8 +127,8 @@ func (a *SourcesApiService) SourcesCreateExecute(r ApiSourcesCreateRequest) (*So
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-            		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-            		newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -147,9 +146,9 @@ func (a *SourcesApiService) SourcesCreateExecute(r ApiSourcesCreateRequest) (*So
 }
 
 type ApiSourcesDestroyRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *SourcesApiService
-	sourceId string
+	sourceId   string
 }
 
 func (r ApiSourcesDestroyRequest) Execute() (*Source, *http.Response, error) {
@@ -159,26 +158,27 @@ func (r ApiSourcesDestroyRequest) Execute() (*Source, *http.Response, error) {
 /*
 SourcesDestroy Delete a source and all associated resources and environments
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param sourceId
- @return ApiSourcesDestroyRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param sourceId
+	@return ApiSourcesDestroyRequest
 */
 func (a *SourcesApiService) SourcesDestroy(ctx context.Context, sourceId string) ApiSourcesDestroyRequest {
 	return ApiSourcesDestroyRequest{
 		ApiService: a,
-		ctx: ctx,
-		sourceId: sourceId,
+		ctx:        ctx,
+		sourceId:   sourceId,
 	}
 }
 
 // Execute executes the request
-//  @return Source
+//
+//	@return Source
 func (a *SourcesApiService) SourcesDestroyExecute(r ApiSourcesDestroyRequest) (*Source, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodDelete
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Source
+		localVarHTTPMethod  = http.MethodDelete
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Source
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SourcesApiService.SourcesDestroy")
@@ -248,13 +248,13 @@ func (a *SourcesApiService) SourcesDestroyExecute(r ApiSourcesDestroyRequest) (*
 }
 
 type ApiSourcesIndexRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *SourcesApiService
-	page *int32
-	pageSize *int32
-	sort *string
-	sortDir *string
-	token *string
+	page       *int32
+	pageSize   *int32
+	sort       *string
+	sortDir    *string
+	token      *string
 }
 
 // The page of results to display. Based on page size and total results.
@@ -294,24 +294,25 @@ func (r ApiSourcesIndexRequest) Execute() (*SourcesIndex200Response, *http.Respo
 /*
 SourcesIndex List all sources
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiSourcesIndexRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiSourcesIndexRequest
 */
 func (a *SourcesApiService) SourcesIndex(ctx context.Context) ApiSourcesIndexRequest {
 	return ApiSourcesIndexRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return SourcesIndex200Response
+//
+//	@return SourcesIndex200Response
 func (a *SourcesApiService) SourcesIndexExecute(r ApiSourcesIndexRequest) (*SourcesIndex200Response, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *SourcesIndex200Response
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *SourcesIndex200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SourcesApiService.SourcesIndex")
@@ -395,9 +396,9 @@ func (a *SourcesApiService) SourcesIndexExecute(r ApiSourcesIndexRequest) (*Sour
 }
 
 type ApiSourcesShowRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *SourcesApiService
-	sourceId string
+	sourceId   string
 }
 
 func (r ApiSourcesShowRequest) Execute() (*Source, *http.Response, error) {
@@ -407,26 +408,27 @@ func (r ApiSourcesShowRequest) Execute() (*Source, *http.Response, error) {
 /*
 SourcesShow Get a source
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param sourceId
- @return ApiSourcesShowRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param sourceId
+	@return ApiSourcesShowRequest
 */
 func (a *SourcesApiService) SourcesShow(ctx context.Context, sourceId string) ApiSourcesShowRequest {
 	return ApiSourcesShowRequest{
 		ApiService: a,
-		ctx: ctx,
-		sourceId: sourceId,
+		ctx:        ctx,
+		sourceId:   sourceId,
 	}
 }
 
 // Execute executes the request
-//  @return Source
+//
+//	@return Source
 func (a *SourcesApiService) SourcesShowExecute(r ApiSourcesShowRequest) (*Source, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Source
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Source
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SourcesApiService.SourcesShow")
@@ -496,10 +498,10 @@ func (a *SourcesApiService) SourcesShowExecute(r ApiSourcesShowRequest) (*Source
 }
 
 type ApiSourcesSyncRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *SourcesApiService
-	sourceId string
-	body *map[string]interface{}
+	sourceId   string
+	body       *map[string]interface{}
 }
 
 // Optional metadata to attach to the sync job
@@ -519,25 +521,24 @@ This endpoint will create a job to import the sources from the remote account, a
 
 You can pass an additional **metadata** object which will be attached to the job, as well as all resources and environments created or updated during the import. This can be useful in build pipelines to attach additional information such as the build number which can be used to determine  when certain resources where imported or updated.
 
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param sourceId
- @return ApiSourcesSyncRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param sourceId
+	@return ApiSourcesSyncRequest
 */
 func (a *SourcesApiService) SourcesSync(ctx context.Context, sourceId string) ApiSourcesSyncRequest {
 	return ApiSourcesSyncRequest{
 		ApiService: a,
-		ctx: ctx,
-		sourceId: sourceId,
+		ctx:        ctx,
+		sourceId:   sourceId,
 	}
 }
 
 // Execute executes the request
 func (a *SourcesApiService) SourcesSyncExecute(r ApiSourcesSyncRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SourcesApiService.SourcesSync")
@@ -600,8 +601,8 @@ func (a *SourcesApiService) SourcesSyncExecute(r ApiSourcesSyncRequest) (*http.R
 				newErr.error = err.Error()
 				return localVarHTTPResponse, newErr
 			}
-            		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-            		newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 		}
 		return localVarHTTPResponse, newErr
 	}
@@ -610,9 +611,9 @@ func (a *SourcesApiService) SourcesSyncExecute(r ApiSourcesSyncRequest) (*http.R
 }
 
 type ApiSourcesUpdateRequest struct {
-	ctx context.Context
-	ApiService *SourcesApiService
-	sourceId string
+	ctx                  context.Context
+	ApiService           *SourcesApiService
+	sourceId             string
 	sourcesUpdateRequest *SourcesUpdateRequest
 }
 
@@ -631,27 +632,27 @@ SourcesUpdate Update a source
 
 Update an existing source's credentials or name.
 
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param sourceId
- @return ApiSourcesUpdateRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param sourceId
+	@return ApiSourcesUpdateRequest
 */
 func (a *SourcesApiService) SourcesUpdate(ctx context.Context, sourceId string) ApiSourcesUpdateRequest {
 	return ApiSourcesUpdateRequest{
 		ApiService: a,
-		ctx: ctx,
-		sourceId: sourceId,
+		ctx:        ctx,
+		sourceId:   sourceId,
 	}
 }
 
 // Execute executes the request
-//  @return Source
+//
+//	@return Source
 func (a *SourcesApiService) SourcesUpdateExecute(r ApiSourcesUpdateRequest) (*Source, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPut
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Source
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Source
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SourcesApiService.SourcesUpdate")
@@ -714,8 +715,8 @@ func (a *SourcesApiService) SourcesUpdateExecute(r ApiSourcesUpdateRequest) (*So
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-            		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-            		newErr.model = v
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}

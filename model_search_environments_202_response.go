@@ -15,35 +15,35 @@ import (
 	"encoding/json"
 )
 
-// EnvironmentSharesList200Response struct for EnvironmentSharesList200Response
-type EnvironmentSharesList200Response struct {
+// SearchEnvironments202Response struct for SearchEnvironments202Response
+type SearchEnvironments202Response struct {
 	// The token to pass through to get the next page of results, if there are any.
 	NextPageToken *string `json:"next_page_token,omitempty"`
 	// The total amount of results to be paginated
 	TotalSize *int32 `json:"total_size,omitempty"`
 	// The results for the current page
-	Results []EnvironmentShare `json:"results,omitempty"`
+	Results []EnvironmentSearchResult `json:"results,omitempty"`
 }
 
-// NewEnvironmentSharesList200Response instantiates a new EnvironmentSharesList200Response object
+// NewSearchEnvironments202Response instantiates a new SearchEnvironments202Response object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewEnvironmentSharesList200Response() *EnvironmentSharesList200Response {
-	this := EnvironmentSharesList200Response{}
+func NewSearchEnvironments202Response() *SearchEnvironments202Response {
+	this := SearchEnvironments202Response{}
 	return &this
 }
 
-// NewEnvironmentSharesList200ResponseWithDefaults instantiates a new EnvironmentSharesList200Response object
+// NewSearchEnvironments202ResponseWithDefaults instantiates a new SearchEnvironments202Response object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewEnvironmentSharesList200ResponseWithDefaults() *EnvironmentSharesList200Response {
-	this := EnvironmentSharesList200Response{}
+func NewSearchEnvironments202ResponseWithDefaults() *SearchEnvironments202Response {
+	this := SearchEnvironments202Response{}
 	return &this
 }
 
 // GetNextPageToken returns the NextPageToken field value if set, zero value otherwise.
-func (o *EnvironmentSharesList200Response) GetNextPageToken() string {
+func (o *SearchEnvironments202Response) GetNextPageToken() string {
 	if o == nil || isNil(o.NextPageToken) {
 		var ret string
 		return ret
@@ -53,7 +53,7 @@ func (o *EnvironmentSharesList200Response) GetNextPageToken() string {
 
 // GetNextPageTokenOk returns a tuple with the NextPageToken field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EnvironmentSharesList200Response) GetNextPageTokenOk() (*string, bool) {
+func (o *SearchEnvironments202Response) GetNextPageTokenOk() (*string, bool) {
 	if o == nil || isNil(o.NextPageToken) {
 		return nil, false
 	}
@@ -61,7 +61,7 @@ func (o *EnvironmentSharesList200Response) GetNextPageTokenOk() (*string, bool) 
 }
 
 // HasNextPageToken returns a boolean if a field has been set.
-func (o *EnvironmentSharesList200Response) HasNextPageToken() bool {
+func (o *SearchEnvironments202Response) HasNextPageToken() bool {
 	if o != nil && !isNil(o.NextPageToken) {
 		return true
 	}
@@ -70,12 +70,12 @@ func (o *EnvironmentSharesList200Response) HasNextPageToken() bool {
 }
 
 // SetNextPageToken gets a reference to the given string and assigns it to the NextPageToken field.
-func (o *EnvironmentSharesList200Response) SetNextPageToken(v string) {
+func (o *SearchEnvironments202Response) SetNextPageToken(v string) {
 	o.NextPageToken = &v
 }
 
 // GetTotalSize returns the TotalSize field value if set, zero value otherwise.
-func (o *EnvironmentSharesList200Response) GetTotalSize() int32 {
+func (o *SearchEnvironments202Response) GetTotalSize() int32 {
 	if o == nil || isNil(o.TotalSize) {
 		var ret int32
 		return ret
@@ -85,7 +85,7 @@ func (o *EnvironmentSharesList200Response) GetTotalSize() int32 {
 
 // GetTotalSizeOk returns a tuple with the TotalSize field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EnvironmentSharesList200Response) GetTotalSizeOk() (*int32, bool) {
+func (o *SearchEnvironments202Response) GetTotalSizeOk() (*int32, bool) {
 	if o == nil || isNil(o.TotalSize) {
 		return nil, false
 	}
@@ -93,7 +93,7 @@ func (o *EnvironmentSharesList200Response) GetTotalSizeOk() (*int32, bool) {
 }
 
 // HasTotalSize returns a boolean if a field has been set.
-func (o *EnvironmentSharesList200Response) HasTotalSize() bool {
+func (o *SearchEnvironments202Response) HasTotalSize() bool {
 	if o != nil && !isNil(o.TotalSize) {
 		return true
 	}
@@ -102,14 +102,14 @@ func (o *EnvironmentSharesList200Response) HasTotalSize() bool {
 }
 
 // SetTotalSize gets a reference to the given int32 and assigns it to the TotalSize field.
-func (o *EnvironmentSharesList200Response) SetTotalSize(v int32) {
+func (o *SearchEnvironments202Response) SetTotalSize(v int32) {
 	o.TotalSize = &v
 }
 
 // GetResults returns the Results field value if set, zero value otherwise.
-func (o *EnvironmentSharesList200Response) GetResults() []EnvironmentShare {
+func (o *SearchEnvironments202Response) GetResults() []EnvironmentSearchResult {
 	if o == nil || isNil(o.Results) {
-		var ret []EnvironmentShare
+		var ret []EnvironmentSearchResult
 		return ret
 	}
 	return o.Results
@@ -117,7 +117,7 @@ func (o *EnvironmentSharesList200Response) GetResults() []EnvironmentShare {
 
 // GetResultsOk returns a tuple with the Results field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EnvironmentSharesList200Response) GetResultsOk() ([]EnvironmentShare, bool) {
+func (o *SearchEnvironments202Response) GetResultsOk() ([]EnvironmentSearchResult, bool) {
 	if o == nil || isNil(o.Results) {
 		return nil, false
 	}
@@ -125,7 +125,7 @@ func (o *EnvironmentSharesList200Response) GetResultsOk() ([]EnvironmentShare, b
 }
 
 // HasResults returns a boolean if a field has been set.
-func (o *EnvironmentSharesList200Response) HasResults() bool {
+func (o *SearchEnvironments202Response) HasResults() bool {
 	if o != nil && !isNil(o.Results) {
 		return true
 	}
@@ -133,12 +133,12 @@ func (o *EnvironmentSharesList200Response) HasResults() bool {
 	return false
 }
 
-// SetResults gets a reference to the given []EnvironmentShare and assigns it to the Results field.
-func (o *EnvironmentSharesList200Response) SetResults(v []EnvironmentShare) {
+// SetResults gets a reference to the given []EnvironmentSearchResult and assigns it to the Results field.
+func (o *SearchEnvironments202Response) SetResults(v []EnvironmentSearchResult) {
 	o.Results = v
 }
 
-func (o EnvironmentSharesList200Response) MarshalJSON() ([]byte, error) {
+func (o SearchEnvironments202Response) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if !isNil(o.NextPageToken) {
 		toSerialize["next_page_token"] = o.NextPageToken
@@ -152,38 +152,38 @@ func (o EnvironmentSharesList200Response) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-type NullableEnvironmentSharesList200Response struct {
-	value *EnvironmentSharesList200Response
+type NullableSearchEnvironments202Response struct {
+	value *SearchEnvironments202Response
 	isSet bool
 }
 
-func (v NullableEnvironmentSharesList200Response) Get() *EnvironmentSharesList200Response {
+func (v NullableSearchEnvironments202Response) Get() *SearchEnvironments202Response {
 	return v.value
 }
 
-func (v *NullableEnvironmentSharesList200Response) Set(val *EnvironmentSharesList200Response) {
+func (v *NullableSearchEnvironments202Response) Set(val *SearchEnvironments202Response) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableEnvironmentSharesList200Response) IsSet() bool {
+func (v NullableSearchEnvironments202Response) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableEnvironmentSharesList200Response) Unset() {
+func (v *NullableSearchEnvironments202Response) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableEnvironmentSharesList200Response(val *EnvironmentSharesList200Response) *NullableEnvironmentSharesList200Response {
-	return &NullableEnvironmentSharesList200Response{value: val, isSet: true}
+func NewNullableSearchEnvironments202Response(val *SearchEnvironments202Response) *NullableSearchEnvironments202Response {
+	return &NullableSearchEnvironments202Response{value: val, isSet: true}
 }
 
-func (v NullableEnvironmentSharesList200Response) MarshalJSON() ([]byte, error) {
+func (v NullableSearchEnvironments202Response) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableEnvironmentSharesList200Response) UnmarshalJSON(src []byte) error {
+func (v *NullableSearchEnvironments202Response) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

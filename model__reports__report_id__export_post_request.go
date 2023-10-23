@@ -3,7 +3,7 @@ Hava
 
 Hava API
 
-API version: 1.1.2
+API version: 1.1.3
 Contact: support@hava.io
 */
 
@@ -55,7 +55,7 @@ func (o *ReportsReportIdExportPostRequest) GetExportFormat() string {
 // and a boolean to check if the value has been set.
 func (o *ReportsReportIdExportPostRequest) GetExportFormatOk() (*string, bool) {
 	if o == nil {
-    return nil, false
+		return nil, false
 	}
 	return &o.ExportFormat, true
 }
@@ -143,5 +143,3 @@ func (v *NullableReportsReportIdExportPostRequest) UnmarshalJSON(src []byte) err
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

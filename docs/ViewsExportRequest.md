@@ -8,6 +8,9 @@ Name | Type | Description | Notes
 **Connections** | Pointer to **bool** | Display connections on the exported diagram | [optional] 
 **Isometric** | Pointer to **bool** | Display diagram in isometric view | [optional] 
 **Labels** | Pointer to **bool** | Display labels such as names on the diagram | [optional] 
+**Timestamp** | Pointer to **bool** | Adds a timestamp to the export that shows when the environment was generated. Only available in PNG and PDF | [optional] 
+**HideResourceGroups** | Pointer to **bool** | For Azure diagrams this option will display resources grouped by Virtual Network instead of Resource Groups. | [optional] 
+**HideEmptyNetworks** | Pointer to **bool** | Will hide any network containers that have no visible resources in them. Networks consist of AWS and GCP VPC&#39;s and Azure Virtual Networks. | [optional] 
 **RevisionId** | Pointer to **string** | The ID of the view revision to export (optional) | [optional] 
 
 ## Methods
@@ -128,6 +131,81 @@ SetLabels sets Labels field to given value.
 `func (o *ViewsExportRequest) HasLabels() bool`
 
 HasLabels returns a boolean if a field has been set.
+
+### GetTimestamp
+
+`func (o *ViewsExportRequest) GetTimestamp() bool`
+
+GetTimestamp returns the Timestamp field if non-nil, zero value otherwise.
+
+### GetTimestampOk
+
+`func (o *ViewsExportRequest) GetTimestampOk() (*bool, bool)`
+
+GetTimestampOk returns a tuple with the Timestamp field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTimestamp
+
+`func (o *ViewsExportRequest) SetTimestamp(v bool)`
+
+SetTimestamp sets Timestamp field to given value.
+
+### HasTimestamp
+
+`func (o *ViewsExportRequest) HasTimestamp() bool`
+
+HasTimestamp returns a boolean if a field has been set.
+
+### GetHideResourceGroups
+
+`func (o *ViewsExportRequest) GetHideResourceGroups() bool`
+
+GetHideResourceGroups returns the HideResourceGroups field if non-nil, zero value otherwise.
+
+### GetHideResourceGroupsOk
+
+`func (o *ViewsExportRequest) GetHideResourceGroupsOk() (*bool, bool)`
+
+GetHideResourceGroupsOk returns a tuple with the HideResourceGroups field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetHideResourceGroups
+
+`func (o *ViewsExportRequest) SetHideResourceGroups(v bool)`
+
+SetHideResourceGroups sets HideResourceGroups field to given value.
+
+### HasHideResourceGroups
+
+`func (o *ViewsExportRequest) HasHideResourceGroups() bool`
+
+HasHideResourceGroups returns a boolean if a field has been set.
+
+### GetHideEmptyNetworks
+
+`func (o *ViewsExportRequest) GetHideEmptyNetworks() bool`
+
+GetHideEmptyNetworks returns the HideEmptyNetworks field if non-nil, zero value otherwise.
+
+### GetHideEmptyNetworksOk
+
+`func (o *ViewsExportRequest) GetHideEmptyNetworksOk() (*bool, bool)`
+
+GetHideEmptyNetworksOk returns a tuple with the HideEmptyNetworks field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetHideEmptyNetworks
+
+`func (o *ViewsExportRequest) SetHideEmptyNetworks(v bool)`
+
+SetHideEmptyNetworks sets HideEmptyNetworks field to given value.
+
+### HasHideEmptyNetworks
+
+`func (o *ViewsExportRequest) HasHideEmptyNetworks() bool`
+
+HasHideEmptyNetworks returns a boolean if a field has been set.
 
 ### GetRevisionId
 

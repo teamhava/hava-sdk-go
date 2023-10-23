@@ -3,7 +3,7 @@ Hava
 
 Hava API
 
-API version: 1.1.2
+API version: 1.1.3
 Contact: support@hava.io
 */
 
@@ -87,7 +87,7 @@ func (o *EnvironmentsCreateRequest) GetQuery() string {
 // and a boolean to check if the value has been set.
 func (o *EnvironmentsCreateRequest) GetQueryOk() (*string, bool) {
 	if o == nil {
-    return nil, false
+		return nil, false
 	}
 	return &o.Query, true
 }
@@ -143,5 +143,3 @@ func (v *NullableEnvironmentsCreateRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

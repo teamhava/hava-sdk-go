@@ -3,7 +3,7 @@ Hava
 
 Hava API
 
-API version: 1.1.2
+API version: 1.1.3
 Contact: support@hava.io
 */
 
@@ -21,8 +21,6 @@ type EnvironmentsUpdateRequest struct {
 	Name *string `json:"name,omitempty"`
 	// The updated query string for the environment
 	Query string `json:"query"`
-	// If true the environment will be set to active and display on your environment list
-	Complete *bool `json:"complete,omitempty"`
 }
 
 // NewEnvironmentsUpdateRequest instantiates a new EnvironmentsUpdateRequest object
@@ -89,7 +87,7 @@ func (o *EnvironmentsUpdateRequest) GetQuery() string {
 // and a boolean to check if the value has been set.
 func (o *EnvironmentsUpdateRequest) GetQueryOk() (*string, bool) {
 	if o == nil {
-    return nil, false
+		return nil, false
 	}
 	return &o.Query, true
 }
@@ -99,38 +97,6 @@ func (o *EnvironmentsUpdateRequest) SetQuery(v string) {
 	o.Query = v
 }
 
-// GetComplete returns the Complete field value if set, zero value otherwise.
-func (o *EnvironmentsUpdateRequest) GetComplete() bool {
-	if o == nil || isNil(o.Complete) {
-		var ret bool
-		return ret
-	}
-	return *o.Complete
-}
-
-// GetCompleteOk returns a tuple with the Complete field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *EnvironmentsUpdateRequest) GetCompleteOk() (*bool, bool) {
-	if o == nil || isNil(o.Complete) {
-		return nil, false
-	}
-	return o.Complete, true
-}
-
-// HasComplete returns a boolean if a field has been set.
-func (o *EnvironmentsUpdateRequest) HasComplete() bool {
-	if o != nil && !isNil(o.Complete) {
-		return true
-	}
-
-	return false
-}
-
-// SetComplete gets a reference to the given bool and assigns it to the Complete field.
-func (o *EnvironmentsUpdateRequest) SetComplete(v bool) {
-	o.Complete = &v
-}
-
 func (o EnvironmentsUpdateRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if !isNil(o.Name) {
@@ -138,9 +104,6 @@ func (o EnvironmentsUpdateRequest) MarshalJSON() ([]byte, error) {
 	}
 	if true {
 		toSerialize["query"] = o.Query
-	}
-	if !isNil(o.Complete) {
-		toSerialize["complete"] = o.Complete
 	}
 	return json.Marshal(toSerialize)
 }
@@ -180,5 +143,3 @@ func (v *NullableEnvironmentsUpdateRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

@@ -3,7 +3,7 @@ Hava
 
 Hava API
 
-API version: 1.1.2
+API version: 1.1.3
 Contact: support@hava.io
 */
 
@@ -24,8 +24,8 @@ type EnvironmentLatestRevisions struct {
 	// The total pages, based on limit and total versions
 	TotalPages *int32 `json:"total_pages,omitempty"`
 	// The total versions available
-	TotalCount *int32 `json:"total_count,omitempty"`
-	Map []EnvironmentRevision `json:"map,omitempty"`
+	TotalCount *int32                `json:"total_count,omitempty"`
+	Map        []EnvironmentRevision `json:"map,omitempty"`
 }
 
 // NewEnvironmentLatestRevisions instantiates a new EnvironmentLatestRevisions object
@@ -260,5 +260,3 @@ func (v *NullableEnvironmentLatestRevisions) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

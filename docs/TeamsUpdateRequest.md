@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | Pointer to **string** | The updated name for the team | [optional] 
+**Name** | **string** | The updated name for the team | 
 **Roles** | Pointer to **[]string** | The updated roles to assign the users in this team | [optional] 
 
 ## Methods
 
 ### NewTeamsUpdateRequest
 
-`func NewTeamsUpdateRequest() *TeamsUpdateRequest`
+`func NewTeamsUpdateRequest(name string, ) *TeamsUpdateRequest`
 
 NewTeamsUpdateRequest instantiates a new TeamsUpdateRequest object
 This constructor will assign default values to properties that have it defined,
@@ -45,11 +45,6 @@ and a boolean to check if the value has been set.
 
 SetName sets Name field to given value.
 
-### HasName
-
-`func (o *TeamsUpdateRequest) HasName() bool`
-
-HasName returns a boolean if a field has been set.
 
 ### GetRoles
 

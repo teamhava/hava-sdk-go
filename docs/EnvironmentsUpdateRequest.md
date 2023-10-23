@@ -6,7 +6,6 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | Pointer to **string** | The updated name for the environment | [optional] 
 **Query** | **string** | The updated query string for the environment | 
-**Complete** | Pointer to **bool** | If true the environment will be set to active and display on your environment list | [optional] 
 
 ## Methods
 
@@ -71,31 +70,6 @@ and a boolean to check if the value has been set.
 
 SetQuery sets Query field to given value.
 
-
-### GetComplete
-
-`func (o *EnvironmentsUpdateRequest) GetComplete() bool`
-
-GetComplete returns the Complete field if non-nil, zero value otherwise.
-
-### GetCompleteOk
-
-`func (o *EnvironmentsUpdateRequest) GetCompleteOk() (*bool, bool)`
-
-GetCompleteOk returns a tuple with the Complete field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetComplete
-
-`func (o *EnvironmentsUpdateRequest) SetComplete(v bool)`
-
-SetComplete sets Complete field to given value.
-
-### HasComplete
-
-`func (o *EnvironmentsUpdateRequest) HasComplete() bool`
-
-HasComplete returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

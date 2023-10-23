@@ -3,7 +3,7 @@ Hava
 
 Hava API
 
-API version: 1.1.2
+API version: 1.1.3
 Contact: support@hava.io
 */
 
@@ -18,7 +18,7 @@ import (
 // EnvironmentSharesCreateRequest struct for EnvironmentSharesCreateRequest
 type EnvironmentSharesCreateRequest struct {
 	// The type of share to create
-	Type *string `json:"type,omitempty"`
+	Type   *string                               `json:"type,omitempty"`
 	Config *EnvironmentSharesCreateRequestConfig `json:"config,omitempty"`
 }
 
@@ -149,5 +149,3 @@ func (v *NullableEnvironmentSharesCreateRequest) UnmarshalJSON(src []byte) error
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

@@ -3,7 +3,7 @@ Hava
 
 Hava API
 
-API version: 1.1.2
+API version: 1.1.3
 Contact: support@hava.io
 */
 
@@ -18,8 +18,8 @@ import (
 // TeamsCreateRequest struct for TeamsCreateRequest
 type TeamsCreateRequest struct {
 	// The name of the team to create
-	Name *string `json:"name,omitempty"`
-	// An array of roles to assign the users in this team
+	Name string `json:"name"`
+	// An optional array of roles to assign the users in this team
 	Roles []string `json:"roles,omitempty"`
 }
 
@@ -27,8 +27,9 @@ type TeamsCreateRequest struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewTeamsCreateRequest() *TeamsCreateRequest {
+func NewTeamsCreateRequest(name string) *TeamsCreateRequest {
 	this := TeamsCreateRequest{}
+	this.Name = name
 	return &this
 }
 
@@ -40,36 +41,28 @@ func NewTeamsCreateRequestWithDefaults() *TeamsCreateRequest {
 	return &this
 }
 
-// GetName returns the Name field value if set, zero value otherwise.
+// GetName returns the Name field value
 func (o *TeamsCreateRequest) GetName() string {
-	if o == nil || isNil(o.Name) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Name
+
+	return o.Name
 }
 
-// GetNameOk returns a tuple with the Name field value if set, nil otherwise
+// GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
 func (o *TeamsCreateRequest) GetNameOk() (*string, bool) {
-	if o == nil || isNil(o.Name) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Name, true
+	return &o.Name, true
 }
 
-// HasName returns a boolean if a field has been set.
-func (o *TeamsCreateRequest) HasName() bool {
-	if o != nil && !isNil(o.Name) {
-		return true
-	}
-
-	return false
-}
-
-// SetName gets a reference to the given string and assigns it to the Name field.
+// SetName sets field value
 func (o *TeamsCreateRequest) SetName(v string) {
-	o.Name = &v
+	o.Name = v
 }
 
 // GetRoles returns the Roles field value if set, zero value otherwise.
@@ -106,7 +99,7 @@ func (o *TeamsCreateRequest) SetRoles(v []string) {
 
 func (o TeamsCreateRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if !isNil(o.Name) {
+	if true {
 		toSerialize["name"] = o.Name
 	}
 	if !isNil(o.Roles) {
@@ -150,5 +143,3 @@ func (v *NullableTeamsCreateRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-
